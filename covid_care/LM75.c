@@ -1,6 +1,6 @@
 #include <i2c_lib.h>
+#include <lm75.h>
 #include "app.h"
-#include "LM75.h"
 //
 /**
 * @brief      Read config register of LM75

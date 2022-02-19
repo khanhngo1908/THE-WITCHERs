@@ -1,4 +1,4 @@
-LM75.o: ../LM75.c \
+lm75.o: ../lm75.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care/i2c_lib.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_i2c.h \
@@ -67,7 +67,7 @@ LM75.o: ../LM75.c \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_cmu_compat.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h \
- ../app.h ../LM75.h
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care/lm75.h ../app.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care/i2c_lib.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_i2c.h:
@@ -136,5 +136,5 @@ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_cmu_compat.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care/lm75.h:
 ../app.h:
-../LM75.h:

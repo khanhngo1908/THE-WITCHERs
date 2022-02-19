@@ -1,7 +1,7 @@
-gecko_sdk_4.0.0/platform/service/udelay/src/sl_udelay.o: \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk1/platform/service/udelay/src/sl_udelay.c \
+led_buzzer.o: ../led_buzzer.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h \
- c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\udelay\inc\sl_udelay.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care/led_buzzer.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\cmsis\include\core_cm33.h \
@@ -58,9 +58,18 @@ gecko_sdk_4.0.0/platform/service/udelay/src/sl_udelay.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm22_prs_signals.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm22_dma_descriptor.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h \
- c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_cmu.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_cmu_compat.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h:
-c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\udelay\inc\sl_udelay.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care/led_buzzer.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\em_device.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\cmsis\include\core_cm33.h:
@@ -118,3 +127,11 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm22_dma_descriptor.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_cmu.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_cmu_compat.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h:

@@ -1,6 +1,5 @@
-#ifndef I2C_CONFIG_H
-#define I2C_CONFIG_H
-
+#ifndef I2C_LIB_H
+#define I2C_LIB_H
 #include "em_i2c.h"
 #include "em_cmu.h"
 

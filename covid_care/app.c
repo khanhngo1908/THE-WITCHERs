@@ -27,22 +27,21 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *
  ******************************************************************************/
-#include <i2c_lib.h>
+#include <led_buzzer.h>
 #include "em_common.h"
 #include "app_assert.h"
 #include "sl_bluetooth.h"
 #include "gatt_db.h"
 #include "app.h"
-#include "blynk.h"
-#include "em_chip.h"
-#include "em_gpio.h"
-#include "em_emu.h"
-#include "em_cmu.h"
-#include "LM75.h"
+#include "lm75.h"
+#include "led_buzzer.h"
+#include "max30102.h"
+#include "i2c_lib.h"
+//#include "abc.h"
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
-uint8_t i2c_txBuffer[1] = {0x11};
+float T;
 
 /**************************************************************************//**
  * Application Init.
@@ -53,8 +52,8 @@ SL_WEAK void app_init(void)
   // Put your additional application init code here!                         //
   // This is called once during start-up.                                    //
   /////////////////////////////////////////////////////////////////////////////
-  CHIP_Init();
-  gpio_init();
+//  CHIP_Init();
+  led_buzzer_init();
   i2c_init();
 }
 
@@ -68,13 +67,14 @@ SL_WEAK void app_process_action(void)
   // This is called infinitely.                                              //
   // Do not call blocking functions from here!                               //
   /////////////////////////////////////////////////////////////////////////////
-  //blynk();
+  blynk();
   if (!GPIO_PinInGet(gpioPortC, 7))
   {
-      LM75_SleepMode(1);
-      LM75_ReadConfig();
+//      T = LM75_ReadTemperature();
+//        LM75_SleepMode(1);
+//        LM75_ReadConfig();
+//      MAX30102_init();
   }
-
 }
 
 /**************************************************************************//**
