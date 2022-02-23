@@ -21,13 +21,18 @@ toolchain_settings: []
 component:
 - {id: BGM220PC22HNA}
 - {id: emlib_i2c}
+- {id: app_log}
 - {id: bluetooth_feature_connection}
 - {id: bluetooth_feature_gatt_server}
 - {id: bluetooth_feature_advertiser}
+- instance: [vcom]
+  id: iostream_usart
 - {id: bluetooth_feature_sm}
 - {id: mpu}
 - {id: bluetooth_feature_system}
 - {id: gatt_configuration}
+- instance: [mikroe]
+  id: i2cspm
 - {id: bluetooth_feature_scanner}
 - {id: bluetooth_stack}
 - {id: component_catalog}

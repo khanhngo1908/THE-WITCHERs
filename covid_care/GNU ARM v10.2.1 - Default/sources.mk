@@ -19,6 +19,7 @@ SUBDIRS := \
 . \
 autogen \
 gecko_sdk_4.0.0/app/bluetooth/common/ota_dfu \
+gecko_sdk_4.0.0/app/common/util/app_log \
 gecko_sdk_4.0.0/hardware/board/src \
 gecko_sdk_4.0.0/platform/Device/SiliconLabs/BGM22/Source/GCC \
 gecko_sdk_4.0.0/platform/Device/SiliconLabs/BGM22/Source \
@@ -32,6 +33,7 @@ gecko_sdk_4.0.0/platform/radio/rail_lib/plugin/pa-conversions \
 gecko_sdk_4.0.0/platform/radio/rail_lib/plugin/rail_util_pti \
 gecko_sdk_4.0.0/platform/service/device_init/src \
 gecko_sdk_4.0.0/platform/service/hfxo_manager/src \
+gecko_sdk_4.0.0/platform/service/iostream/src \
 gecko_sdk_4.0.0/platform/service/mpu/src \
 gecko_sdk_4.0.0/platform/service/power_manager/src \
 gecko_sdk_4.0.0/platform/service/sleeptimer/src \
@@ -44,4 +46,5 @@ gecko_sdk_4.0.0/util/third_party/crypto/sl_component/sl_cryptoacc_library/src \
 gecko_sdk_4.0.0/util/third_party/crypto/sl_component/sl_mbedtls_support/src \
 gecko_sdk_4.0.0/util/third_party/crypto/sl_component/sl_protocol_crypto/src \
 gecko_sdk_4.0.0/util/third_party/crypto/sl_component/sl_psa_driver/src \
+user \
 

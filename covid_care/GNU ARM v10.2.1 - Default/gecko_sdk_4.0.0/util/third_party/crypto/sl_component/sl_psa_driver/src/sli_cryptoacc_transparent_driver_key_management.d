@@ -68,14 +68,14 @@ gecko_sdk_4.0.0/util/third_party/crypto/sl_component/sl_psa_driver/src/sli_crypt
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\mbedtls\private_access.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\psa\crypto_platform.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\mbedtls\build_info.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/mbedtls_config.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/mbedtls_config_autogen.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/mbedtls_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/mbedtls_config_autogen.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\sl_component\sl_mbedtls_support\config\config-device-acceleration.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\silicon_labs\silabs_core\memory_manager\sl_malloc.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_mbedtls_config_transform_autogen.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_mbedtls_config_transform_autogen.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\mbedtls\config_psa.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/psa_crypto_config.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/psa_crypto_config_autogen.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/psa_crypto_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/psa_crypto_config_autogen.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\psa\crypto_values.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\sl_component\sl_psa_driver\inc\sli_cryptoacc_transparent_functions.h \
@@ -195,14 +195,14 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\mbedtls\private_access.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\psa\crypto_platform.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\mbedtls\build_info.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/mbedtls_config.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/mbedtls_config_autogen.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/mbedtls_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/mbedtls_config_autogen.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\sl_component\sl_mbedtls_support\config\config-device-acceleration.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\silicon_labs\silabs_core\memory_manager\sl_malloc.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_mbedtls_config_transform_autogen.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_mbedtls_config_transform_autogen.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\mbedtls\config_psa.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/psa_crypto_config.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/psa_crypto_config_autogen.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/psa_crypto_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/psa_crypto_config_autogen.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\mbedtls\include\psa\crypto_values.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\sl_component\sl_psa_driver\inc\sli_cryptoacc_transparent_functions.h:

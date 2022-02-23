@@ -3,7 +3,7 @@ gecko_sdk_4.0.0/platform/service/device_init/src/sl_device_init_emu_s2.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\device_init\inc\sl_device_init_emu.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_status.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_device_init_emu_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_device_init_emu_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_emu.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
@@ -65,12 +65,12 @@ gecko_sdk_4.0.0/platform/service/device_init/src/sl_device_init_emu_s2.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\device_init\inc\sl_device_init_emu.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_status.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_device_init_emu_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_device_init_emu_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_emu.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\em_device.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h:
@@ -132,5 +132,5 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h:

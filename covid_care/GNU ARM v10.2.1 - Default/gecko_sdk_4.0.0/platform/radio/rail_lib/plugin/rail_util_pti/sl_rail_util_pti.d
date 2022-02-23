@@ -62,15 +62,15 @@ gecko_sdk_4.0.0/platform/radio/rail_lib/plugin/rail_util_pti/sl_rail_util_pti.o:
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_types.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_features.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_assert_error_codes.h \
  C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk1/platform/radio/rail_lib/plugin/rail_util_pti/sl_rail_util_pti.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_rail_util_pti_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_rail_util_pti_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_types.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h:
@@ -134,13 +134,13 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_types.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_features.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_assert_error_codes.h:
 C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk1/platform/radio/rail_lib/plugin/rail_util_pti/sl_rail_util_pti.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_rail_util_pti_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_rail_util_pti_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_types.h:

@@ -64,8 +64,8 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\device_init\inc\sl_device_init_nvic.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_status.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\hardware\board\inc\sl_board_init.h \
@@ -81,29 +81,40 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_features.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_types.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_rail_util_pa_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_rail_util_pa_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\plugin\pa-conversions\pa_curves_efr32.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\plugin\pa-conversions\efr32xg22/sl_rail_util_pa_curves.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\plugin\pa-conversions\pa_curve_types_efr32.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\plugin\rail_util_pti\sl_rail_util_pti.h \
- c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\hardware\board\inc\sl_board_control.h \
+ ../autogen/sl_iostream_init_instances.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\iostream\inc\sl_iostream.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_enum.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\hardware\board\inc\sl_board_control.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\sleeptimer\inc\sl_sleeptimer.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_sleeptimer_config.h \
- ../autogen/sl_bluetooth.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_sleeptimer_config.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\app\common\util\app_log\app_log.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_iostream_handles.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_iostream_init_usart_instances.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\power_manager\inc\sl_power_manager.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_power_manager_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_power_manager_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_slist.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_emu.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_config.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_connection_config.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_advertiser_config.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\iostream\inc\sl_iostream_uart.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\iostream\inc\sl_iostream.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/app_log_config.h \
+ ../autogen/sl_bluetooth.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_bluetooth_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_bluetooth_connection_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_bluetooth_advertiser_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\protocol\bluetooth\inc\sl_bt_stack_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\protocol\bluetooth\inc\sl_bt_ll_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\protocol\bluetooth\inc\sl_bt_api.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\protocol\bluetooth\inc\sl_bgapi.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\protocol\bluetooth\inc\sl_bt_api_compatibility.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\iostream\inc\sl_iostream_stdlib_config.h \
+ ../autogen/sl_iostream_init_usart_instances.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\sl_mbedtls.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\mpu\inc\sl_mpu.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emdrv\nvm3\inc\nvm3_default.h \
@@ -178,8 +189,8 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_system.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\device_init\inc\sl_device_init_nvic.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_status.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\hardware\board\inc\sl_board_init.h:
@@ -195,29 +206,40 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_features.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\common\rail_types.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_rail_util_pa_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_rail_util_pa_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\plugin\pa-conversions\pa_curves_efr32.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\plugin\pa-conversions\efr32xg22/sl_rail_util_pa_curves.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\plugin\pa-conversions\pa_curve_types_efr32.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\radio\rail_lib\plugin\rail_util_pti\sl_rail_util_pti.h:
-c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\hardware\board\inc\sl_board_control.h:
+../autogen/sl_iostream_init_instances.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\iostream\inc\sl_iostream.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_enum.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\hardware\board\inc\sl_board_control.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\sleeptimer\inc\sl_sleeptimer.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_sleeptimer_config.h:
-../autogen/sl_bluetooth.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_sleeptimer_config.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\app\common\util\app_log\app_log.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_iostream_handles.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_iostream_init_usart_instances.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\power_manager\inc\sl_power_manager.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_power_manager_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_power_manager_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_slist.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_emu.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_config.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_connection_config.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_advertiser_config.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\iostream\inc\sl_iostream_uart.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\iostream\inc\sl_iostream.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/app_log_config.h:
+../autogen/sl_bluetooth.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_bluetooth_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_bluetooth_connection_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_bluetooth_advertiser_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\protocol\bluetooth\inc\sl_bt_stack_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\protocol\bluetooth\inc\sl_bt_ll_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\protocol\bluetooth\inc\sl_bt_api.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\protocol\bluetooth\inc\sl_bgapi.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\protocol\bluetooth\inc\sl_bt_api_compatibility.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\iostream\inc\sl_iostream_stdlib_config.h:
+../autogen/sl_iostream_init_usart_instances.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\sl_mbedtls.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\mpu\inc\sl_mpu.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emdrv\nvm3\inc\nvm3_default.h:

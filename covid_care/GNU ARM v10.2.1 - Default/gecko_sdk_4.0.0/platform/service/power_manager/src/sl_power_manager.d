@@ -2,7 +2,7 @@ gecko_sdk_4.0.0/platform/service/power_manager/src/sl_power_manager.o: \
  C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk1/platform/service/power_manager/src/sl_power_manager.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\power_manager\inc\sl_power_manager.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_power_manager_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_power_manager_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\cmsis\include\core_cm33.h \
@@ -62,12 +62,12 @@ gecko_sdk_4.0.0/platform/service/power_manager/src/sl_power_manager.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_slist.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_status.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\sleeptimer\inc\sl_sleeptimer.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_sleeptimer_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_sleeptimer_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_enum.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_emu.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h \
@@ -80,7 +80,7 @@ gecko_sdk_4.0.0/platform/service/power_manager/src/sl_power_manager.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_atomic.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\power_manager\inc\sl_power_manager.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_power_manager_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_power_manager_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\em_device.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\cmsis\include\core_cm33.h:
@@ -140,12 +140,12 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_slist.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_status.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\sleeptimer\inc\sl_sleeptimer.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_sleeptimer_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_sleeptimer_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_enum.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_emu.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h:

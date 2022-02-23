@@ -60,14 +60,14 @@ gecko_sdk_4.0.0/platform/service/sleeptimer/src/sl_sleeptimer_hal_rtcc.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\sleeptimer\inc\sl_sleeptimer.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_sleeptimer_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_sleeptimer_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_status.h \
  C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk1/platform/service/sleeptimer/src/sli_sleeptimer_hal.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\sleeptimer\inc\sli_sleeptimer.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_cmu.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h \
@@ -133,14 +133,14 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\sleeptimer\inc\sl_sleeptimer.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_sleeptimer_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/sl_sleeptimer_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\inc\sl_status.h:
 C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk1/platform/service/sleeptimer/src/sli_sleeptimer_hal.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\service\sleeptimer\inc\sli_sleeptimer.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_cmu.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h:

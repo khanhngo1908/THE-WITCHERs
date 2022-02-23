@@ -1,6 +1,6 @@
 lm75.o: ../lm75.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care/i2c_lib.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test/i2c_lib.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_i2c.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
@@ -63,13 +63,13 @@ lm75.o: ../lm75.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h \
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_cmu_compat.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care/lm75.h ../app.h
+ C\:\Users\Admin\SimplicityStudio\v5_workspace\test/lm75.h ../app.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\common\toolchain\inc\sl_gcc_preinclude.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care/i2c_lib.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test/i2c_lib.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_i2c.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\em_device.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h:
@@ -132,9 +132,9 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_assert.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_bus.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_common.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\autogen/sl_component_catalog.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test\config/emlib_core_debug_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_cmu_compat.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk1\platform\emlib\inc\em_gpio.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care/lm75.h:
+C\:\Users\Admin\SimplicityStudio\v5_workspace\test/lm75.h:
 ../app.h:
