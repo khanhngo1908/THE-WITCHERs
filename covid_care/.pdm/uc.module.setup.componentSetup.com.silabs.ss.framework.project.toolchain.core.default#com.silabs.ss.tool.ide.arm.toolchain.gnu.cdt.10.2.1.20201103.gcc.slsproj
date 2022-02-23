@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="uc.module.setup.componentSetup.com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt:10.2.1.20201103.gcc" propertyScope="project">
-  <folder name="gecko_sdk_4.0.0">
+  <folder name="gecko_sdk_4.0.1">
     <folder name="platform">
       <folder name="Device">
         <folder name="SiliconLabs">
@@ -206,15 +206,6 @@
             <file name="sli_sleeptimer.h" uri="studio:/sdk/platform/service/sleeptimer/inc/sli_sleeptimer.h"/>
           </folder>
         </folder>
-        <folder name="udelay">
-          <folder name="src">
-            <file name="sl_udelay.c" uri="studio:/sdk/platform/service/udelay/src/sl_udelay.c"/>
-            <file name="sl_udelay_armv6m_gcc.S" uri="studio:/sdk/platform/service/udelay/src/sl_udelay_armv6m_gcc.S"/>
-          </folder>
-          <folder name="inc">
-            <file name="sl_udelay.h" uri="studio:/sdk/platform/service/udelay/inc/sl_udelay.h"/>
-          </folder>
-        </folder>
       </folder>
       <folder name="emdrv">
         <folder name="common">
@@ -277,16 +268,6 @@
           <file name="em_se.h" uri="studio:/sdk/platform/emlib/inc/em_se.h"/>
           <file name="em_system.h" uri="studio:/sdk/platform/emlib/inc/em_system.h"/>
           <file name="em_usart.h" uri="studio:/sdk/platform/emlib/inc/em_usart.h"/>
-        </folder>
-      </folder>
-      <folder name="driver">
-        <folder name="i2cspm">
-          <folder name="src">
-            <file name="sl_i2cspm.c" uri="studio:/sdk/platform/driver/i2cspm/src/sl_i2cspm.c"/>
-          </folder>
-          <folder name="inc">
-            <file name="sl_i2cspm.h" uri="studio:/sdk/platform/driver/i2cspm/inc/sl_i2cspm.h"/>
-          </folder>
         </folder>
       </folder>
       <folder name="radio">
@@ -700,7 +681,7 @@
   <file name="readme_img2.png" linked="false" uri="studio:/project/readme_img2.png"/>
   <file name="readme_img3.png" linked="false" uri="studio:/project/readme_img3.png"/>
   <file name="readme_img4.png" linked="false" uri="studio:/project/readme_img4.png"/>
-  <file name="readme.html" linked="false" uri="studio:/sdk/app/bluetooth/documentation/example/soc_empty/readme.html"/>
+  <file name="readme.md" linked="false" uri="studio:/sdk/app/bluetooth/documentation/example/soc_empty/readme.md"/>
   <includePath uri="studio:/project/"/>
   <includePath uri="studio:/sdk/platform/Device/SiliconLabs/BGM22/Include"/>
   <includePath uri="studio:/sdk/app/common/util/app_assert"/>
@@ -717,7 +698,6 @@
   <includePath uri="studio:/sdk/platform/emlib/inc"/>
   <includePath uri="studio:/sdk/platform/emlib/host/inc"/>
   <includePath uri="studio:/sdk/platform/service/hfxo_manager/inc"/>
-  <includePath uri="studio:/sdk/platform/driver/i2cspm/inc"/>
   <includePath uri="studio:/sdk/platform/service/iostream/inc"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/sl_mbedtls_support/config"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/mbedtls/include"/>
@@ -743,7 +723,6 @@
   <includePath uri="studio:/sdk/platform/service/system/inc"/>
   <includePath uri="studio:/sdk/platform/service/sleeptimer/inc"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src"/>
-  <includePath uri="studio:/sdk/platform/service/udelay/inc"/>
   <macroDefinition name="BGM220PC22HNA"/>
   <macroDefinition name="SL_BOARD_NAME" value="&quot;BRD4314A&quot;"/>
   <macroDefinition name="SL_BOARD_REV" value="&quot;A02&quot;"/>

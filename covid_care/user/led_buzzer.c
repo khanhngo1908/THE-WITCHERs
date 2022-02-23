@@ -18,13 +18,15 @@ void blynk(void)
   {
       setLED('w');
       setBuzzer(true);
-      GPIO_PinOutSet(gpioPortA, 4);
+      GPIO_PinOutSet(LED_on_board_port, LED_on_board_pin);
+      sl_app_log("Led on \n");
   }
   else
   {
       setLED('c');
       setBuzzer(false);
-      GPIO_PinOutClear(gpioPortA, 4);
+      GPIO_PinOutClear(LED_on_board_port, LED_on_board_pin);
+      sl_app_log("Led off \n");
   }
 }
 

@@ -13,7 +13,6 @@
     <file name="sl_board_control_config.h" generated="true" linked="false" uri="studio:/project/config/sl_board_control_config.h"/>
     <file name="app_log_config.h" generated="true" linked="false" uri="studio:/project/config/app_log_config.h"/>
     <file name="sl_bluetooth_connection_config.h" generated="true" linked="false" uri="studio:/project/config/sl_bluetooth_connection_config.h"/>
-    <file name="sl_i2cspm_mikroe_config.h" generated="true" linked="false" uri="studio:/project/config/sl_i2cspm_mikroe_config.h"/>
     <file name="app_assert_config.h" generated="true" linked="false" uri="studio:/project/config/app_assert_config.h"/>
     <file name="sl_sleeptimer_config.h" generated="true" linked="false" uri="studio:/project/config/sl_sleeptimer_config.h"/>
     <file name="sl_power_manager_config.h" generated="true" linked="false" uri="studio:/project/config/sl_power_manager_config.h"/>
