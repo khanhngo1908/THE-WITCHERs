@@ -37,10 +37,12 @@
 #include "em_chip.h"
 #include "i2c_lib.h"
 #include "lm75.h"
+#include "max30102.h"
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
 float T;
+max30102_t hr_spo2;
 
 /**************************************************************************//**
  * Application Init.
@@ -51,10 +53,11 @@ SL_WEAK void app_init(void)
   // Put your additional application init code here!                         //
   // This is called once during start-up.                                    //
   /////////////////////////////////////////////////////////////////////////////
-  CHIP_Init();
-   //CMU_ClockEnable(cmuClock_GPIO, true);
-  led_buzzer_init();
-  i2c_init();
+    CHIP_Init();
+     //CMU_ClockEnable(cmuClock_GPIO, true);
+    led_buzzer_init();
+    i2c_init();
+    MAX30102_init();
 }
 
 /**************************************************************************//**
@@ -67,10 +70,12 @@ SL_WEAK void app_process_action(void)
   // This is called infinitely.                                              //
   // Do not call blocking functions from here!                               //
   /////////////////////////////////////////////////////////////////////////////
+  blynk();
   if (!GPIO_PinInGet(button_port, button_pin))
   {
       T = LM75_ReadTemperature();
       sl_app_log("Nhiet do: %d \n", (uint16_t) (1000*T) );
+      MAX30102_ReadFIFO(&hr_spo2);
   }
 }
 

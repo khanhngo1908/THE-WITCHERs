@@ -31,24 +31,26 @@ void i2c_init(void)
   I2C_PERIPHERAL ->CTRL = I2C_CTRL_AUTOSN;
 }
 
-void i2c_write(uint16_t deviceAddress, uint8_t regAddress, uint8_t *txBuff, uint8_t numBytes)
+void i2c_write(uint16_t deviceAddress, uint8_t regAddress, uint8_t txBuff)
 {
   // Transfer structure
    I2C_TransferSeq_TypeDef i2cTransfer;
    I2C_TransferReturn_TypeDef result;
-   uint8_t txBuffer[I2C_TXBUFFER_SIZE + 1];
+//   uint8_t txBuffer[numBytes + 1];
+   uint8_t txBuffer[2];
 
    txBuffer[0] = regAddress;
-   for(int i = 0; i < numBytes; i++)
-   {
-       txBuffer[i + 1] = txBuff[i];
-   }
+   txBuffer[1] = txBuff;
+//   for(int i = 0; i < numBytes; i++)
+//   {
+//       txBuffer[i + 1] = txBuff[i];
+//   }
 
    // Initialize I2C transfer
    i2cTransfer.addr          = deviceAddress;
    i2cTransfer.flags         = I2C_FLAG_WRITE;
    i2cTransfer.buf[0].data   = txBuffer;
-   i2cTransfer.buf[0].len    = numBytes + 1;
+   i2cTransfer.buf[0].len    = 2;
    i2cTransfer.buf[1].data   = NULL;
    i2cTransfer.buf[1].len    = 0;
 
@@ -81,4 +83,3 @@ void i2c_read(uint16_t deviceAddress, uint8_t regAddress, uint8_t *rxBuff, uint8
     }
 
 }
-

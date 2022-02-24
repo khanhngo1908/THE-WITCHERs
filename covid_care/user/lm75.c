@@ -65,7 +65,7 @@ float LM75_ReadTemperature_11BitReg(void)
  * @param[in]  mode    - 0: normal (đefaul); 1: shutdown
  * @return     none
 */
-void LM75_SleepMode(uint8_t mode)
+void LM75_Shutdown(uint8_t mode)
 {
   uint8_t buff;
   buff = LM75_ReadConfig();
@@ -76,7 +76,7 @@ void LM75_SleepMode(uint8_t mode)
   else{
     buff = buff & 0xFE;
   }
-  i2c_write(LM75_ADDRESS,LM75_CONFIGURATION,(uint8_t*)&buff,1);
+  i2c_write(LM75_ADDRESS,LM75_CONFIGURATION,buff);
 }
 
 

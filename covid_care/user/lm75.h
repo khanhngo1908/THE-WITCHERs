@@ -16,6 +16,7 @@ extern "C" {
 #define LM75_THYST        0x02
 #define LM75_TOS        0x03
 
+//uint8_t a = 9;
 
 #define ABS(x)   ((x) > 0 ? (x) : -(x))
 
@@ -50,7 +51,7 @@ float LM75_ReadTemperature_11BitReg(void);
 * @param[in]  mode    - 0: normal (defaul); 1: shutdown
 * @return     none
 */
-void LM75_SleepMode(uint8_t mode);
+void LM75_Shutdown(uint8_t mode);
 
 /**
 * @brief    Read temparature
@@ -59,8 +60,5 @@ void LM75_SleepMode(uint8_t mode);
 */
 float LM75_ReadTemperature(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif

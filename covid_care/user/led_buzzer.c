@@ -19,14 +19,14 @@ void blynk(void)
       setLED('w');
       setBuzzer(true);
       GPIO_PinOutSet(LED_on_board_port, LED_on_board_pin);
-      sl_app_log("Led on \n");
+//      sl_app_log("Led on \n");
   }
   else
   {
       setLED('c');
       setBuzzer(false);
       GPIO_PinOutClear(LED_on_board_port, LED_on_board_pin);
-      sl_app_log("Led off \n");
+//      sl_app_log("Led off \n");
   }
 }
 

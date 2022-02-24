@@ -15,7 +15,7 @@
 // <1=> Fast mode (400kbit/s)
 // <2=> Fast mode plus (1Mbit/s)
 // <i> Default: 0
-#define I2C_SPEED_MODE    0
+#define I2C_SPEED_MODE    1
 // </h> end I2CSPM config
 
 // <<< end of configuration section >>>
@@ -41,6 +41,6 @@
 
 void i2c_init(void);
 void i2c_read(uint16_t followerAddress, uint8_t targetAddress, uint8_t *rxBuff, uint8_t numBytes);
-void i2c_write(uint16_t followerAddress, uint8_t targetAddress, uint8_t *txBuff, uint8_t numBytes);
+void i2c_write(uint16_t followerAddress, uint8_t targetAddress, uint8_t txBuff);
 
 #endif // SL_I2CSPM_SENSOR_CONFIG_H
