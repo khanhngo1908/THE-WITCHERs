@@ -42,7 +42,7 @@
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
 float T;
-max30102_t hr_spo2;
+max30102_t max30102;
 
 /**************************************************************************//**
  * Application Init.
@@ -70,13 +70,16 @@ SL_WEAK void app_process_action(void)
   // This is called infinitely.                                              //
   // Do not call blocking functions from here!                               //
   /////////////////////////////////////////////////////////////////////////////
-  blynk();
-  if (!GPIO_PinInGet(button_port, button_pin))
-  {
-      T = LM75_ReadTemperature();
-      sl_app_log("Nhiet do: %d \n", (uint16_t) (1000*T) );
-      MAX30102_ReadFIFO(&hr_spo2);
-  }
+//  blynk();
+//  if (!GPIO_PinInGet(button_port, button_pin))
+//  {
+//      T = LM75_ReadTemperature();
+//      sl_app_log("Nhiet do: %d \n", (uint16_t) (1000*T) );
+//      MAX30102_ReadFIFO(&hr_spo2);
+//  }
+//    sl_app_log(" IR: %d \n", max30102.ir_sample);
+   MAX30102_ReadFIFO();
+//   MAX30102_Read();
 }
 
 /**************************************************************************//**
