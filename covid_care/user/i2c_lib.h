@@ -1,5 +1,10 @@
-#ifndef I2C_LIB_H
-#define I2C_LIB_H
+/*
+ * i2c_lib.h
+ *
+ *  Created on: 18 thg 2, 2022
+ *      Author: Ngo Minh Khanh
+ */
+
 #include "em_i2c.h"
 #include "em_cmu.h"
 
@@ -43,4 +48,3 @@ void i2c_init(void);
 void i2c_read(uint16_t followerAddress, uint8_t targetAddress, uint8_t *rxBuff, uint8_t numBytes);
 void i2c_write(uint16_t followerAddress, uint8_t targetAddress, uint8_t txBuff);
 
-#endif // SL_I2CSPM_SENSOR_CONFIG_H

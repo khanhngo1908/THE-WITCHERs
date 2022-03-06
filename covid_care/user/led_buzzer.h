@@ -1,3 +1,10 @@
+/*
+ * led_buzzer.h
+ *
+ *  Created on: 22 thg 2, 2022
+ *      Author: Ngo Minh Khanh
+ */
+
 #include "em_gpio.h"
 #include "sl_app_log.h"
 

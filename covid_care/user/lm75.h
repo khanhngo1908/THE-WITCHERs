@@ -1,10 +1,9 @@
-
-#ifndef _LM75_H
-#define _LM75_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+/*
+ * lm75.h
+ *
+ *  Created on: 18 thg 2, 2022
+ *      Author: Ngo Minh Khanh
+ */
 
 #include "stdint.h"
 
@@ -61,4 +60,3 @@ void LM75_Shutdown(uint8_t mode);
 float LM75_ReadTemperature(void);
 
 
-#endif

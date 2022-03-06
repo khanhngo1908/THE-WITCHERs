@@ -1,3 +1,11 @@
+/*
+ * i2c_lib.c
+ *
+ *  Created on: 18 thg 2, 2022
+ *      Author: Ngo Minh Khanh
+ */
+
+
 #include <i2c_lib.h>
 #include "stddef.h"
 //#include "em_i2c.h"

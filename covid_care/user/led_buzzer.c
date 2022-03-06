@@ -1,3 +1,10 @@
+/*
+ * led_buzzer.c
+ *
+ *  Created on: 22 thg 2, 2022
+ *      Author: Ngo Minh Khanh
+ */
+
 #include <led_buzzer.h>
 #include "em_gpio.h"
 #include "em_cmu.h"
