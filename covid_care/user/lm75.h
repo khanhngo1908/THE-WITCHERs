@@ -8,12 +8,12 @@
 #include "stdint.h"
 
 #define LM75_11BIT
-#define LM75_ADDRESS  (0x48 << 1 )
+#define LM75_ADDRESS        0x48
 
 #define LM75_TEMPERATURE    0x00
-#define LM75_CONFIGURATION    0x01
-#define LM75_THYST        0x02
-#define LM75_TOS        0x03
+#define LM75_CONFIGURATION  0x01
+#define LM75_THYST          0x02
+#define LM75_TOS            0x03
 
 //uint8_t a = 9;
 

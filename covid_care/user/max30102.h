@@ -7,7 +7,7 @@
 
 #include "stdint.h"
 
-#define MAX30102_ADDRESS    0xAE
+#define MAX30102_ADDRESS    0x57
 
 #define REG_INTR_STATUS_1   0x00
 #define REG_INTR_STATUS_2   0x01

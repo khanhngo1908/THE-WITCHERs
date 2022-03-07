@@ -97,6 +97,7 @@ float LM75_ReadTemperature(void){
 
   #ifdef LM75_11BIT
     return LM75_ReadTemperature_11BitReg();
+
   #endif
 
   #ifdef LM75_9BIT

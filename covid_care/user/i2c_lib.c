@@ -55,7 +55,7 @@ void i2c_write(uint16_t deviceAddress, uint8_t regAddress, uint8_t txBuff)
 //   }
 
    // Initialize I2C transfer
-   i2cTransfer.addr          = deviceAddress;
+   i2cTransfer.addr          = deviceAddress << 1;
    i2cTransfer.flags         = I2C_FLAG_WRITE;
    i2cTransfer.buf[0].data   = txBuffer;
    i2cTransfer.buf[0].len    = 2;
@@ -76,7 +76,7 @@ void i2c_read(uint16_t deviceAddress, uint8_t regAddress, uint8_t *rxBuff, uint8
     I2C_TransferReturn_TypeDef result;
 
     // Initialize I2C transfer
-    i2cTransfer.addr          = deviceAddress;
+    i2cTransfer.addr          = deviceAddress << 1;
     i2cTransfer.flags         = I2C_FLAG_WRITE_READ; // must write target address before reading
     i2cTransfer.buf[0].data   = &regAddress;
     i2cTransfer.buf[0].len    = 1;

@@ -47,24 +47,16 @@ void MAX30102_ReadFIFO()
        sl_app_log("OK \n");
 
     int16_t num_samples;
-    num_samples = (int8_t)writePointer - (int8_t)readPointer;
+    num_samples = (int16_t)writePointer - (int16_t)readPointer;
 
 //    sl_app_log("%d %d %d\n",writePointer, readPointer, num_samples);
-//    if(writePointer != readPointer)
-//    {
-//          sl_app_log("OK \n");
-//          if (num_samples < 1)
-//          {
-//               num_samples += 32;
-//          }
-//    }
 
     if (num_samples < 1)
     {
         num_samples += 32;
     }
 
-    uint8_t bytesLeftToRead = num_samples * 6;
+    uint8_t bytesLeftToRead = num_samples * 2 * 3;
     while (bytesLeftToRead > 0)
     {
         uint8_t toGet =  bytesLeftToRead;
