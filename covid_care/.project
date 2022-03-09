@@ -31,6 +31,16 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>user/MPU6050.c</name>
+			<type>1</type>
+			<location>C:/Users/Admin/Downloads/MPU6050.c</location>
+		</link>
+		<link>
+			<name>user/MPU6050.h</name>
+			<type>1</type>
+			<location>C:/Users/Admin/Downloads/MPU6050.h</location>
+		</link>
+		<link>
 			<name>gecko_sdk_4.0.1/hardware/board/inc/sl_board_control.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/hardware/board/inc/sl_board_control.h</locationURI>

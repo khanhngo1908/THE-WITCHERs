@@ -29,7 +29,7 @@ void MAX30102_init()
     i2c_write(MAX30102_ADDRESS, REG_LED2_PA, FIX_CURRENT);
 
     // SpO2 Configuration
-    i2c_write(MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr1000 | pw411);
+    i2c_write(MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr3200 | pw118);
 
     // Clear FIFO
     i2c_write(MAX30102_ADDRESS, REG_FIFO_WR_PTR, 0x00);

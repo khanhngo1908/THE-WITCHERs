@@ -33,7 +33,7 @@
 
 // 0x00~0xFF = 0mA~51mA
 #define MAX_CURRENT  0xFF
-#define FIX_CURRENT  0x64  // ~20mA for LED1 & LED2
+#define FIX_CURRENT  0xFF  // ~20mA for LED1 & LED2
 
 #define  MAX30102_RESET           0x04
 #define  MAX30102_MODE_HR_ONLY    0b02
