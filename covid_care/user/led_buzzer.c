@@ -2,7 +2,7 @@
  * led_buzzer.c
  *
  *  Created on: 22 thg 2, 2022
- *      Author: Ngo Minh Khanh
+ *      Author: Ngo Minh Khanh & Dinh Tien Duong
  */
 
 #include <led_buzzer.h>
@@ -18,23 +18,6 @@ void led_buzzer_init(void)
     GPIO_PinModeSet(buzzer_port, buzzer_pin, gpioModePushPull, 1);        // buzzer
     GPIO_PinModeSet(button_port, button_pin, gpioModeInput, 0);           // button
     GPIO_PinModeSet(gpioPortA, 4, gpioModePushPull, 0);
-}
-void blynk(void)
-{
-  if (!GPIO_PinInGet(button_port, button_pin))
-  {
-      setLED('w');
-      setBuzzer(true);
-      GPIO_PinOutSet(LED_on_board_port, LED_on_board_pin);
-//      sl_app_log("Led on \n");
-  }
-  else
-  {
-      setLED('c');
-      setBuzzer(false);
-      GPIO_PinOutClear(LED_on_board_port, LED_on_board_pin);
-//      sl_app_log("Led off \n");
-  }
 }
 
 void setBuzzer(bool set)
@@ -81,3 +64,22 @@ void setLED(char ch)
             break;
     }
 }
+
+//void blynk(void)
+//{
+//  if (!GPIO_PinInGet(button_port, button_pin))
+//  {
+//      setLED('w');
+//      setBuzzer(true);
+//      GPIO_PinOutSet(LED_on_board_port, LED_on_board_pin);
+////      sl_app_log("Led on \n");
+//  }
+//  else
+//  {
+//      setLED('c');
+//      setBuzzer(false);
+//      GPIO_PinOutClear(LED_on_board_port, LED_on_board_pin);
+////      sl_app_log("Led off \n");
+//  }
+//}
+

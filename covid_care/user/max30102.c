@@ -22,19 +22,20 @@ void MAX30102_init()
     i2c_write(MAX30102_ADDRESS, REG_MODE_CONFIG, MAX30102_MODE_SPO2_HR);
 
     //FIFO Configuration
-    i2c_write(MAX30102_ADDRESS, REG_FIFO_CONFIG, smp4);
+    i2c_write(MAX30102_ADDRESS, REG_FIFO_CONFIG, smp2);
 
     // LED Pulse Amplitude Configuration
     i2c_write(MAX30102_ADDRESS, REG_LED1_PA, FIX_CURRENT);
     i2c_write(MAX30102_ADDRESS, REG_LED2_PA, FIX_CURRENT);
 
     // SpO2 Configuration
-    i2c_write(MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr3200 | pw118);
+    i2c_write(MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr100 | pw411);
 
     // Clear FIFO
     i2c_write(MAX30102_ADDRESS, REG_FIFO_WR_PTR, 0x00);
     i2c_write(MAX30102_ADDRESS, REG_OVF_COUNTER, 0x00);
     i2c_write(MAX30102_ADDRESS, REG_FIFO_RD_PTR, 0x00);
+    sl_app_log("IR RED\n");
 }
 
 void MAX30102_ReadFIFO()
@@ -43,8 +44,8 @@ void MAX30102_ReadFIFO()
     i2c_read(MAX30102_ADDRESS,REG_FIFO_WR_PTR, &writePointer, 1);
     i2c_read(MAX30102_ADDRESS,REG_FIFO_RD_PTR, &readPointer, 1);
 
-    if(writePointer != readPointer)
-       sl_app_log("OK \n");
+//    if(writePointer != readPointer)
+//       sl_app_log("OK \n");
 
     int16_t num_samples;
     num_samples = (int16_t)writePointer - (int16_t)readPointer;
@@ -71,7 +72,8 @@ void MAX30102_ReadFIFO()
             i2c_read(MAX30102_ADDRESS, REG_FIFO_DATA, sample, 6);
             raw_RED = ((uint32_t)(sample[0] << 16) | (uint32_t)(sample[1] << 8) | (uint32_t)(sample[2])) & 0x3ffff;
             raw_IR = ((uint32_t)(sample[3] << 16) | (uint32_t)(sample[4] << 8) | (uint32_t)(sample[5])) & 0x3ffff;
-            sl_app_log("%d \n", raw_IR);
+            sl_app_log("%d, %d \n", raw_IR, raw_RED);
+//            sl_app_log("%d\n", raw_IR);
             toGet -= 2 * 3;
          }
      }
