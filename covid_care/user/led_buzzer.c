@@ -9,6 +9,9 @@
 #include "em_gpio.h"
 #include "em_cmu.h"
 
+/**
+ *  @brief init clock & set mode for led & buzzer
+ */
 void led_buzzer_init(void)
 {
     CMU_ClockEnable(cmuClock_GPIO, true);
@@ -20,6 +23,9 @@ void led_buzzer_init(void)
     GPIO_PinModeSet(gpioPortA, 4, gpioModePushPull, 0);
 }
 
+/**
+ *  @brief set buzzer is on/off
+ */
 void setBuzzer(bool set)
 {
     if(set)
@@ -28,6 +34,9 @@ void setBuzzer(bool set)
        GPIO_PinOutSet(buzzer_port, buzzer_pin);
 }
 
+/**
+ *  @brief set color of led
+ */
 void setLED(char ch)
 {
     switch (ch)
