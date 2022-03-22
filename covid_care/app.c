@@ -38,11 +38,14 @@
 #include "i2c_lib.h"
 #include "lm75.h"
 #include "max30102.h"
+#include "gpio_intr.h"
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
 float T;
+uint8_t test = 0;
 max30102_t max30102;
+uint8_t status;
 
 /**************************************************************************//**
  * Application Init.
@@ -53,11 +56,13 @@ SL_WEAK void app_init(void)
   // Put your additional application init code here!                         //
   // This is called once during start-up.                                    //
   /////////////////////////////////////////////////////////////////////////////
+    sl_app_log("Initiation.... \n");
     CHIP_Init();
-     //CMU_ClockEnable(cmuClock_GPIO, true);
-    led_buzzer_init();
     i2c_init();
     MAX30102_init();
+//    gpio_INTR_Init();
+//    led_buzzer_init();
+    sl_app_log("Ok \n");
 }
 
 /**************************************************************************//**
@@ -73,7 +78,26 @@ SL_WEAK void app_process_action(void)
 
 //   T = LM75_ReadTemperature();
 //   sl_app_log("Nhiet do: %d \n", (uint16_t) (1000*T) );
-   MAX30102_ReadFIFO();
+    MAX30102_ReadFIFO();
+//     uint8_t data = 0;
+//     i2c_read(MAX30102_ADDRESS, REG_INTR_ENABLE_1, &data, 1);
+//  if (!GPIO_PinInGet(button_port, button_pin))
+//  {
+//     i2c_read(MAX30102_ADDRESS, REG_INTR_STATUS_1, &test, 1);
+//  }
+//     i2c_read(MAX30102_ADDRESS, REG_INTR_STATUS_1, &status, 1);
+//     sl_app_log(" Status %x \n", status);
+//     if( (status && 0x80) == 1)
+//     {
+//         sl_app_log("read \n");
+//         MAX30102_ReadFIFO();
+//     }
+//    if(test == 1)
+//    {
+//
+//         MAX30102_ReadFIFO();
+//         test = 0;
+//    }
 }
 
 /**************************************************************************//**
@@ -150,6 +174,13 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
         sl_bt_advertiser_connectable_scannable);
       app_assert_status(sc);
       break;
+
+    case sl_bt_evt_system_external_signal_id:
+//          dcmc_process_extsignals(evt->data.evt_system_external_signal.extsignals);
+          test = 1;
+          GPIO_PinOutToggle(LED_on_board_port, LED_on_board_pin);
+//          sl_app_log("int0 \n");
+          break;
 
     ///////////////////////////////////////////////////////////////////////////
     // Add additional event handlers here as your application requires!      //

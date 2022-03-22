@@ -431,6 +431,16 @@
 			<locationURI>STUDIO_SDK_LOC/platform/emdrv/common/inc/ecode.h</locationURI>
 		</link>
 		<link>
+			<name>gecko_sdk_4.0.1/platform/emdrv/gpiointerrupt/inc/gpiointerrupt.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/emdrv/gpiointerrupt/inc/gpiointerrupt.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_4.0.1/platform/emdrv/gpiointerrupt/src/gpiointerrupt.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/emdrv/gpiointerrupt/src/gpiointerrupt.c</locationURI>
+		</link>
+		<link>
 			<name>gecko_sdk_4.0.1/platform/emdrv/nvm3/inc/nvm3.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/emdrv/nvm3/inc/nvm3.h</locationURI>
@@ -474,6 +484,16 @@
 			<name>gecko_sdk_4.0.1/platform/emdrv/nvm3/src/nvm3_lock.c</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/emdrv/nvm3/src/nvm3_lock.c</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_4.0.1/platform/emdrv/rtcdrv/inc/rtcdriver.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/emdrv/rtcdrv/inc/rtcdriver.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_4.0.1/platform/emdrv/rtcdrv/src/rtcdriver.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/emdrv/rtcdrv/src/rtcdriver.c</locationURI>
 		</link>
 		<link>
 			<name>gecko_sdk_4.0.1/platform/radio/rail_lib/common/rail.h</name>

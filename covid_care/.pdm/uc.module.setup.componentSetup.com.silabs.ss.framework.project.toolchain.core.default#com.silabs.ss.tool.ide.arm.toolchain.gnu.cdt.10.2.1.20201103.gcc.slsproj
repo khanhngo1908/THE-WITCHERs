@@ -213,6 +213,14 @@
             <file name="ecode.h" uri="studio:/sdk/platform/emdrv/common/inc/ecode.h"/>
           </folder>
         </folder>
+        <folder name="gpiointerrupt">
+          <folder name="src">
+            <file name="gpiointerrupt.c" uri="studio:/sdk/platform/emdrv/gpiointerrupt/src/gpiointerrupt.c"/>
+          </folder>
+          <folder name="inc">
+            <file name="gpiointerrupt.h" uri="studio:/sdk/platform/emdrv/gpiointerrupt/inc/gpiointerrupt.h"/>
+          </folder>
+        </folder>
         <folder name="nvm3">
           <folder name="src">
             <file name="nvm3_default_common_linker.c" uri="studio:/sdk/platform/emdrv/nvm3/src/nvm3_default_common_linker.c"/>
@@ -228,6 +236,14 @@
           </folder>
           <folder name="lib">
             <file name="libnvm3_CM33_gcc.a" uri="studio:/sdk/platform/emdrv/nvm3/lib/libnvm3_CM33_gcc.a"/>
+          </folder>
+        </folder>
+        <folder name="rtcdrv">
+          <folder name="src">
+            <file name="rtcdriver.c" uri="studio:/sdk/platform/emdrv/rtcdrv/src/rtcdriver.c"/>
+          </folder>
+          <folder name="inc">
+            <file name="rtcdriver.h" uri="studio:/sdk/platform/emdrv/rtcdrv/inc/rtcdriver.h"/>
           </folder>
         </folder>
       </folder>
@@ -697,6 +713,7 @@
   <includePath uri="studio:/sdk/platform/emdrv/common/inc"/>
   <includePath uri="studio:/sdk/platform/emlib/inc"/>
   <includePath uri="studio:/sdk/platform/emlib/host/inc"/>
+  <includePath uri="studio:/sdk/platform/emdrv/gpiointerrupt/inc"/>
   <includePath uri="studio:/sdk/platform/service/hfxo_manager/inc"/>
   <includePath uri="studio:/sdk/platform/service/iostream/inc"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/sl_mbedtls_support/config"/>
@@ -716,6 +733,7 @@
   <includePath uri="studio:/sdk/platform/radio/rail_lib/plugin/pa-conversions"/>
   <includePath uri="studio:/sdk/platform/radio/rail_lib/plugin/pa-conversions/efr32xg22"/>
   <includePath uri="studio:/sdk/platform/radio/rail_lib/plugin/rail_util_pti"/>
+  <includePath uri="studio:/sdk/platform/emdrv/rtcdrv/inc"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/se_manager/inc"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/se_manager/src"/>
   <includePath uri="studio:/sdk/util/silicon_labs/silabs_core/memory_manager"/>

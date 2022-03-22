@@ -112,6 +112,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_api.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bgapi.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_api_compatibility.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_stdlib_config.h \
  ../autogen/sl_iostream_init_usart_instances.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\sl_mbedtls.h \
@@ -237,6 +238,7 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_ll_
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_api.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bgapi.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_api_compatibility.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_stdlib_config.h:
 ../autogen/sl_iostream_init_usart_instances.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\inc\sl_mbedtls.h:

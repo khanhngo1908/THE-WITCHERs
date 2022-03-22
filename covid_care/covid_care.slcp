@@ -29,12 +29,14 @@ component:
   id: iostream_usart
 - {id: bluetooth_feature_sm}
 - {id: mpu}
+- {id: rtcdrv}
 - {id: bluetooth_feature_system}
 - {id: gatt_configuration}
 - {id: bluetooth_feature_scanner}
 - {id: bluetooth_stack}
 - {id: component_catalog}
 - {id: ota_dfu}
+- {id: gpiointerrupt}
 - {id: bootloader_interface}
 - {id: rail_util_pti}
 - {id: app_assert}

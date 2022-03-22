@@ -13,6 +13,7 @@
     <file name="sl_board_control_config.h" generated="true" linked="false"/>
     <file name="app_log_config.h" generated="true" linked="false"/>
     <file name="sl_bluetooth_connection_config.h" generated="true" linked="false"/>
+    <file name="rtcdrv_config.h" generated="true" linked="false"/>
     <file name="app_assert_config.h" generated="true" linked="false"/>
     <file name="sl_sleeptimer_config.h" generated="true" linked="false"/>
     <file name="sl_power_manager_config.h" generated="true" linked="false"/>

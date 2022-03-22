@@ -8,13 +8,10 @@
 
 #include <i2c_lib.h>
 #include "stddef.h"
-//#include "em_i2c.h"
 
 void i2c_init(void)
 {
   CMU_ClockEnable(cmuClock_I2C0, true);
-  // Use default settings
-  I2C_Init_TypeDef i2cInit = I2C_INIT_DEFAULT;
 
   // Using PA5 (SDA) and PA6 (SCL)
   GPIO_PinModeSet(I2C_SDA_PORT, I2C_SDA_PIN, gpioModeWiredAndPullUpFilter, 1);
@@ -28,6 +25,14 @@ void i2c_init(void)
                         | (I2C_SCL_PORT << _GPIO_I2C_SCLROUTE_PORT_SHIFT
                         | (I2C_SCL_PIN << _GPIO_I2C_SCLROUTE_PIN_SHIFT));
   GPIO->I2CROUTE[0].ROUTEEN = GPIO_I2C_ROUTEEN_SDAPEN | GPIO_I2C_ROUTEEN_SCLPEN;
+
+  // Settings for I2C
+  I2C_Init_TypeDef i2cInit = I2C_INIT_FAST;
+//  i2cInit.enable = 1;
+//  i2cInit.master = 1;
+//  i2cInit.refFreq = 0;
+//  i2cInit.freq = I2C_FREQ_FAST_MAX;
+//  i2cInit.clhr = i2cClockHLRAsymetric;
 
   // Initialize the I2C
   I2C_Init(I2C_PERIPHERAL , &i2cInit);

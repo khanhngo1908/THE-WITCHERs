@@ -8,26 +8,6 @@
 #include "em_i2c.h"
 #include "em_cmu.h"
 
-// I2C Setting
-// <o> Reference clock frequency
-// <i> Frequency in Hz of the reference clock.
-// <i> Select 0 to use the frequency of the currently selected clock.
-// <i> Default: 0
-#define I2C_REFERENCE_CLOCK 0
-
-// <o>  Speed mode
-// <0=> Standard mode (100kbit/s)
-// <1=> Fast mode (400kbit/s)
-// <2=> Fast mode plus (1Mbit/s)
-// <i> Default: 0
-#define I2C_SPEED_MODE    1
-// </h> end I2CSPM config
-
-// <<< end of configuration section >>>
-
-// <<< sl:start pin_tool >>>
-// <i2c signal=SCL,SDA> SL_I2CSPM_SENSOR
-// $[I2C_SL_I2CSPM_SENSOR]
 #define I2C_PERIPHERAL              I2C0
 #define I2C_PERIPHERAL_NO           0
 
@@ -38,11 +18,20 @@
 // I2C0 SDA on PD03
 #define I2C_SDA_PORT               gpioPortD
 #define I2C_SDA_PIN                3
-// [I2C_SL_I2CSPM_SENSOR]$
-// <<< sl:end pin_tool >>>
 
-#define I2C_TXBUFFER_SIZE                 10
-#define I2C_RXBUFFER_SIZE                 10
+//#define I2C_TXBUFFER_SIZE                 10
+//#define I2C_RXBUFFER_SIZE                 10
+
+#define I2C_INIT_FAST                                                 \
+{                                                                        \
+    true,                  /* Enable when initialization done. */          \
+    true,                  /* Set to Controller mode. */                   \
+    0,                     /* Use currently configured reference clock. */ \
+    I2C_FREQ_FAST_MAX,     /* Set to fast max assuring being */       \
+    /*                        within I2C specification. */                 \
+    i2cClockHLRAsymetric    /* Set to use 6:3 low/high duty cycle. */       \
+}
+
 
 void i2c_init(void);
 void i2c_read(uint16_t followerAddress, uint8_t targetAddress, uint8_t *rxBuff, uint8_t numBytes);
