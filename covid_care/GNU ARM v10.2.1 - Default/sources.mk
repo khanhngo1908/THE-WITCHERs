@@ -29,6 +29,7 @@ gecko_sdk_4.0.1/platform/common/src \
 gecko_sdk_4.0.1/platform/common/toolchain/src \
 gecko_sdk_4.0.1/platform/emdrv/gpiointerrupt/src \
 gecko_sdk_4.0.1/platform/emdrv/nvm3/src \
+gecko_sdk_4.0.1/platform/emdrv/rtcdrv/src \
 gecko_sdk_4.0.1/platform/emlib/src \
 gecko_sdk_4.0.1/platform/radio/rail_lib/plugin/pa-conversions \
 gecko_sdk_4.0.1/platform/radio/rail_lib/plugin/rail_util_pti \

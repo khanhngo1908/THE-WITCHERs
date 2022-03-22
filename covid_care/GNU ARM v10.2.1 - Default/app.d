@@ -112,7 +112,11 @@ app.o: ../app.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/lm75.h \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/max30102.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/gpio_intr.h
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/gpio_intr.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/rtc.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\rtcdrv\inc\rtcdriver.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\common\inc\ecode.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/rtcdrv_config.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
@@ -227,3 +231,7 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/lm75.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/max30102.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/gpio_intr.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/rtc.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\rtcdrv\inc\rtcdriver.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\common\inc\ecode.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/rtcdrv_config.h:

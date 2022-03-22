@@ -39,6 +39,8 @@
 #include "lm75.h"
 #include "max30102.h"
 #include "gpio_intr.h"
+#include "rtc.h"
+
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
@@ -46,6 +48,7 @@ float T;
 uint8_t test = 0;
 max30102_t max30102;
 uint8_t status;
+uint32_t s = 0;
 
 /**************************************************************************//**
  * Application Init.
@@ -59,8 +62,8 @@ SL_WEAK void app_init(void)
     sl_app_log("Initiation.... \n");
     CHIP_Init();
     i2c_init();
-    MAX30102_init();
-//    gpio_INTR_Init();
+//    MAX30102_init();
+    gpio_INTR_Init();
 //    led_buzzer_init();
     sl_app_log("Ok \n");
 }
@@ -78,7 +81,7 @@ SL_WEAK void app_process_action(void)
 
 //   T = LM75_ReadTemperature();
 //   sl_app_log("Nhiet do: %d \n", (uint16_t) (1000*T) );
-    MAX30102_ReadFIFO();
+//    MAX30102_ReadFIFO();
 //     uint8_t data = 0;
 //     i2c_read(MAX30102_ADDRESS, REG_INTR_ENABLE_1, &data, 1);
 //  if (!GPIO_PinInGet(button_port, button_pin))
@@ -177,9 +180,10 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 
     case sl_bt_evt_system_external_signal_id:
 //          dcmc_process_extsignals(evt->data.evt_system_external_signal.extsignals);
-          test = 1;
+//          test = 1;
+//          GPIO_PinOutToggle(LED_on_board_port, LED_on_board_pin);
+          get_rtc_value();
           GPIO_PinOutToggle(LED_on_board_port, LED_on_board_pin);
-//          sl_app_log("int0 \n");
           break;
 
     ///////////////////////////////////////////////////////////////////////////
