@@ -89,7 +89,7 @@ void i2c_write_nBytes(uint16_t deviceAddress, uint8_t regAddress, uint8_t *txDat
     }
 
     // Initialize I2C transfer
-    i2cTransfer.addr          = regAddress;
+    i2cTransfer.addr          = regAddress << 1;
     i2cTransfer.flags         = I2C_FLAG_WRITE;
     i2cTransfer.buf[0].data   = txBuffer;
     i2cTransfer.buf[0].len    = numBytes + 1;
