@@ -82,7 +82,7 @@ void i2c_write_nBytes(uint16_t deviceAddress, uint8_t regAddress, uint8_t *txDat
     I2C_TransferReturn_TypeDef result;
     uint8_t txBuffer[numBytes + 1];
 
-    txBuffer[0] = deviceAddress;
+    txBuffer[0] = regAddress;
     for(int i = 0; i < numBytes; i++)
     {
         txBuffer[i + 1] = txData[i];
