@@ -68,7 +68,7 @@ void i2c_writeByte(uint16_t deviceAddress, uint8_t regAddress, uint8_t txData)
    i2cTransfer.buf[1].data   = NULL;
    i2cTransfer.buf[1].len    = 0;
 
-   result = I2C_TransferInit(I2C_PERIPHERAL , &i2cTransfer);
+   result = I2C_TransferInit(I2C_PERIPHERAL, &i2cTransfer);
 
    // Send data
    while (result == i2cTransferInProgress) {
@@ -96,11 +96,11 @@ void i2c_write_nBytes(uint16_t deviceAddress, uint8_t regAddress, uint8_t *txDat
     i2cTransfer.buf[1].data   = NULL;
     i2cTransfer.buf[1].len    = 0;
 
-    result = I2C_TransferInit(I2C0, &i2cTransfer);
+    result = I2C_TransferInit(I2C_PERIPHERAL, &i2cTransfer);
 
     // Send data
     while (result == i2cTransferInProgress) {
-      result = I2C_Transfer(I2C0);
+      result = I2C_Transfer(I2C_PERIPHERAL);
     }
 }
 
