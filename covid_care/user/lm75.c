@@ -83,7 +83,7 @@ void LM75_Shutdown(uint8_t mode)
   else{
     buff = buff & 0xFE;
   }
-  i2c_write(LM75_ADDRESS,LM75_CONFIGURATION,buff);
+  i2c_writeByte(LM75_ADDRESS,LM75_CONFIGURATION,buff);
 }
 
 

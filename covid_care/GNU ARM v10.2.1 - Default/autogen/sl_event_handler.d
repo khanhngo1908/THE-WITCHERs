@@ -124,6 +124,9 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3_default.h \
+ ../autogen/sl_pwm_instances.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\driver\pwm\inc\sl_pwm.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_timer.h \
  ../autogen/sl_iostream_init_instances.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 ../autogen/sl_event_handler.h:
@@ -250,4 +253,7 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\common\inc\ecode.
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3_default.h:
+../autogen/sl_pwm_instances.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\driver\pwm\inc\sl_pwm.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_timer.h:
 ../autogen/sl_iostream_init_instances.h:

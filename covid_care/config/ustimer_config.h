@@ -1,6 +1,6 @@
 /***************************************************************************//**
  * @file
- * @brief RTCDRV configuration file.
+ * @brief USTIMER configuration file.
  *******************************************************************************
  * # License
  * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
@@ -27,42 +27,25 @@
  * 3. This notice may not be removed or altered from any source distribution.
  *
  ******************************************************************************/
-#ifndef SILICON_LABS_RTCDRV_CONFIG_H
-#define SILICON_LABS_RTCDRV_CONFIG_H
-
-/// @cond DO_NOT_INCLUDE_WITH_DOXYGEN
-#if defined(HAL_CONFIG)
-#include "hal-config.h"
-#if defined(HAL_CLK_LFECLK_SOURCE)
-#if (HAL_CLK_LFECLK_SOURCE == HAL_CLK_LFCLK_SOURCE_LFRCO)
-#define EMDRV_RTCDRV_USE_LFRCO 1
-#endif
-#else
-#if (HAL_CLK_LFACLK_SOURCE == HAL_CLK_LFCLK_SOURCE_LFRCO)
-#define EMDRV_RTCDRV_USE_LFRCO 1
-#endif
-#endif
-#endif
-/// @endcond
+#ifndef __SILICON_LABS_USTIMER_CONFIG_H__
+#define __SILICON_LABS_USTIMER_CONFIG_H__
 
 /***************************************************************************//**
- * @addtogroup rtcdrv
+ * @addtogroup ustimer
  * @{
  ******************************************************************************/
 
-/// @brief Define the number of timers the application needs.
-#define EMDRV_RTCDRV_NUM_TIMERS     (4)
+// <<< sl:start pin_tool >>>
+// <timer> USTIMER
+// $[TIMER_USTIMER]
+#define USTIMER_PERIPHERAL                       TIMER0
+#define USTIMER_PERIPHERAL_NO                    0
+// [TIMER_USTIMER]$
 
-/// @brief Define to include wallclock functionality.
-//#define EMDRV_RTCDRV_WALLCLOCK_CONFIG
+// <<< sl:end pin_tool >>>
 
-/// @brief Define to enable integration with SLEEP driver.
-//#define EMDRV_RTCDRV_SLEEPDRV_INTEGRATION
+#define USTIMER_TIMER USTIMER_PERIPHERAL_NO
 
-/// @brief Define to configure RTCDRV for LFRCO or PLFRCO. The default is LFXO.
-//#define EMDRV_RTCDRV_USE_LFRCO
-//#define EMDRV_RTCDRV_USE_PLFRCO
+/** @} (end addtogroup ustimer) */
 
-/** @} (end addtogroup rtcdrv) */
-
-#endif /* SILICON_LABS_RTCDRV_CONFIG_H */
+#endif /* __SILICON_LABS_USTIMER_CONFIG_H__ */

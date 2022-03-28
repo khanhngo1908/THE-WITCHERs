@@ -34,6 +34,7 @@
 
 
 void i2c_init(void);
-void i2c_read(uint16_t followerAddress, uint8_t targetAddress, uint8_t *rxBuff, uint8_t numBytes);
-void i2c_write(uint16_t followerAddress, uint8_t targetAddress, uint8_t txBuff);
+void i2c_read(uint16_t followerAddress, uint8_t targetAddress, uint8_t *rxData, uint8_t numBytes);
+void i2c_writeByte(uint16_t followerAddress, uint8_t targetAddress, uint8_t txData);
+void i2c_write_nBytes(uint16_t followerAddress, uint8_t targetAddress, uint8_t *txData, uint8_t numBytes);
 

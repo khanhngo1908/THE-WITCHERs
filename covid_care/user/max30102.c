@@ -16,29 +16,29 @@ uint32_t raw_RED = 0;
 void MAX30102_init()
 {
     // Reset
-    i2c_write(MAX30102_ADDRESS, REG_MODE_CONFIG, MAX30102_RESET);
+    i2c_writeByte(MAX30102_ADDRESS, REG_MODE_CONFIG, MAX30102_RESET);
     sl_sleeptimer_delay_millisecond(500);
 
     // Mode Configuration
-    i2c_write(MAX30102_ADDRESS, REG_MODE_CONFIG, MAX30102_MODE_SPO2_HR);
+    i2c_writeByte(MAX30102_ADDRESS, REG_MODE_CONFIG, MAX30102_MODE_SPO2_HR);
 
     //FIFO Configuration
-    i2c_write(MAX30102_ADDRESS, REG_FIFO_CONFIG, smp1 | FIFO_ROLLOVER_EN);
+    i2c_writeByte(MAX30102_ADDRESS, REG_FIFO_CONFIG, smp1 | FIFO_ROLLOVER_EN);
 
     // Enable FIFO Almost Full Interrupt
-//    i2c_write(MAX30102_ADDRESS, REG_INTR_ENABLE_1 , INT_A_FULL_EN);
+//    i2c_writeByte(MAX30102_ADDRESS, REG_INTR_ENABLE_1 , INT_A_FULL_EN);
 
     // LED Pulse Amplitude Configuration
-    i2c_write(MAX30102_ADDRESS, REG_LED1_PA, FIX_CURRENT);
-    i2c_write(MAX30102_ADDRESS, REG_LED2_PA, FIX_CURRENT);
+    i2c_writeByte(MAX30102_ADDRESS, REG_LED1_PA, FIX_CURRENT);
+    i2c_writeByte(MAX30102_ADDRESS, REG_LED2_PA, FIX_CURRENT);
 
     // SpO2 Configuration
-    i2c_write(MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr100 | pw411);
+    i2c_writeByte(MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr100 | pw411);
 
     // Clear FIFO
-    i2c_write(MAX30102_ADDRESS, REG_FIFO_WR_PTR, 0x00);
-    i2c_write(MAX30102_ADDRESS, REG_OVF_COUNTER, 0x00);
-    i2c_write(MAX30102_ADDRESS, REG_FIFO_RD_PTR, 0x00);
+    i2c_writeByte(MAX30102_ADDRESS, REG_FIFO_WR_PTR, 0x00);
+    i2c_writeByte(MAX30102_ADDRESS, REG_OVF_COUNTER, 0x00);
+    i2c_writeByte(MAX30102_ADDRESS, REG_FIFO_RD_PTR, 0x00);
     sl_sleeptimer_delay_millisecond(500);
 }
 
@@ -104,7 +104,7 @@ void MAX30102_Shutdown(bool mode)
    else {
      config = config | 0x7F;
    }
-   i2c_write(MAX30102_ADDRESS,REG_MODE_CONFIG, config);
+   i2c_writeByte(MAX30102_ADDRESS,REG_MODE_CONFIG, config);
 }
 
 void MAX30102_CheckReg(void)

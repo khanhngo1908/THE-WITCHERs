@@ -44,7 +44,8 @@ void i2c_init(void)
   I2C_PERIPHERAL ->CTRL = I2C_CTRL_AUTOSN;
 }
 
-void i2c_write(uint16_t deviceAddress, uint8_t regAddress, uint8_t txBuff)
+
+void i2c_writeByte(uint16_t deviceAddress, uint8_t regAddress, uint8_t txData)
 {
   // Transfer structure
    I2C_TransferSeq_TypeDef i2cTransfer;
@@ -53,7 +54,7 @@ void i2c_write(uint16_t deviceAddress, uint8_t regAddress, uint8_t txBuff)
    uint8_t txBuffer[2];
 
    txBuffer[0] = regAddress;
-   txBuffer[1] = txBuff;
+   txBuffer[1] = txData;
 //   for(int i = 0; i < numBytes; i++)
 //   {
 //       txBuffer[i + 1] = txBuff[i];
@@ -75,7 +76,35 @@ void i2c_write(uint16_t deviceAddress, uint8_t regAddress, uint8_t txBuff)
    }
 }
 
-void i2c_read(uint16_t deviceAddress, uint8_t regAddress, uint8_t *rxBuff, uint8_t numBytes)
+void i2c_write_nBytes(uint16_t deviceAddress, uint8_t regAddress, uint8_t *txData, uint8_t numBytes)
+{
+    I2C_TransferSeq_TypeDef i2cTransfer;
+    I2C_TransferReturn_TypeDef result;
+    uint8_t txBuffer[numBytes + 1];
+
+    txBuffer[0] = deviceAddress;
+    for(int i = 0; i < numBytes; i++)
+    {
+        txBuffer[i + 1] = txData[i];
+    }
+
+    // Initialize I2C transfer
+    i2cTransfer.addr          = regAddress;
+    i2cTransfer.flags         = I2C_FLAG_WRITE;
+    i2cTransfer.buf[0].data   = txBuffer;
+    i2cTransfer.buf[0].len    = numBytes + 1;
+    i2cTransfer.buf[1].data   = NULL;
+    i2cTransfer.buf[1].len    = 0;
+
+    result = I2C_TransferInit(I2C0, &i2cTransfer);
+
+    // Send data
+    while (result == i2cTransferInProgress) {
+      result = I2C_Transfer(I2C0);
+    }
+}
+
+void i2c_read(uint16_t deviceAddress, uint8_t regAddress, uint8_t *rxData, uint8_t numBytes)
 {
     I2C_TransferSeq_TypeDef i2cTransfer;
     I2C_TransferReturn_TypeDef result;
@@ -85,7 +114,7 @@ void i2c_read(uint16_t deviceAddress, uint8_t regAddress, uint8_t *rxBuff, uint8
     i2cTransfer.flags         = I2C_FLAG_WRITE_READ; // must write target address before reading
     i2cTransfer.buf[0].data   = &regAddress;
     i2cTransfer.buf[0].len    = 1;
-    i2cTransfer.buf[1].data   = rxBuff;
+    i2cTransfer.buf[1].data   = rxData;
     i2cTransfer.buf[1].len    = numBytes;
 
     result = I2C_TransferInit(I2C_PERIPHERAL , &i2cTransfer);

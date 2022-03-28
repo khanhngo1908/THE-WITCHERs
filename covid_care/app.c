@@ -39,8 +39,6 @@
 #include "lm75.h"
 #include "max30102.h"
 #include "gpio_intr.h"
-#include "rtc.h"
-
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
@@ -62,9 +60,10 @@ SL_WEAK void app_init(void)
     sl_app_log("Initiation.... \n");
     CHIP_Init();
     i2c_init();
-//    MAX30102_init();
-    gpio_INTR_Init();
-//    led_buzzer_init();
+    MAX30102_init();
+//    gpio_INTR_Init();
+    led_buzzer_init();
+    set_LED('w');
     sl_app_log("Ok \n");
 }
 
@@ -178,18 +177,15 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
       app_assert_status(sc);
       break;
 
-    case sl_bt_evt_system_external_signal_id:
-//          dcmc_process_extsignals(evt->data.evt_system_external_signal.extsignals);
-//          test = 1;
-//          GPIO_PinOutToggle(LED_on_board_port, LED_on_board_pin);
-          get_rtc_value();
-          GPIO_PinOutToggle(LED_on_board_port, LED_on_board_pin);
-          break;
-
     ///////////////////////////////////////////////////////////////////////////
     // Add additional event handlers here as your application requires!      //
     ///////////////////////////////////////////////////////////////////////////
-
+    case sl_bt_evt_system_external_signal_id:
+    //          dcmc_process_extsignals(evt->data.evt_system_external_signal.extsignals);
+    //          test = 1;
+    //          GPIO_PinOutToggle(LED_on_board_port, LED_on_board_pin);
+              GPIO_PinOutToggle(LED_on_board_port, LED_on_board_pin);
+              break;
     // -------------------------------
     // Default event handler.
     default:
