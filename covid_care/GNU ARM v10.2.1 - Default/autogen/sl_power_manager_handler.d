@@ -59,25 +59,25 @@ autogen/sl_power_manager_handler.o: ../autogen/sl_power_manager_handler.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_power_manager_config.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_power_manager_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_sleeptimer_config.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_sleeptimer_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_enum.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
  ../autogen/sl_bluetooth.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_bluetooth_config.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_bluetooth_connection_config.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_bluetooth_advertiser_config.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_config.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_connection_config.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_advertiser_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_stack_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_ll_config.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_rail_util_pa_config.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_rail_util_pa_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_types.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_features.h \
@@ -150,25 +150,25 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm2
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_power_manager_config.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_power_manager_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_sleeptimer_config.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_sleeptimer_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_enum.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_emu.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
 ../autogen/sl_bluetooth.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_bluetooth_config.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_bluetooth_connection_config.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_bluetooth_advertiser_config.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_config.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_connection_config.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_bluetooth_advertiser_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_stack_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_ll_config.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_rail_util_pa_config.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_rail_util_pa_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_types.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_features.h:
