@@ -16,18 +16,11 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-		<buildCommand>
-			<name>org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder</name>
-			<triggers>full,incremental,</triggers>
-			<arguments>
-			</arguments>
-		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.cdt.core.cnature</nature>
 		<nature>com.silabs.ss.framework.ide.project.sls.core.SLSProjectNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
-		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
 	<linkedResources>
 		<link>
@@ -504,16 +497,6 @@
 			<name>gecko_sdk_4.0.1/platform/emdrv/nvm3/src/nvm3_lock.c</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/emdrv/nvm3/src/nvm3_lock.c</locationURI>
-		</link>
-		<link>
-			<name>gecko_sdk_4.0.1/platform/emdrv/ustimer/inc/ustimer.h</name>
-			<type>1</type>
-			<locationURI>STUDIO_SDK_LOC/platform/emdrv/ustimer/inc/ustimer.h</locationURI>
-		</link>
-		<link>
-			<name>gecko_sdk_4.0.1/platform/emdrv/ustimer/src/ustimer.c</name>
-			<type>1</type>
-			<locationURI>STUDIO_SDK_LOC/platform/emdrv/ustimer/src/ustimer.c</locationURI>
 		</link>
 		<link>
 			<name>gecko_sdk_4.0.1/platform/radio/rail_lib/common/rail.h</name>

@@ -5,8 +5,10 @@
  *      Author: Ngo Minh Khanh
  */
 
-#ifndef GPIO_INTR_H_
-#define GPIO_INTR_H_
+
+#ifndef USER_GPIO_INTR_H_
+#define USER_GPIO_INTR_H_
+
 
 #include "em_chip.h"
 #include "em_gpio.h"
@@ -25,4 +27,5 @@ void gpio_INTR_init (void);
 void IRQ_Handler (void);
 void ad5940_gpio_ext_handler (uint32_t int_num);
 
-#endif /* GPIO_INTR_H_ */
+
+#endif /* USER_GPIO_INTR_H_ */

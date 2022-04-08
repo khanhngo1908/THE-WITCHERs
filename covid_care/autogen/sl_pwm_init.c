@@ -43,5 +43,5 @@ void sl_pwm_init_instances(void)
   };
 
   sl_pwm_init(&sl_pwm_buzzer, &pwm_buzzer_config);
-  sl_pwm_set_duty_cycle(&sl_pwm_buzzer, 50);
+
 }

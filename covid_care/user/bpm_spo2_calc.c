@@ -1,11 +1,11 @@
 /*
- * hr_spo2_calc.c
+ * bpm_spo2_calc.c
  *
  *  Created on: 6 thg 3, 2022
  *      Author: Pham Minh Hanh
  */
 
-#include <bpm_spo2_calc.h>
+#include "bpm_spo2_calc.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>

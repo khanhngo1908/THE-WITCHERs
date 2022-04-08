@@ -5,8 +5,10 @@
  *      Author: Ngo Minh Khanh
  */
 
-#include <i2c_lib.h>
+#include "i2c_lib.h"
 #include "stddef.h"
+#include "em_i2c.h"
+#include "em_cmu.h"
 //#include "em_i2c.h"
 
 void i2c_init (void)
@@ -75,6 +77,36 @@ void i2c_writeByte (uint16_t deviceAddress, uint8_t regAddress, uint8_t txBuff)
 	}
 }
 
+void i2c_write_nBytes (uint16_t deviceAddress, uint8_t regAddress,
+					   uint8_t *txData, uint8_t numBytes)
+{
+	I2C_TransferSeq_TypeDef i2cTransfer;
+	I2C_TransferReturn_TypeDef result;
+	uint8_t txBuffer[numBytes + 1];
+
+	txBuffer[0] = regAddress;
+	for (int i = 0; i < numBytes; i++)
+	{
+		txBuffer[i + 1] = txData[i];
+	}
+
+	// Initialize I2C transfer
+	i2cTransfer.addr = deviceAddress << 1;
+	i2cTransfer.flags = I2C_FLAG_WRITE;
+	i2cTransfer.buf[0].data = txBuffer;
+	i2cTransfer.buf[0].len = numBytes + 1;
+	i2cTransfer.buf[1].data = NULL;
+	i2cTransfer.buf[1].len = 0;
+
+	result = I2C_TransferInit (I2C0, &i2cTransfer);
+
+	// Send data
+	while (result == i2cTransferInProgress)
+	{
+		result = I2C_Transfer (I2C0);
+	}
+}
+
 void i2c_read (uint16_t deviceAddress, uint8_t regAddress, uint8_t *rxBuff,
 			   uint8_t numBytes)
 {
@@ -105,9 +137,8 @@ void i2c_writeBit (uint8_t deviceAddress, uint8_t regAddress, uint8_t bit_n,
 	uint8_t b;
 	i2c_read (deviceAddress, regAddress, &b, 1);
 	b = (data != 0) ? (b | (1 << bit_n)) : (b &= ~(1 << bit_n));
-	i2c_write (deviceAddress, regAddress, b);
+	i2c_writeByte(deviceAddress, regAddress, b);
 }
-
 void i2c_writeBits (uint8_t deviceAddress, uint8_t regAddress,
 					uint8_t start_bit, uint8_t len, uint8_t data)
 {
@@ -118,37 +149,7 @@ void i2c_writeBits (uint8_t deviceAddress, uint8_t regAddress,
 	data &= mask; // zero all non-important bits in data
 	b &= ~(mask); // zero all important bits in existing byte
 	b |= data; // combine data with existing byte
-	i2c_write (deviceAddress, regAddress, b);
-}
-
-void i2c_write_nBytes (uint16_t deviceAddress, uint8_t regAddress,
-					   uint8_t *txData, uint8_t numBytes)
-{
-	I2C_TransferSeq_TypeDef i2cTransfer;
-	I2C_TransferReturn_TypeDef result;
-	uint8_t txBuffer[numBytes + 1];
-
-	txBuffer[0] = regAddress;
-	for (int i = 0; i < numBytes; i++)
-	{
-		txBuffer[i + 1] = txData[i];
-	}
-
-	// Initialize I2C transfer
-	i2cTransfer.addr = deviceAddress << 1;
-	i2cTransfer.flags = I2C_FLAG_WRITE;
-	i2cTransfer.buf[0].data = txBuffer;
-	i2cTransfer.buf[0].len = numBytes + 1;
-	i2cTransfer.buf[1].data = NULL;
-	i2cTransfer.buf[1].len = 0;
-
-	result = I2C_TransferInit (I2C0, &i2cTransfer);
-
-	// Send data
-	while (result == i2cTransferInProgress)
-	{
-		result = I2C_Transfer (I2C0);
-	}
+	i2c_writeByte (deviceAddress, regAddress, b);
 }
 
 void i2c_readBits (uint8_t slave_address, uint8_t regAddr, uint8_t bitStart,

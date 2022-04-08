@@ -5,8 +5,8 @@
  *      Author: Ngo Minh Khanh
  */
 
-#include <i2c_lib.h>
-#include <max30102.h>
+#include "i2c_lib.h"
+#include "max30102.h"
 #include "sl_app_log.h"
 
 uint32_t raw_IR = 0;
@@ -87,8 +87,8 @@ void MAX30102_ReadFIFO (fifo_t *result)
 					result->cnt += 1;
 				}
 
-				sl_app_log("%d %d \n", raw_IR, raw_RED);
-//				sl_app_log("%d \n", raw_IR);
+//				sl_app_log("%d %d \n", raw_IR, raw_RED);
+				sl_app_log("%d \n", raw_IR);
 
 				toGet -= 2 * 3;
 			}
@@ -97,21 +97,21 @@ void MAX30102_ReadFIFO (fifo_t *result)
 
 }
 
-void MAX30102_Shutdown (bool mode)
+void MAX30102_Shutdown ()
 {
 	uint8_t config;
 	i2c_read (MAX30102_ADDRESS, REG_MODE_CONFIG, &config, 1);
-	if (mode)
-	{
-		config = config | 0x80;
-	}
-	else
-	{
-		config = config | 0x7F;
-	}
+	config = config | 0x80;
 	i2c_writeByte (MAX30102_ADDRESS, REG_MODE_CONFIG, config);
 }
 
+void MAX30102_Continue ()
+{
+	uint8_t config;
+	i2c_read (MAX30102_ADDRESS, REG_MODE_CONFIG, &config, 1);
+	config = config | 0x7F;
+	i2c_writeByte (MAX30102_ADDRESS, REG_MODE_CONFIG, config);
+}
 //void MAX30102_CheckReg (void)
 //{
 ////    i2c_read(MAX30102_ADDRESS, REG_MODE_CONFIG, &data, 1);

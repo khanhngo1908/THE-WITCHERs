@@ -238,14 +238,6 @@
             <file name="libnvm3_CM33_gcc.a" uri="studio:/sdk/platform/emdrv/nvm3/lib/libnvm3_CM33_gcc.a"/>
           </folder>
         </folder>
-        <folder name="ustimer">
-          <folder name="src">
-            <file name="ustimer.c" uri="studio:/sdk/platform/emdrv/ustimer/src/ustimer.c"/>
-          </folder>
-          <folder name="inc">
-            <file name="ustimer.h" uri="studio:/sdk/platform/emdrv/ustimer/inc/ustimer.h"/>
-          </folder>
-        </folder>
       </folder>
       <folder name="emlib">
         <folder name="src">
@@ -709,7 +701,7 @@
   <file name="readme_img2.png" linked="false" uri="studio:/project/readme_img2.png"/>
   <file name="readme_img3.png" linked="false" uri="studio:/project/readme_img3.png"/>
   <file name="readme_img4.png" linked="false" uri="studio:/project/readme_img4.png"/>
-  <file name="readme.md" linked="false" uri="studio:/sdk/app/bluetooth/documentation/example/soc_empty/readme.md"/>
+  <file name="readme.md" linked="false" uri="studio:/project/readme.md"/>
   <includePath uri="studio:/project/"/>
   <includePath uri="studio:/sdk/platform/Device/SiliconLabs/BGM22/Include"/>
   <includePath uri="studio:/sdk/app/common/util/app_assert"/>
@@ -753,7 +745,6 @@
   <includePath uri="studio:/sdk/platform/service/system/inc"/>
   <includePath uri="studio:/sdk/platform/service/sleeptimer/inc"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src"/>
-  <includePath uri="studio:/sdk/platform/emdrv/ustimer/inc"/>
   <macroDefinition name="BGM220PC22HNA"/>
   <macroDefinition name="SL_BOARD_NAME" value="&quot;BRD4314A&quot;"/>
   <macroDefinition name="SL_BOARD_REV" value="&quot;A02&quot;"/>

@@ -1,6 +1,6 @@
 user/led_buzzer.o: ../user/led_buzzer.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/led_buzzer.h \
+ ../user/led_buzzer.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
@@ -89,7 +89,7 @@ user/led_buzzer.o: ../user/led_buzzer.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_timer.h \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_pwm_instances.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/led_buzzer.h:
+../user/led_buzzer.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h:

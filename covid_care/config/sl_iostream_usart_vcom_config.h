@@ -61,7 +61,7 @@
 // <usartHwFlowControlCtsAndRts=> CTS/RTS
 // <uartFlowControlSoftware=> Software Flow control (XON/XOFF)
 // <i> Default: usartHwFlowControlNone
-#define SL_IOSTREAM_USART_VCOM_FLOW_CONTROL_TYPE     usartHwFlowControlNone
+#define SL_IOSTREAM_USART_VCOM_FLOW_CONTROL_TYPE     usartHwFlowControlCtsAndRts
 
 // <o SL_IOSTREAM_USART_VCOM_RX_BUFFER_SIZE> Receive buffer size
 // <i> Default: 32
@@ -95,6 +95,13 @@
 #define SL_IOSTREAM_USART_VCOM_RX_PORT           gpioPortA
 #define SL_IOSTREAM_USART_VCOM_RX_PIN            6
 
+// USART1 CTS on PA08
+#define SL_IOSTREAM_USART_VCOM_CTS_PORT          gpioPortA
+#define SL_IOSTREAM_USART_VCOM_CTS_PIN           8
+
+// USART1 RTS on PA07
+#define SL_IOSTREAM_USART_VCOM_RTS_PORT          gpioPortA
+#define SL_IOSTREAM_USART_VCOM_RTS_PIN           7
 // [USART_SL_IOSTREAM_USART_VCOM]$
 // <<< sl:end pin_tool >>>
 

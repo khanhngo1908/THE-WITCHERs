@@ -5,6 +5,9 @@
  *      Author: Ngo Minh Khanh
  */
 
+#ifndef USER_MAX30102_H_
+#define USER_MAX30102_H_
+
 #include "stdint.h"
 
 #define  MAX30102_INTR_PORT    gpioPortB
@@ -96,7 +99,11 @@ typedef struct fifo_t
 void MAX30102_init ();
 void MAX30102_ReadFIFO (fifo_t *result);
 void MAX30102_Read ();
-void MAX30102_Shutdown (bool mode);
+void MAX30102_Shutdown ();
+void MAX30102_Continue ();
 void MAX30102_CheckReg (void);
 void MAX30102_ClearIntr (void);
 
+
+
+#endif /* USER_MAX30102_H_ */

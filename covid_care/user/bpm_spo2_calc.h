@@ -1,14 +1,13 @@
 /*
- * hr_spo2_calc.h
+ * BPM_spo2_calc.h
  *
  *  Created on: 6 thg 3, 2022
  *      Author: Pham Minh Hanh
  */
 #include "stdint.h"
 
-#ifndef USER_HR_SPO2_CALC_H_
-#define USER_HR_SPO2_CALC_H_
-
+#ifndef USER_BPM_SPO2_CALC_H_
+#define USER_BPM_SPO2_CALC_H_
 
 typedef struct PPG
 {
@@ -38,4 +37,4 @@ double SpO2_estimator(double R);
 void BPM_SpO2_estimator ();
 void PPG_update ();
 
-#endif /* USER_HR_SPO2_CALC_H_ */
+#endif /* USER_BPM_SPO2_CALC_H_ */

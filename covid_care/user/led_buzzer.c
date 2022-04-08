@@ -5,7 +5,7 @@
  *      Author: Ngo Minh Khanh
  */
 
-#include <led_buzzer.h>
+#include "led_buzzer.h"
 #include "em_gpio.h"
 #include "em_cmu.h"
 #include "sl_pwm.h"

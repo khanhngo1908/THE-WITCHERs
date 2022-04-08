@@ -5,6 +5,9 @@
  *      Author: Ngo Minh Khanh
  */
 
+#ifndef USER_LM75_H_
+#define USER_LM75_H_
+
 #include "stdint.h"
 
 #define LM75_11BIT
@@ -50,7 +53,9 @@ float LM75_ReadTemperature_11BitReg (void);
  * @param[in]  mode    - 0: normal (defaul); 1: shutdown
  * @return     none
  */
-void LM75_Shutdown (uint8_t mode);
+void LM75_Shutdown ();
+
+void LM75_Continue ();
 
 /**
  * @brief    Read temparature
@@ -59,3 +64,6 @@ void LM75_Shutdown (uint8_t mode);
  */
 float LM75_ReadTemperature (void);
 
+
+
+#endif /* USER_LM75_H_ */

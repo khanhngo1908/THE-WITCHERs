@@ -4,11 +4,12 @@
  *  Created on: 6 thg 4, 2022
  *      Author: Ngo Minh Khanh
  */
-#include "em_msc.h"
-#include <inttypes.h>
 
 #ifndef USER_MSC_H_
 #define USER_MSC_H_
+
+#include "em_msc.h"
+#include <inttypes.h>
 
 #define USERDATA ((uint32_t*)USERDATA_BASE)
 
