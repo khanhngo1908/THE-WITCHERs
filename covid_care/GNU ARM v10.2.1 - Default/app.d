@@ -104,6 +104,7 @@ app.o: ../app.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_chip.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_system.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\app\bluetooth\common\simple_timer\sl_simple_timer.h \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/i2c_lib.h \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/lm75.h \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/max30102.h \
@@ -222,6 +223,7 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\app\common\util\app_log\app_log.
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_chip.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_system.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk\app\bluetooth\common\simple_timer\sl_simple_timer.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/i2c_lib.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/lm75.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/max30102.h:

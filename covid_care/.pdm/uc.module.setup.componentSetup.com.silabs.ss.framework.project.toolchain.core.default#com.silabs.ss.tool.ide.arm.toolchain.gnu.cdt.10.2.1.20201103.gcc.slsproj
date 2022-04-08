@@ -361,6 +361,10 @@
             <file name="sl_ota_dfu.c" uri="studio:/sdk/app/bluetooth/common/ota_dfu/sl_ota_dfu.c"/>
             <file name="sl_ota_dfu.h" uri="studio:/sdk/app/bluetooth/common/ota_dfu/sl_ota_dfu.h"/>
           </folder>
+          <folder name="simple_timer">
+            <file name="sl_simple_timer.c" uri="studio:/sdk/app/bluetooth/common/simple_timer/sl_simple_timer.c"/>
+            <file name="sl_simple_timer.h" uri="studio:/sdk/app/bluetooth/common/simple_timer/sl_simple_timer.h"/>
+          </folder>
         </folder>
       </folder>
     </folder>
@@ -741,6 +745,7 @@
   <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/se_manager/inc"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/se_manager/src"/>
   <includePath uri="studio:/sdk/util/silicon_labs/silabs_core/memory_manager"/>
+  <includePath uri="studio:/sdk/app/bluetooth/common/simple_timer"/>
   <includePath uri="studio:/sdk/platform/common/toolchain/inc"/>
   <includePath uri="studio:/sdk/platform/service/system/inc"/>
   <includePath uri="studio:/sdk/platform/service/sleeptimer/inc"/>

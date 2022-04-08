@@ -21,6 +21,7 @@ toolchain_settings: []
 component:
 - {id: bluetooth_feature_gatt_server}
 - {id: bluetooth_feature_sm}
+- {id: simple_timer}
 - {id: mpu}
 - {id: gatt_configuration}
 - instance: [buzzer]

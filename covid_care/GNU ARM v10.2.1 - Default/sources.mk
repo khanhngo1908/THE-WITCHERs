@@ -19,6 +19,7 @@ SUBDIRS := \
 . \
 autogen \
 gecko_sdk_4.0.1/app/bluetooth/common/ota_dfu \
+gecko_sdk_4.0.1/app/bluetooth/common/simple_timer \
 gecko_sdk_4.0.1/app/common/util/app_log \
 gecko_sdk_4.0.1/hardware/board/src \
 gecko_sdk_4.0.1/platform/Device/SiliconLabs/BGM22/Source/GCC \
