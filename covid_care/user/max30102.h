@@ -88,14 +88,14 @@
 
 typedef struct fifo_t
 {
-    uint32_t raw_IR[STORAGE_SIZE];
-    uint32_t raw_RED[STORAGE_SIZE];
+	uint32_t raw_IR[STORAGE_SIZE];
+	uint32_t raw_RED[STORAGE_SIZE];
 } fifo_t;
 
-void MAX30102_init();
-fifo_t MAX30102_ReadFIFO();
-void MAX30102_Read();
-void MAX30102_Shutdown(bool mode);
-void MAX30102_CheckReg(void);
-void MAX30102_ClearIntr(void);
+void MAX30102_init ();
+fifo_t MAX30102_ReadFIFO ();
+void MAX30102_Read ();
+void MAX30102_Shutdown (bool mode);
+void MAX30102_CheckReg (void);
+void MAX30102_ClearIntr (void);
 
