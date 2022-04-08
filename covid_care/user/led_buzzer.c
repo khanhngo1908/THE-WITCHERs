@@ -21,8 +21,9 @@ void led_buzzer_init(void)
     GPIO_PinModeSet(green_LED_port, green_LED_pin, gpioModePushPull, 0);  // green
     GPIO_PinModeSet(blue_LED_port, blue_LED_pin, gpioModePushPull, 0);    // blue
     GPIO_PinModeSet(buzzer_port, buzzer_pin, gpioModePushPull, 1);        // buzzer
-    GPIO_PinModeSet(button_port, button_pin, gpioModeInput, 0);           // button
-    GPIO_PinModeSet(gpioPortA, 4, gpioModePushPull, 0);
+    GPIO_PinModeSet(button_port, button_pin, gpioModeInput, 1);           // button
+    GPIO_PinModeSet(LED_on_board_port, LED_on_board_pin, gpioModePushPull, 1);
+    GPIO_PinOutSet(LED_on_board_port, LED_on_board_pin);
 }
 
 /**

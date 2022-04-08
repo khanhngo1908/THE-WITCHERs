@@ -39,14 +39,15 @@
 #include "lm75.h"
 #include "max30102.h"
 #include "gpio_intr.h"
+#include "msc.h"
+#include "bpm_spo2_calc.h"
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
 float T;
 uint8_t test = 0;
-max30102_t max30102;
 uint8_t status;
-uint32_t s = 0;
+uint8_t s = 1;
 
 /**************************************************************************//**
  * Application Init.
@@ -58,12 +59,14 @@ SL_WEAK void app_init(void)
   // This is called once during start-up.                                    //
   /////////////////////////////////////////////////////////////////////////////
     sl_app_log("Initiation.... \n");
+
     CHIP_Init();
     i2c_init();
-    MAX30102_init();
-//    gpio_INTR_Init();
+//    MAX30102_init();
     led_buzzer_init();
-    set_LED('w');
+    msc_init();
+    //    gpio_INTR_init();
+
     sl_app_log("Ok \n");
 }
 
@@ -78,28 +81,6 @@ SL_WEAK void app_process_action(void)
   // Do not call blocking functions from here!                               //
   /////////////////////////////////////////////////////////////////////////////
 
-//   T = LM75_ReadTemperature();
-//   sl_app_log("Nhiet do: %d \n", (uint16_t) (1000*T) );
-//    MAX30102_ReadFIFO();
-//     uint8_t data = 0;
-//     i2c_read(MAX30102_ADDRESS, REG_INTR_ENABLE_1, &data, 1);
-//  if (!GPIO_PinInGet(button_port, button_pin))
-//  {
-//     i2c_read(MAX30102_ADDRESS, REG_INTR_STATUS_1, &test, 1);
-//  }
-//     i2c_read(MAX30102_ADDRESS, REG_INTR_STATUS_1, &status, 1);
-//     sl_app_log(" Status %x \n", status);
-//     if( (status && 0x80) == 1)
-//     {
-//         sl_app_log("read \n");
-//         MAX30102_ReadFIFO();
-//     }
-//    if(test == 1)
-//    {
-//
-//         MAX30102_ReadFIFO();
-//         test = 0;
-//    }
 }
 
 /**************************************************************************//**

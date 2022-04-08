@@ -50,15 +50,10 @@ void i2c_writeByte(uint16_t deviceAddress, uint8_t regAddress, uint8_t txData)
   // Transfer structure
    I2C_TransferSeq_TypeDef i2cTransfer;
    I2C_TransferReturn_TypeDef result;
-//   uint8_t txBuffer[numBytes + 1];
    uint8_t txBuffer[2];
 
    txBuffer[0] = regAddress;
    txBuffer[1] = txData;
-//   for(int i = 0; i < numBytes; i++)
-//   {
-//       txBuffer[i + 1] = txBuff[i];
-//   }
 
    // Initialize I2C transfer
    i2cTransfer.addr          = deviceAddress << 1;

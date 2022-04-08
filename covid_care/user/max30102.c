@@ -42,8 +42,10 @@ void MAX30102_init()
     sl_sleeptimer_delay_millisecond(500);
 }
 
-void MAX30102_ReadFIFO()
+fifo_t MAX30102_ReadFIFO()
 {
+    fifo_t result;
+
     uint8_t writePointer = 0, readPointer = 0;
     i2c_read(MAX30102_ADDRESS,REG_FIFO_WR_PTR, &writePointer, 1);
     i2c_read(MAX30102_ADDRESS,REG_FIFO_RD_PTR, &readPointer, 1);
@@ -52,6 +54,8 @@ void MAX30102_ReadFIFO()
     num_samples = (int16_t)writePointer - (int16_t)readPointer;
     if (num_samples < 0)
         num_samples += 32;
+
+    uint8_t i = 0;
 
     if(writePointer != readPointer)
     {
@@ -74,23 +78,17 @@ void MAX30102_ReadFIFO()
             {
                 uint8_t sample[6];
                 i2c_read(MAX30102_ADDRESS, REG_FIFO_DATA, sample, 6);
-                raw_RED = ((uint32_t)(sample[0] << 16) | (uint32_t)(sample[1] << 8) | (uint32_t)(sample[2])) & 0x3ffff;
-                raw_IR = ((uint32_t)(sample[3] << 16) | (uint32_t)(sample[4] << 8) | (uint32_t)(sample[5])) & 0x3ffff;
-//                sl_app_log("%d, %d \n", raw_IR, raw_RED);
-                sl_app_log("%d\n", raw_IR);
+                result.raw_RED[i] = ((uint32_t)(sample[0] << 16) | (uint32_t)(sample[1] << 8) | (uint32_t)(sample[2])) & 0x3ffff;
+                result.raw_IR[i] = ((uint32_t)(sample[3] << 16) | (uint32_t)(sample[4] << 8) | (uint32_t)(sample[5])) & 0x3ffff;
+                i += 1;
+                if(i > STORAGE_SIZE) i = 0;
+                sl_app_log("%d, %d \n", result.raw_IR, result.raw_RED);
                 toGet -= 2 * 3;
              }
         }  //End while (bytesLeftToRead > 0)
     } //End readPtr != writePtr
 
-//    for (int8_t i = 0; i < num_samples; i++)
-//    {
-//        uint8_t sample[6];
-//        i2c_read(MAX30102_ADDRESS, REG_FIFO_DATA, sample, 6);
-//        raw_RED = ((uint32_t)(sample[0] << 16) | (uint32_t)(sample[1] << 8) | (uint32_t)(sample[2])) & 0x3ffff;
-//        raw_IR = ((uint32_t)(sample[3] << 16) | (uint32_t)(sample[4] << 8) | (uint32_t)(sample[5])) & 0x3ffff;
-//        sl_app_log("%d\n", raw_IR);
-//    }
+    return result;
 }
 
 void MAX30102_Shutdown(bool mode)

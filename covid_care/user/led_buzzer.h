@@ -23,7 +23,7 @@
 #define  button_port      gpioPortC
 #define  button_pin       7
 
-#define  LED_on_board_port     gpioPortA
+#define  LED_on_board_port    gpioPortA
 #define  LED_on_board_pin     4
 
 #define buzzerOff_timer 0

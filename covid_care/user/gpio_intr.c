@@ -10,7 +10,7 @@
 #include "max30102.h"
 #include "gpiointerrupt.h"
 
- void gpio_INTR_Init(void)
+ void gpio_INTR_init(void)
 {
    CMU_ClockEnable(cmuClock_GPIO, true);
    GPIOINT_Init();
@@ -34,10 +34,6 @@
 //  NVIC_ClearPendingIRQ(GPIO_ODD_IRQn);
 //  NVIC_EnableIRQ(GPIO_ODD_IRQn);
 
-  // Configure led as a push pull output for LED drive
-  GPIO_PinModeSet(LED_on_board_port, LED_on_board_pin, gpioModePushPull, 1);
-//  GPIO_IntGetEnabled();
-  GPIO_PinOutSet(LED_on_board_port, LED_on_board_pin);
 }
 
  void IRQ_Handler(void)

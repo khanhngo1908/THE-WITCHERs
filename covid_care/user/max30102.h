@@ -84,17 +84,16 @@
 
 #define I2C_BUFFER_LENGTH 32
 
-typedef struct max30102_t
-{
-    uint8_t BPM;
-    uint8_t SpO2;
-} max30102_t;
+#define STORAGE_SIZE 1500
 
-extern uint32_t raw_IR;
-extern uint32_t raw_RED;
+typedef struct fifo_t
+{
+    uint32_t raw_IR[STORAGE_SIZE];
+    uint32_t raw_RED[STORAGE_SIZE];
+} fifo_t;
 
 void MAX30102_init();
-void MAX30102_ReadFIFO();
+fifo_t MAX30102_ReadFIFO();
 void MAX30102_Read();
 void MAX30102_Shutdown(bool mode);
 void MAX30102_CheckReg(void);
