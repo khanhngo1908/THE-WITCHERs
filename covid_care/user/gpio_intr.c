@@ -72,6 +72,6 @@ void ad5940_gpio_ext_handler (uint32_t int_num)
 {
 	if (int_num == intr_pin)
 	{
-		sl_bt_external_signal (intr_pin);
+//		sl_bt_external_signal (intr_pin);
 	}
 }

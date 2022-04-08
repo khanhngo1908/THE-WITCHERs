@@ -36,7 +36,7 @@
 
 // 0x00~0xFF = 0mA~51mA
 #define MAX_CURRENT  0xFF
-#define FIX_CURRENT  0x7D  // ~25mA for LED1 & LED2
+#define FIX_CURRENT  0x64  // ~20mA for LED1 & LED2
 
 #define  MAX30102_RESET           0x40
 #define  MAX30102_MODE_HR_ONLY    0b02
@@ -84,16 +84,17 @@
 
 #define I2C_BUFFER_LENGTH 32
 
-#define STORAGE_SIZE 1500
+#define STORAGE_SIZE 1200
 
 typedef struct fifo_t
 {
 	uint32_t raw_IR[STORAGE_SIZE];
 	uint32_t raw_RED[STORAGE_SIZE];
+	uint16_t cnt;
 } fifo_t;
 
 void MAX30102_init ();
-fifo_t MAX30102_ReadFIFO ();
+void MAX30102_ReadFIFO (fifo_t *result);
 void MAX30102_Read ();
 void MAX30102_Shutdown (bool mode);
 void MAX30102_CheckReg (void);

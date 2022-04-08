@@ -9,7 +9,6 @@
 #include <max30102.h>
 #include "sl_app_log.h"
 
-uint8_t data = 0;
 uint32_t raw_IR = 0;
 uint32_t raw_RED = 0;
 
@@ -42,10 +41,8 @@ void MAX30102_init ()
 	sl_sleeptimer_delay_millisecond (500);
 }
 
-fifo_t MAX30102_ReadFIFO ()
+void MAX30102_ReadFIFO (fifo_t *result)
 {
-	fifo_t result;
-
 	uint8_t writePointer = 0, readPointer = 0;
 	i2c_read (MAX30102_ADDRESS, REG_FIFO_WR_PTR, &writePointer, 1);
 	i2c_read (MAX30102_ADDRESS, REG_FIFO_RD_PTR, &readPointer, 1);
@@ -54,8 +51,6 @@ fifo_t MAX30102_ReadFIFO ()
 	num_samples = (int16_t) writePointer - (int16_t) readPointer;
 	if (num_samples < 0)
 		num_samples += 32;
-
-	uint16_t i = 0;
 
 	if (writePointer != readPointer)
 	{
@@ -78,22 +73,28 @@ fifo_t MAX30102_ReadFIFO ()
 			{
 				uint8_t sample[6];
 				i2c_read (MAX30102_ADDRESS, REG_FIFO_DATA, sample, 6);
-				result.raw_RED[i] = ((uint32_t) (sample[0] << 16)
-						| (uint32_t) (sample[1] << 8) | (uint32_t) (sample[2]))
-						& 0x3ffff;
-				result.raw_IR[i] = ((uint32_t) (sample[3] << 16)
-						| (uint32_t) (sample[4] << 8) | (uint32_t) (sample[5]))
-						& 0x3ffff;
-				i += 1;
-				if (i > (STORAGE_SIZE-1))
-					i = 0;
-				sl_app_log("%d, %d \n", result.raw_IR, result.raw_RED);
+				raw_RED = ((uint32_t) (sample[0] << 16) | (uint32_t) (sample[1] << 8) | (uint32_t) (sample[2])) & 0x3ffff;
+				raw_IR = ((uint32_t) (sample[3] << 16) | (uint32_t) (sample[4] << 8) | (uint32_t) (sample[5])) & 0x3ffff;
+
+				if (result->cnt > (STORAGE_SIZE - 1))
+				{
+					result->cnt = STORAGE_SIZE;
+				}
+				else
+				{
+					result->raw_IR[result->cnt] = raw_IR;
+					result->raw_RED[result->cnt] = raw_RED;
+					result->cnt += 1;
+				}
+
+				sl_app_log("%d %d \n", raw_IR, raw_RED);
+//				sl_app_log("%d \n", raw_IR);
+
 				toGet -= 2 * 3;
 			}
 		}  //End while (bytesLeftToRead > 0)
 	} //End readPtr != writePtr
 
-	return result;
 }
 
 void MAX30102_Shutdown (bool mode)
@@ -111,25 +112,25 @@ void MAX30102_Shutdown (bool mode)
 	i2c_writeByte (MAX30102_ADDRESS, REG_MODE_CONFIG, config);
 }
 
-void MAX30102_CheckReg (void)
-{
-//    i2c_read(MAX30102_ADDRESS, REG_MODE_CONFIG, &data, 1);
-//    sl_app_log(" Mode Config Reg: %x\n", data);
-//    i2c_read(MAX30102_ADDRESS, REG_FIFO_CONFIG, &data, 1);
-//    sl_app_log(" FIFO Config Reg: %x\n", data);
-//    i2c_read(MAX30102_ADDRESS, REG_SPO2_CONFIG, &data, 1);
-//    sl_app_log(" SpO2 Config Reg: %x\n", data);
-//    i2c_read(MAX30102_ADDRESS, REG_INTR_ENABLE_1, &data, 1);
-//    sl_app_log(" Int Enable1 Reg: %x\n", data);
-	i2c_read (MAX30102_ADDRESS, REG_INTR_STATUS_1, &data, 1);
-	sl_app_log(" Int Status1 Reg: %x\n", data);
-	i2c_read (MAX30102_ADDRESS, REG_INTR_STATUS_2, &data, 1);
-	sl_app_log(" Int Status2 Reg: %x\n", data);
-	sl_app_log(" ---------------------------------\n");
-}
-
-void MAX30102_ClearIntr (void)
-{
-	i2c_read (MAX30102_ADDRESS, REG_INTR_STATUS_1, &data, 1);
-	i2c_read (MAX30102_ADDRESS, REG_INTR_STATUS_2, &data, 1);
-}
+//void MAX30102_CheckReg (void)
+//{
+////    i2c_read(MAX30102_ADDRESS, REG_MODE_CONFIG, &data, 1);
+////    sl_app_log(" Mode Config Reg: %x\n", data);
+////    i2c_read(MAX30102_ADDRESS, REG_FIFO_CONFIG, &data, 1);
+////    sl_app_log(" FIFO Config Reg: %x\n", data);
+////    i2c_read(MAX30102_ADDRESS, REG_SPO2_CONFIG, &data, 1);
+////    sl_app_log(" SpO2 Config Reg: %x\n", data);
+////    i2c_read(MAX30102_ADDRESS, REG_INTR_ENABLE_1, &data, 1);
+////    sl_app_log(" Int Enable1 Reg: %x\n", data);
+//	i2c_read (MAX30102_ADDRESS, REG_INTR_STATUS_1, &data, 1);
+//	sl_app_log(" Int Status1 Reg: %x\n", data);
+//	i2c_read (MAX30102_ADDRESS, REG_INTR_STATUS_2, &data, 1);
+//	sl_app_log(" Int Status2 Reg: %x\n", data);
+//	sl_app_log(" ---------------------------------\n");
+//}
+//
+//void MAX30102_ClearIntr (void)
+//{
+//	i2c_read (MAX30102_ADDRESS, REG_INTR_STATUS_1, &data, 1);
+//	i2c_read (MAX30102_ADDRESS, REG_INTR_STATUS_2, &data, 1);
+//}

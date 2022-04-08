@@ -44,10 +44,7 @@
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
-float T;
-uint8_t test = 0;
-uint8_t status;
-uint8_t s = 1;
+fifo_t fifo;
 
 /**************************************************************************//**
  * Application Init.
@@ -61,13 +58,25 @@ SL_WEAK void app_init (void)
 	sl_app_log("Initiation.... \n");
 
 	CHIP_Init ();
+	sl_app_log(" Chip init Ok \n");
+
 	i2c_init ();
-//    MAX30102_init();
+	sl_app_log(" I2C init Ok \n");
+
+    MAX30102_init();
+    sl_app_log(" MAX30102 init Ok \n");
+
+    PPG_init();
+    sl_app_log(" PPG init Ok \n");
+
 	led_buzzer_init ();
+	sl_app_log(" LED & buzzer init Ok \n");
+
 	msc_init ();
+	sl_app_log(" MSC init Ok \n");
 	//    gpio_INTR_init();
 
-	sl_app_log("Ok \n");
+	sl_app_log("Ok....... \n");
 }
 
 /**************************************************************************//**
@@ -81,6 +90,7 @@ SL_WEAK void app_process_action (void)
 	// Do not call blocking functions from here!                               //
 	/////////////////////////////////////////////////////////////////////////////
 	PPG_update ();
+//	MAX30102_ReadFIFO(&fifo);
 }
 
 /**************************************************************************//**
@@ -159,12 +169,6 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 			///////////////////////////////////////////////////////////////////////////
 			// Add additional event handlers here as your application requires!      //
 			///////////////////////////////////////////////////////////////////////////
-		case sl_bt_evt_system_external_signal_id:
-			//          dcmc_process_extsignals(evt->data.evt_system_external_signal.extsignals);
-			//          test = 1;
-			//          GPIO_PinOutToggle(LED_on_board_port, LED_on_board_pin);
-			GPIO_PinOutToggle (LED_on_board_port, LED_on_board_pin);
-			break;
 			// -------------------------------
 			// Default event handler.
 		default:

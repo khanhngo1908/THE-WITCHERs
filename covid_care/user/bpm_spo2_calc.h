@@ -9,6 +9,7 @@
 #ifndef USER_HR_SPO2_CALC_H_
 #define USER_HR_SPO2_CALC_H_
 
+
 typedef struct PPG
 {
 	uint32_t BPM;
@@ -16,19 +17,24 @@ typedef struct PPG
 	uint32_t DC;
 } PPG;
 
+typedef struct data_t
+{
+	double ir[1500];
+	double red[1500];
+} data_t;
+
 extern PPG ppg_ir;
 extern PPG ppg_red;
 
-uint32_t max (uint32_t *array, uint32_t array_size);
-uint32_t sum (uint32_t *array, uint32_t array_size);
-void swap (uint32_t *x, uint32_t *y);
-void sort (uint32_t *array, uint32_t array_size);
-void trim (uint32_t *array, uint32_t *array_size, uint32_t offset);
-void DC_removal (int32_t *signal, uint16_t n_sample, float alpha);
-void median_filter (uint32_t *signal, uint32_t n_sample, uint32_t filter_size);
-void BPM_estimator (uint32_t *signal, PPG *ppg, uint32_t n_sample,
-					uint32_t thresh, float sample_rate);
-uint32_t SpO2_estimator (uint32_t R);
+void PPG_init();
+void swap(double* x, double* y);
+double max(double *array, int array_size);
+double sum(double *array, int array_size);
+void sort(double* array, int array_size);
+void DC_removal (uint32_t *raw_data, double *data, int n_sample, float alpha);
+void median_filter(double* signal, int n_sample, int filter_size);
+void BPM_estimator(double* signal, PPG* ppg, int n_sample, double thresh, float sample_rate);
+double SpO2_estimator(double R);
 void BPM_SpO2_estimator ();
 void PPG_update ();
 
