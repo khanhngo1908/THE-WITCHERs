@@ -22,40 +22,41 @@
 //----------------------------------------------------------------------------//
 
 /**
- * @brief      Read config register of LM75
- *
- * @return     Value of LM75 config register
- */
-uint8_t LM75_ReadConfig (void);
+* @brief      Read config register of LM75
+*
+* @return     Value of LM75 config register
+*/
+uint8_t LM75_ReadConfig(void);
 
 /**
- * @brief      Read 9-bit format temperature from register
- *
- * @param[in]  reg   -   address of temperature register
- * @return     Value of temperature
- */
-float LM75_ReadTemperature_9BitReg (void);
+* @brief      Read 9-bit format temperature from register
+*
+* @param[in]  reg   -   address of temperature register
+* @return     Value of temperature
+*/
+float LM75_ReadTemperature_9BitReg(void);
 
 /**
- * @brief      Read 11-bit format temperature from register
- *
- * @param[in]  reg   -   address of temperature register
- * @return     Value of temperature
- */
-float LM75_ReadTemperature_11BitReg (void);
+* @brief      Read 11-bit format temperature from register
+*
+* @param[in]  reg   -   address of temperature register
+* @return     Value of temperature
+*/
+float LM75_ReadTemperature_11BitReg(void);
 
 /**
- * @brief      Config LM75 into sleep mode (shutdown)
- *
- * @param[in]  mode    - 0: normal (defaul); 1: shutdown
- * @return     none
- */
-void LM75_Shutdown (uint8_t mode);
+* @brief      Config LM75 into sleep mode (shutdown)
+*
+* @param[in]  mode    - 0: normal (defaul); 1: shutdown
+* @return     none
+*/
+void LM75_Shutdown(uint8_t mode);
 
 /**
- * @brief    Read temparature
- *
- * @return   value of temperature
- */
-float LM75_ReadTemperature (void);
+* @brief    Read temparature
+*
+* @return   value of temperature
+*/
+float LM75_ReadTemperature(void);
+
 

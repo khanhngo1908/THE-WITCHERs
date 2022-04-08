@@ -12,17 +12,17 @@
 #include "em_gpio.h"
 #include "em_emu.h"
 #include "em_cmu.h"
+#
 
-#define  intr_port      gpioPortC
-#define  intr_pin       7
+#define  intr_port      gpioPortB
+#define  intr_pin       1
 
 #define  LED_on_board_port     gpioPortA
 #define  LED_on_board_pin     4
 
-void gpio_INTR_init (void);
+void gpio_INTR_Init(void);
 //void GPIO_EVEN_IRQHandler(void);
 //void GPIO_ODD_IRQHandler(void);
-void IRQ_Handler (void);
-void ad5940_gpio_ext_handler (uint32_t int_num);
-
+void IRQ_Handler(void);
+void ad5940_gpio_ext_handler(uint32_t int_num);
 #endif /* GPIO_INTR_H_ */

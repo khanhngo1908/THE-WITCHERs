@@ -19,10 +19,11 @@ extern const sli_bt_gattdb_t gattdb;
 #define gattdb_system_id                      18
 #define gattdb_heart_rate                     19
 #define gattdb_heart_rate_measurement         21
-#define gattdb_health_thermometer             23
-#define gattdb_temperature_measurement        25
-#define gattdb_ota                            27
-#define gattdb_ota_control                    29
+#define gattdb_temp_ch                        25
+#define gattdb_spo2_ch                        28
+#define gattdb_bmp_ch                         31
+#define gattdb_ota                            33
+#define gattdb_ota_control                    35
 
 
 #endif // __GATT_DB_H

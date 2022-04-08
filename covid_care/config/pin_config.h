@@ -56,10 +56,6 @@
 // [GPIO]$
 
 // $[TIMER0]
-// TIMER0 CC0 on PC00
-#define TIMER0_CC0_PORT                          gpioPortC
-#define TIMER0_CC0_PIN                           0
-
 // [TIMER0]$
 
 // $[TIMER1]

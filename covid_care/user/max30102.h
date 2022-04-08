@@ -7,9 +7,6 @@
 
 #include "stdint.h"
 
-#define  MAX30102_INTR_PORT    gpioPortB
-#define  MAX30102_INTR_Pin     3
-
 #define MAX30102_ADDRESS    0x57
 
 #define REG_INTR_STATUS_1   0x00
@@ -36,9 +33,9 @@
 
 // 0x00~0xFF = 0mA~51mA
 #define MAX_CURRENT  0xFF
-#define FIX_CURRENT  0x7D  // ~25mA for LED1 & LED2
+#define FIX_CURRENT  0x82  // ~26mA for LED1 & LED2
 
-#define  MAX30102_RESET           0x40
+#define  MAX30102_RESET           0x04
 #define  MAX30102_MODE_HR_ONLY    0b02
 #define  MAX30102_MODE_SPO2_HR    0x03
 #define  MAX30102_MODE_MULTI_LED  0x07
@@ -50,14 +47,6 @@
 #define smp8   (0b011 << 5)
 #define smp16  (0b100 << 5)
 #define smp32  (0b101 << 5)
-
-#define FIFO_ROLLOVER_EN   (0b1 << 4)
-#define FIFO_ROLLOVER_DIS  (0b0 << 4)
-
-#define FIFO_A_FULL  0x00   // 22 (70%) FIFO data samples have unread data
-
-#define INT_A_FULL_EN   (0b1 << 7)
-#define INT_A_FILL_DIS  (0b0 << 7)
 
 // SpO2 ADC Range Control
 #define  adc2048   (0b00 << 5)
@@ -82,20 +71,22 @@
 #define  pw215  0b10    // 215us pulse
 #define  pw411  0b11  // 411us pulse
 
+#define FIFO_ROLLOVER_EN   (0b1 << 4)
+#define FIFO_ROLLOVER_DIS  (0b0 << 4)
+
 #define I2C_BUFFER_LENGTH 32
 
-#define STORAGE_SIZE 1500
-
-typedef struct fifo_t
+typedef struct max30102_t
 {
-	uint32_t raw_IR[STORAGE_SIZE];
-	uint32_t raw_RED[STORAGE_SIZE];
-} fifo_t;
+    uint8_t BPM;
+    uint8_t SpO2;
+} max30102_t;
 
-void MAX30102_init ();
-fifo_t MAX30102_ReadFIFO ();
-void MAX30102_Read ();
-void MAX30102_Shutdown (bool mode);
-void MAX30102_CheckReg (void);
-void MAX30102_ClearIntr (void);
+extern uint32_t raw_IR;
+extern uint32_t raw_RED;
+
+void MAX30102_init();
+void MAX30102_ReadFIFO();
+void MAX30102_Read();
+void MAX30102_Shutdown(bool mode);
 
