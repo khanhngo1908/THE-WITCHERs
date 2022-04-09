@@ -1,5 +1,5 @@
 gecko_sdk_4.0.1/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_protocol_crypto_radioaes.o: \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_protocol_crypto_radioaes.c \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_protocol_crypto_radioaes.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
@@ -57,14 +57,14 @@ gecko_sdk_4.0.1/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_prs_signals.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_dma_descriptor.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_radioaes_management.h \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_radioaes_management.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_protocol_crypto.h \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_protocol_crypto.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h:
@@ -122,11 +122,11 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm2
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_prs_signals.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_dma_descriptor.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h:
-C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_radioaes_management.h:
+C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_radioaes_management.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h:
-C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_protocol_crypto.h:
+C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_protocol_crypto.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:

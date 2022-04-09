@@ -88,11 +88,11 @@ SL_WEAK void app_init (void)
 	sl_app_log(" I2C init Ok \n");
 
 	// Max30102 init
-	//MAX30102_init ();
+	MAX30102_init ();
 	sl_app_log(" MAX30102 init Ok \n");
 
 	// PPG init
-	//PPG_init ();
+	PPG_init ();
 	sl_app_log(" PPG init Ok \n");
 
 	// LED & Buzzer init
@@ -109,9 +109,10 @@ SL_WEAK void app_init (void)
 
 	// MPU6050init
 	MPU6050_ConfigDMP(&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
+
 	//RTCC init
 
-	sl_bt_system_set_soft_timer (TIMER_MS(12000), 0, 0);
+//	sl_bt_system_set_soft_timer (TIMER_MS(12000), 0, 0);
 
 	sl_app_log("Ok....... \n");
 }
@@ -127,9 +128,10 @@ SL_WEAK void app_process_action (void)
 	// Do not call blocking functions from here!                               //
 	/////////////////////////////////////////////////////////////////////////////
 	/*********************** Khanh's Process **********************************/
-	//PPG_update ();
+	PPG_update ();
+//	set_Buzzer();
 	/*********************** Duong's Process **********************************/
-  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus);
+//  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus);
 }
 
 /**************************************************************************//**

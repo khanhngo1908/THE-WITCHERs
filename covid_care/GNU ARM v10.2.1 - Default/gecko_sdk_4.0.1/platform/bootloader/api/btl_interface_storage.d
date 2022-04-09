@@ -1,12 +1,12 @@
 gecko_sdk_4.0.1/platform/bootloader/api/btl_interface_storage.o: \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_storage.c \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_storage.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface.h \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_errorcode.h \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_reset_info.h \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/application_properties.h \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_parser.h \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_storage.h \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface.h \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_errorcode.h \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_reset_info.h \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/application_properties.h \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_parser.h \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_storage.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\cmsis\include\core_cm33.h \
@@ -64,12 +64,12 @@ gecko_sdk_4.0.1/platform/bootloader/api/btl_interface_storage.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_dma_descriptor.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
-C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface.h:
-C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_errorcode.h:
-C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_reset_info.h:
-C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/application_properties.h:
-C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_parser.h:
-C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_storage.h:
+C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface.h:
+C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_errorcode.h:
+C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_reset_info.h:
+C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/application_properties.h:
+C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_parser.h:
+C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_storage.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\cmsis\include\core_cm33.h:

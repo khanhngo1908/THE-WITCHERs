@@ -19,8 +19,8 @@ void gpio_INTR_init (void)
 	GPIO_ExtIntConfig (intr_port,
 	intr_pin,
 						intr_pin,
-						false,
 						true,
+						false,
 						true);
 
 //  GPIO_ExtIntConfig(intr_port,intr_pin, AD5940_INT_DATA_FIFO_FLAG, 0, 1, true);

@@ -1,5 +1,5 @@
 gecko_sdk_4.0.1/platform/service/hfxo_manager/src/sl_hfxo_manager.o: \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/service/hfxo_manager/src/sl_hfxo_manager.c \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/service/hfxo_manager/src/sl_hfxo_manager.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
@@ -60,9 +60,9 @@ gecko_sdk_4.0.1/platform/service/hfxo_manager/src/sl_hfxo_manager.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\hfxo_manager\inc\sl_hfxo_manager.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\hfxo_manager\inc\sli_hfxo_manager.h \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/service/hfxo_manager/src/sli_hfxo_manager_internal.h \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/service/hfxo_manager/src/sli_hfxo_manager_internal.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_sleeptimer_config.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_sleeptimer_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
@@ -124,7 +124,7 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm2
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\hfxo_manager\inc\sl_hfxo_manager.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\hfxo_manager\inc\sli_hfxo_manager.h:
-C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/service/hfxo_manager/src/sli_hfxo_manager_internal.h:
+C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/service/hfxo_manager/src/sli_hfxo_manager_internal.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_sleeptimer_config.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_sleeptimer_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h:

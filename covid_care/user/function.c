@@ -21,6 +21,7 @@
 #include "time.h"
 #include "test_variable.h"
 #include "math.h"
+
 void convert_data(uint8_t arr[],float *data)
 {
   int16_t n;
@@ -29,6 +30,7 @@ void convert_data(uint8_t arr[],float *data)
   arr[1] = (n-arr[0]*1000)/125;
 
 }
+
 void
 send_notify (uint8_t *notifyEnabled,uint8_t *app_connection)
 {

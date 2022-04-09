@@ -1,5 +1,5 @@
 gecko_sdk_4.0.1/util/third_party/crypto/sl_component/sl_cryptoacc_library/src/ba431_config.o: \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_cryptoacc_library/src/ba431_config.c \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_cryptoacc_library/src/ba431_config.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\ba431_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\cryptolib_def.h \

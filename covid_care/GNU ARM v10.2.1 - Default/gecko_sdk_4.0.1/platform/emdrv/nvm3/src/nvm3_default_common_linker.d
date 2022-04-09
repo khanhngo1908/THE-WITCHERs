@@ -1,5 +1,5 @@
 gecko_sdk_4.0.1/platform/emdrv/nvm3/src/nvm3_default_common_linker.o: \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/emdrv/nvm3/src/nvm3_default_common_linker.c \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/emdrv/nvm3/src/nvm3_default_common_linker.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3_hal.h \
@@ -66,7 +66,7 @@ gecko_sdk_4.0.1/platform/emdrv/nvm3/src/nvm3_default_common_linker.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3_default.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3_hal_flash.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/nvm3_default_config.h
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/nvm3_default_config.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3_hal.h:
@@ -133,4 +133,4 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3_default.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3_hal_flash.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/nvm3_default_config.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/nvm3_default_config.h:

@@ -1,5 +1,5 @@
 gecko_sdk_4.0.1/util/third_party/crypto/sl_component/sl_cryptoacc_library/src/sx_primitives.o: \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_cryptoacc_library/src/sx_primitives.c \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/sl_component/sl_cryptoacc_library/src/sx_primitives.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\sx_primitives.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_cryptoacc_library\include\compiler_extentions.h \

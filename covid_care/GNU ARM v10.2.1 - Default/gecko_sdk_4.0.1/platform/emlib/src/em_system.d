@@ -1,5 +1,5 @@
 gecko_sdk_4.0.1/platform/emlib/src/em_system.o: \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/emlib/src/em_system.c \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/emlib/src/em_system.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_system.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \

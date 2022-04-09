@@ -1,5 +1,5 @@
 gecko_sdk_4.0.1/platform/Device/SiliconLabs/BGM22/Source/system_bgm22.o: \
- C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/Device/SiliconLabs/BGM22/Source/system_bgm22.c \
+ C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/Device/SiliconLabs/BGM22/Source/system_bgm22.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \

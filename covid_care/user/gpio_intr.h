@@ -15,8 +15,8 @@
 #include "em_emu.h"
 #include "em_cmu.h"
 
-#define  intr_port      gpioPortC
-#define  intr_pin       7
+#define  intr_port      gpioPortB
+#define  intr_pin       1
 
 #define  LED_on_board_port     gpioPortA
 #define  LED_on_board_pin     4
