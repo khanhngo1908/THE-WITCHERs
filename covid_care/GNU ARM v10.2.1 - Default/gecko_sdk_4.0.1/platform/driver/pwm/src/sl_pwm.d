@@ -1,5 +1,5 @@
 gecko_sdk_4.0.1/platform/driver/pwm/src/sl_pwm.o: \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/driver/pwm/src/sl_pwm.c \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/driver/pwm/src/sl_pwm.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\driver\pwm\inc\sl_pwm.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h \
@@ -66,8 +66,8 @@ gecko_sdk_4.0.1/platform/driver/pwm/src/sl_pwm.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
+ C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h \
+ C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h \
@@ -138,8 +138,8 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h:
+C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h:

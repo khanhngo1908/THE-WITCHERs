@@ -1,5 +1,5 @@
 gecko_sdk_4.0.1/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr32.o: \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr32.c \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr32.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
@@ -62,19 +62,19 @@ gecko_sdk_4.0.1/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
+ C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h \
+ C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr32.h \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr32.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_types.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_features.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_types.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_rail_util_pa_config.h \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curves_efr32.h \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/efr32xg22/sl_rail_util_pa_curves.h \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curve_types_efr32.h \
+ C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_rail_util_pa_config.h \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curves_efr32.h \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/efr32xg22/sl_rail_util_pa_curves.h \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curve_types_efr32.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_assert_error_codes.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
@@ -139,18 +139,18 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h:
+C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
-C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr32.h:
+C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr32.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_types.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_features.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_types.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/sl_rail_util_pa_config.h:
-C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curves_efr32.h:
-C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/efr32xg22/sl_rail_util_pa_curves.h:
-C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curve_types_efr32.h:
+C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/sl_rail_util_pa_config.h:
+C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curves_efr32.h:
+C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/efr32xg22/sl_rail_util_pa_curves.h:
+C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curve_types_efr32.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\radio\rail_lib\common\rail_assert_error_codes.h:

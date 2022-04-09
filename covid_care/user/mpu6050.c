@@ -13,6 +13,7 @@
 #include "string.h"
 #include "stdlib.h"
 #include "math.h"
+#include "led_buzzer.h"
 #define MPU6050_DMP_CODE_SIZE       1929    // dmpMemory[]
 #define MPU6050_DMP_CONFIG_SIZE     192     // dmpConfig[]
 #define MPU6050_DMP_UPDATES_SIZE    47      // dmpUpdates[]
@@ -439,10 +440,10 @@ void MPU6050_Init(void)
 {
   i2c_writeByte(MPU6050_ADD, SMPLRT_DIV, 0x07);//set sample rate to 8000/(1+7) = 1000Hz
   i2c_writeByte(MPU6050_ADD, PWR_MGMT_1, 0x00);// wake up MPU6050
-  //i2c_writeByte(MPU6050_ADD,CONFIG,0x00);//disable DLPF
+  //i2c_write(MPU6050_ADD,CONFIG,0x00);//disable DLPF
   i2c_writeByte(MPU6050_ADD,ACCEL_CONFIG,0x00);//full scale range mode 0 +- 2g
   i2c_writeByte(MPU6050_ADD,GYRO_CONFIG,0x00);//full scale range mode 0 +- 250do/s
-  //i2c_writeByte(MPU6050_ADD,0x74,0x06);//disable sensor output to FIFO buffer
+  //i2c_write(MPU6050_ADD,0x74,0x06);//disable sensor output to FIFO buffer
 }
 void MPU6050_Read(void)
 {
@@ -631,4 +632,99 @@ void MPU6050_CalibrateGyro(uint8_t Loops) {
   kI *= x;
   MPU6050_PID( 0x43,  kP, kI,  Loops);
   app_log("check ok2\n");
+}
+void MPU6050_ConfigDMP(struct MPU6050_Base *mpu,uint8_t *devStatus,bool *dmpReady,uint8_t *mpuIntStatus,uint16_t *packetSize)
+{
+      mpu->dmpPacketSize = 42;
+      mpu->fifoTimeout=MPU6050_FIFO_DEFAULT_TIMEOUT;
+      app_log("Initializing I2C devices...\n");
+      MPU6050_init_DMP();
+      app_log("Initializing DMP...\n");
+      *devStatus = DMP_Init();
+      if(*devStatus == 0)
+        {
+          app_log("successful\n");
+          MPU6050_CalibrateAccel(6);
+          MPU6050_CalibrateGyro(6);
+          MPU6050_setDMPEnabled(true);
+          *mpuIntStatus = MPU6050_getIntStatus();
+          *dmpReady = true;
+          *packetSize = MPU6050_dmpGetFIFOPacketSize(&(*mpu));
+        }
+
+      else {
+              // ERROR!
+              // 1 = initial memory load failed
+              // 2 = DMP configuration updates failed
+              // (if it's going to break, usually the code will be 1)
+              app_log("DMP Initialization failed (code ");
+              app_log("%d",*devStatus);
+              app_log(")\n");
+          }
+}
+void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuInterrupt,uint16_t *packetSize,uint8_t *mpuIntStatus)
+{
+  struct Quaternion_Base q;           // [w, x, y, z]         quaternion container
+  struct VectorInt16_Base aa;         // [x, y, z]            accel sensor measurements
+  struct VectorInt16_Base aaReal;     // [x, y, z]            gravity-free accel sensor measurements
+  struct VectorInt16_Base aaWorld;    // [x, y, z]            world-frame accel sensor measurements
+  struct VectorFloat_Base gravity;
+  double ax;
+  double ay;
+  double az;
+  double SVM;
+  uint16_t fifoCount;     // count of all bytes currently in FIFO
+  uint8_t fifoBuffer[64];
+  float euler[3];         // [psi, theta, phi]    Euler angle container
+  float ypr[3];
+  if (!dmpReady)
+      return;
+  // wait for MPU interrupt or extra packet(s) available
+    while (!*mpuInterrupt && fifoCount < *packetSize)
+      {
+        break;
+      }
+  // reset interrupt flag and get INT_STATUS byte
+    *mpuInterrupt = false;
+    *mpuIntStatus = MPU6050_getIntStatus ();
+  // get current FIFO count
+    fifoCount = MPU6050_getFIFOCount ();
+  // check for overflow (this should never happen unless our code is too inefficient)
+    if ((*mpuIntStatus & 0x10) || fifoCount == 1024)
+      {
+  // reset so we can continue cleanly
+        MPU6050_resetFIFO ();
+        app_log("FIFO overflow!\n");
+  // otherwise, check for DMP data ready interrupt (this should happen frequently)
+      }
+    else if (*mpuIntStatus & 0x02)
+      {
+  // wait for correct available data length, should be a VERY short wait
+        while (fifoCount < *packetSize) fifoCount = MPU6050_getFIFOCount ();
+  // read a packet from FIFO
+        MPU6050_getFIFOBytes (fifoBuffer, *packetSize);
+        MPU6050_resetFIFO ();
+
+  // track FIFO count here in case there is > 1 packet available
+  // (this lets us immediately read more without waiting for an interrupt)
+        fifoCount -= *packetSize;
+  // display real acceleration, adjusted to remove gravity
+        MPU6050_dmpGetQuaternion (&q, fifoBuffer);
+        MPU6050_dmpGetAccel (&aa, fifoBuffer);
+        MPU6050_dmpGetGravity (&gravity, &q);
+        MPU6050_dmpGetLinearAccel (&aaReal, &aa, &gravity);
+        MPU6050_dmpGetYawPitchRoll (ypr, &q, &gravity);
+        ax = (aaReal.x) / 16384.0;
+        ay = (aaReal.y) / 16384.0;
+        az = (aaReal.z) / 16384.0;
+        SVM = sqrt (pow(ax,2) + pow(ay,2) + pow(az,2)) + 1.0;
+        app_log("\t");
+        app_log("%d", (uint16_t )(SVM * 1000));
+        app_log("\t\n");
+        while (SVM > 1.7 && (ypr[2] * 180/M_PI)< 10 )
+        {
+            set_LED('r');
+        }
+      }
+
 }

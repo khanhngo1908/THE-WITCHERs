@@ -1,5 +1,5 @@
 gecko_sdk_4.0.1/platform/emdrv/nvm3/src/nvm3_lock.o: \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/emdrv/nvm3/src/nvm3_lock.c \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/emdrv/nvm3/src/nvm3_lock.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3_lock.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3.h \
@@ -68,8 +68,8 @@ gecko_sdk_4.0.1/platform/emdrv/nvm3/src/nvm3_lock.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h \
+ C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h \
+ C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\mpu\inc\sl_mpu.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
@@ -140,7 +140,7 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3_def
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emdrv\nvm3\inc\nvm3.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h:
+C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\service\mpu\inc\sl_mpu.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h:

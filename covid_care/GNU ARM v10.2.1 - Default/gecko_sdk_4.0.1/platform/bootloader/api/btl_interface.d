@@ -1,12 +1,12 @@
 gecko_sdk_4.0.1/platform/bootloader/api/btl_interface.o: \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface.c \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface.h \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_errorcode.h \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_reset_info.h \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/application_properties.h \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_parser.h \
- C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_storage.h \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface.h \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_errorcode.h \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_reset_info.h \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/application_properties.h \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_parser.h \
+ C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_storage.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\cmsis\include\core_cm33.h \
@@ -66,15 +66,15 @@ gecko_sdk_4.0.1/platform/bootloader/api/btl_interface.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h
+ C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h \
+ C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
-C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface.h:
-C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_errorcode.h:
-C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_reset_info.h:
-C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/application_properties.h:
-C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_parser.h:
-C\:/Users/Admin/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_storage.h:
+C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface.h:
+C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_errorcode.h:
+C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_reset_info.h:
+C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/application_properties.h:
+C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_parser.h:
+C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/platform/bootloader/api/btl_interface_storage.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\cmsis\include\core_cm33.h:
@@ -134,5 +134,5 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm2
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h:
+C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h:

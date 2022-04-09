@@ -7,7 +7,12 @@
 
 #ifndef USER_MPU6050_H_
 #define USER_MPU6050_H_
-
+/*
+ * mpu6050.h
+ *
+ *  Created on: 11 thg 3, 2022
+ *      Author: Admin
+ */
 #include "stdbool.h"
 #include "stdio.h"
 #include "stdint.h"
@@ -180,6 +185,11 @@ void MPU6050_CalibrateGyro(uint8_t Loops);
 void MPU6050_PID(uint8_t ReadAddress, float kP,float kI, uint8_t Loops);
 uint8_t MPU6050_getDeviceID();
 uint8_t MPU6050_getFullScaleAccelRange();
+void MPU6050_ConfigDMP(struct MPU6050_Base *mpu,uint8_t *devStatus,bool *dmpReady,uint8_t *mpuIntStatus,uint16_t *packetSize);
+void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuInterrupt,uint16_t *packetSize,uint8_t *mpuIntStatus);
 #define MPU6050_FIFO_DEFAULT_TIMEOUT 11000
+
+
+
 
 #endif /* USER_MPU6050_H_ */
