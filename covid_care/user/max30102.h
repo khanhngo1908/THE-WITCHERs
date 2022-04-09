@@ -87,7 +87,7 @@
 
 #define I2C_BUFFER_LENGTH 32
 
-#define STORAGE_SIZE 1200
+#define STORAGE_SIZE 1000
 
 typedef struct fifo_t
 {

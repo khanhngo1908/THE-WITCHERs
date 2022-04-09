@@ -71,26 +71,28 @@ void MAX30102_ReadFIFO (fifo_t *result)
 			bytesLeftToRead -= toGet;
 			while (toGet > 0)
 			{
-				uint8_t sample[6];
-				i2c_read (MAX30102_ADDRESS, REG_FIFO_DATA, sample, 6);
-				raw_RED = ((uint32_t) (sample[0] << 16) | (uint32_t) (sample[1] << 8) | (uint32_t) (sample[2])) & 0x3ffff;
-				raw_IR = ((uint32_t) (sample[3] << 16) | (uint32_t) (sample[4] << 8) | (uint32_t) (sample[5])) & 0x3ffff;
-
 				if (result->cnt > (STORAGE_SIZE - 1))
 				{
 					result->cnt = STORAGE_SIZE;
+					break;
 				}
 				else
 				{
+					uint8_t sample[6];
+				    i2c_read (MAX30102_ADDRESS, REG_FIFO_DATA, sample, 6);
+				    raw_RED = ((uint32_t) (sample[0] << 16) | (uint32_t) (sample[1] << 8) | (uint32_t) (sample[2])) & 0x3ffff;
+					raw_IR = ((uint32_t) (sample[3] << 16) | (uint32_t) (sample[4] << 8) | (uint32_t) (sample[5])) & 0x3ffff;
+
 					result->raw_IR[result->cnt] = raw_IR;
 					result->raw_RED[result->cnt] = raw_RED;
+
+					sl_app_log("Cnt: %d - IR: %d - RED: %d \n", result->cnt, raw_IR, raw_RED);
+//					sl_app_log("%d %d \n", raw_IR, raw_RED);
+//					sl_app_log("%d \n", raw_IR);
+
 					result->cnt += 1;
+					toGet -= 2 * 3;
 				}
-
-//				sl_app_log("%d %d \n", raw_IR, raw_RED);
-				sl_app_log("%d \n", raw_IR);
-
-				toGet -= 2 * 3;
 			}
 		}  //End while (bytesLeftToRead > 0)
 	} //End readPtr != writePtr

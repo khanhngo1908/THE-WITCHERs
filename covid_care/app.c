@@ -68,6 +68,8 @@ uint8_t devStatus;
 uint8_t mpuIntStatus;
 bool dmpReady = false;
 
+fifo_t fifo_data;
+
 /**************************************************************************//**
  * Application Init.
  *****************************************************************************/
@@ -92,7 +94,7 @@ SL_WEAK void app_init (void)
 	sl_app_log(" MAX30102 init Ok \n");
 
 	// PPG init
-	PPG_init ();
+//	PPG_init ();
 	sl_app_log(" PPG init Ok \n");
 
 	// LED & Buzzer init
@@ -128,7 +130,16 @@ SL_WEAK void app_process_action (void)
 	// Do not call blocking functions from here!                               //
 	/////////////////////////////////////////////////////////////////////////////
 	/*********************** Khanh's Process **********************************/
-	PPG_update ();
+	if (!GPIO_PinInGet (button_port, button_pin))
+	{
+		fifo_data.cnt = 0;
+		while(fifo_data.cnt < STORAGE_SIZE)
+		{
+			MAX30102_ReadFIFO(&fifo_data);
+		}
+		fifo_data.cnt = 0;
+	}
+//	PPG_update ();
 //	set_Buzzer();
 	/*********************** Duong's Process **********************************/
 //  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus);
