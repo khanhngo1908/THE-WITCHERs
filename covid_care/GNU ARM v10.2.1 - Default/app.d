@@ -109,6 +109,7 @@ app.o: ../app.c \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/lm75.h \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/max30102.h \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/bpm_spo2_calc.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/max30102.h \
  C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/gpio_intr.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h \
@@ -231,6 +232,7 @@ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/i2c_lib.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/lm75.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/max30102.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/bpm_spo2_calc.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/max30102.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\user/gpio_intr.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h:

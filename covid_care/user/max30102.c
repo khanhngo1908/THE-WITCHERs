@@ -86,8 +86,8 @@ void MAX30102_ReadFIFO (fifo_t *result)
 					result->raw_IR[result->cnt] = raw_IR;
 					result->raw_RED[result->cnt] = raw_RED;
 
-					sl_app_log("Cnt: %d - IR: %d - RED: %d \n", result->cnt, raw_IR, raw_RED);
-//					sl_app_log("%d %d \n", raw_IR, raw_RED);
+//					sl_app_log("Cnt: %d - IR: %d - RED: %d \n", result->cnt, raw_IR, raw_RED);
+					sl_app_log("%d %d \n", raw_IR, raw_RED);
 //					sl_app_log("%d \n", raw_IR);
 
 					result->cnt += 1;

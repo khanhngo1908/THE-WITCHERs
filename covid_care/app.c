@@ -68,7 +68,20 @@ uint8_t devStatus;
 uint8_t mpuIntStatus;
 bool dmpReady = false;
 
-fifo_t fifo_data;
+fifo_t FIFO_data;
+PPG_signal_t PPG_signal;
+PPG_properties_t PPG_properties;
+int32_t IR[STORAGE_SIZE];
+int32_t RED[STORAGE_SIZE];
+
+void check(int32_t *arr, uint16_t n)
+{
+	uint16_t i;
+	for(i = 0; i < n; i++)
+	{
+		sl_app_log("%d \n",arr[i]);
+	}
+}
 
 /**************************************************************************//**
  * Application Init.
@@ -115,6 +128,7 @@ SL_WEAK void app_init (void)
 	//RTCC init
 
 //	sl_bt_system_set_soft_timer (TIMER_MS(12000), 0, 0);
+	sl_app_log("Size of double: %d bytes\n", sizeof(double));
 
 	sl_app_log("Ok....... \n");
 }
@@ -132,12 +146,31 @@ SL_WEAK void app_process_action (void)
 	/*********************** Khanh's Process **********************************/
 	if (!GPIO_PinInGet (button_port, button_pin))
 	{
-		fifo_data.cnt = 0;
-		while(fifo_data.cnt < STORAGE_SIZE)
+		FIFO_data.cnt = 0;
+		while(FIFO_data.cnt < STORAGE_SIZE)
 		{
-			MAX30102_ReadFIFO(&fifo_data);
+			MAX30102_ReadFIFO(&FIFO_data);
 		}
-		fifo_data.cnt = 0;
+		FIFO_data.cnt = 0;
+
+		sl_app_log(" ------------------------ \n");
+
+		// DC removal
+		float alpha = 0.95;
+//		PPG_signal.IR[0] = 0;
+		DC_removal(&FIFO_data.raw_IR[0], IR, STORAGE_SIZE, alpha);
+//		DC_removal(&FIFO_data.raw_RED[0], RED, STORAGE_SIZE, alpha);
+//		check(IR, STORAGE_SIZE);
+
+		// applying median filter
+		uint8_t filter_size = 5;
+		median_filter (IR, STORAGE_SIZE, filter_size);
+//		median_filter (red, n_red, filter_size);
+//		check(IR, STORAGE_SIZE);
+
+		int32_t thresh = 0;
+		float sample_rate = 100.0;
+		BPM_estimator(IR, &PPG_properties, STORAGE_SIZE, thresh, sample_rate);
 	}
 //	PPG_update ();
 //	set_Buzzer();

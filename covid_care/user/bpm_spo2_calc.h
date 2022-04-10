@@ -1,40 +1,33 @@
-///*
-// * BPM_spo2_calc.h
-// *
-// *  Created on: 6 thg 3, 2022
-// *      Author: Pham Minh Hanh
-// */
-//#include "stdint.h"
-//
-//#ifndef USER_BPM_SPO2_CALC_H_
-//#define USER_BPM_SPO2_CALC_H_
-//
-//typedef struct PPG
-//{
-//	uint32_t BPM;
-//	uint32_t AC;
-//	uint32_t DC;
-//} PPG;
-//
-//typedef struct data_t
-//{
-//	double ir[1500];
-//	double red[1500];
-//} data_t;
-//
-//extern PPG ppg_ir;
-//extern PPG ppg_red;
-//
-//void PPG_init();
-//void swap(double* x, double* y);
-//double max(double *array, int array_size);
-//double sum(double *array, int array_size);
-//void sort(double* array, int array_size);
-//void DC_removal (uint32_t *raw_data, double *data, int n_sample, float alpha);
-//void median_filter(double* signal, int n_sample, int filter_size);
-//void BPM_estimator(double* signal, PPG* ppg, int n_sample, double thresh, float sample_rate);
-//double SpO2_estimator(double R);
-//void BPM_SpO2_estimator ();
-//void PPG_update ();
-//
-//#endif /* USER_BPM_SPO2_CALC_H_ */
+/*
+ * BPM_spo2_calc.h
+ *
+ *  Created on: 6 thg 3, 2022
+ *      Author: Pham Minh Hanh
+ */
+#include "stdint.h"
+#include "max30102.h"
+
+#ifndef USER_BPM_SPO2_CALC_H_
+#define USER_BPM_SPO2_CALC_H_
+
+typedef struct PPG_properties_t
+{
+	uint32_t BPM;
+	uint32_t AC;
+	uint32_t DC;
+} PPG_properties_t;
+
+typedef struct PPG_signal_t
+{
+	int32_t IR[STORAGE_SIZE];
+	int32_t RED[STORAGE_SIZE];
+} PPG_signal_t;
+
+void DC_removal (uint32_t *raw_data, int32_t *data, uint16_t n_sample, float alpha);
+void median_filter(int32_t *signal, uint16_t n_sample, uint8_t filter_size);
+void sort (int32_t *array, uint8_t array_size);
+void swap (int32_t *x, int32_t *y);
+void BPM_estimator(int32_t* signal, PPG_properties_t* PPG_properties, uint16_t n_sample, int32_t thresh, float sample_rate);
+int32_t max(int32_t *array, int32_t array_size);
+
+#endif /* USER_BPM_SPO2_CALC_H_ */
