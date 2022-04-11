@@ -46,6 +46,7 @@
 #include "msc.h"
 #include "mpu6050.h"
 #include "test_variable.h"
+#include "float.h"
 
 uint8_t notifyEnabled = false;
 uint8_t indicateEnabled = false;
@@ -75,6 +76,15 @@ int32_t IR[STORAGE_SIZE];
 int32_t RED[STORAGE_SIZE];
 
 void check(int32_t *arr, uint16_t n)
+{
+	uint16_t i;
+	for(i = 0; i < n; i++)
+	{
+		sl_app_log("%d \n",arr[i]);
+	}
+}
+
+void check1(uint32_t *arr, uint16_t n)
 {
 	uint16_t i;
 	for(i = 0; i < n; i++)
@@ -128,7 +138,11 @@ SL_WEAK void app_init (void)
 	//RTCC init
 
 //	sl_bt_system_set_soft_timer (TIMER_MS(12000), 0, 0);
+
 	sl_app_log("Size of double: %d bytes\n", sizeof(double));
+//	sl_app_log("Min double: %lf - Max double: %lf \n", DBL_MIN, DBL_MAX)
+	sl_app_log("Size of float: %d bytes\n", sizeof(float));
+//	sl_app_log("Min float: %lf - Max float: %lf \n", FLT_MIN, FLT_MAX)
 
 	sl_app_log("Ok....... \n");
 }
@@ -146,6 +160,8 @@ SL_WEAK void app_process_action (void)
 	/*********************** Khanh's Process **********************************/
 	if (!GPIO_PinInGet (button_port, button_pin))
 	{
+		MAX30102_Continue();
+		MAX30102_ClearFIFO();
 		FIFO_data.cnt = 0;
 		while(FIFO_data.cnt < STORAGE_SIZE)
 		{
@@ -160,17 +176,18 @@ SL_WEAK void app_process_action (void)
 //		PPG_signal.IR[0] = 0;
 		DC_removal(&FIFO_data.raw_IR[0], IR, STORAGE_SIZE, alpha);
 //		DC_removal(&FIFO_data.raw_RED[0], RED, STORAGE_SIZE, alpha);
-//		check(IR, STORAGE_SIZE);
+//		check1(&FIFO_data.raw_RED[0], STORAGE_SIZE);
 
 		// applying median filter
 		uint8_t filter_size = 5;
 		median_filter (IR, STORAGE_SIZE, filter_size);
 //		median_filter (red, n_red, filter_size);
-//		check(IR, STORAGE_SIZE);
 
 		int32_t thresh = 0;
 		float sample_rate = 100.0;
 		BPM_estimator(IR, &PPG_properties, STORAGE_SIZE, thresh, sample_rate);
+
+		MAX30102_Shutdown();
 	}
 //	PPG_update ();
 //	set_Buzzer();

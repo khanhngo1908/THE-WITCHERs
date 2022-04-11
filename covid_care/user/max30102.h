@@ -103,6 +103,7 @@ void MAX30102_Shutdown ();
 void MAX30102_Continue ();
 void MAX30102_CheckReg (void);
 void MAX30102_ClearIntr (void);
+void MAX30102_ClearFIFO ();
 
 
 
