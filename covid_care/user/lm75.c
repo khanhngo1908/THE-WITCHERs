@@ -8,6 +8,9 @@
 #include "i2c_lib.h"
 #include "lm75.h"
 #include "app.h"
+
+uint16_t value;
+
 //
 /**
  * @brief      Read config register of LM75
@@ -27,23 +30,11 @@ uint8_t LM75_ReadConfig (void)
  * @param[in]  reg   -   address of temperature register
  * @return     Value of temperature
  */
-float LM75_ReadTemperature_9BitReg ()
+void LM75_ReadTemperature_9BitReg (uint16_t *value)
 {
-	uint16_t value;
-	i2c_read (LM75_ADDRESS, LM75_TEMPERATURE, (uint8_t*) &value, 2);
+	i2c_read (LM75_ADDRESS, LM75_TEMPERATURE, (uint8_t *) value, 2);
 
-	value = (((value >> 8) | (value << 8)) >> 7) & 0x01FF;
-
-	if (value & 0x0100)
-	{                   // kiem tra bit dau
-		value = (0x01FE ^ value) + 1;         // đoi sang bu 2
-		return (float) (value * (-0.5f));
-	}
-	else
-	{
-		return (float) (value * 0.5f);
-	}
-
+	*value = (((*value >> 8) | (*value << 8)) >> 7) & 0x01FF;
 }
 
 /**
@@ -52,22 +43,12 @@ float LM75_ReadTemperature_9BitReg ()
  * @param[in]  reg   -   address of temperature register
  * @return     Value of temperature
  */
-float LM75_ReadTemperature_11BitReg (void)
+void LM75_ReadTemperature_11BitReg (uint16_t *value)
 {
-	uint16_t value;
-	i2c_read (LM75_ADDRESS, LM75_TEMPERATURE, (uint8_t*) &value, 2);
 
-	value = (((value >> 8) | (value << 8)) >> 5) & 0x07FF;
+	i2c_read (LM75_ADDRESS, LM75_TEMPERATURE, (uint8_t *) value, 2);
 
-	if (value & 0x0400)
-	{                       // kiem tra bit dau
-		value = (0x07FF ^ value) + 1;           // doi sang bu 2
-		return (float) (value * (-0.125f));
-	}
-	else
-	{
-		return (float) (value * 0.125f);
-	}
+	*value = (((*value >> 8) | (*value << 8)) >> 5) & 0x07FF;
 }
 
 /**
@@ -102,13 +83,30 @@ float LM75_ReadTemperature (void)
 {
 
 #ifdef LM75_11BIT
-	return LM75_ReadTemperature_11BitReg ();
-
+	LM75_ReadTemperature_11BitReg (&value);
+	if (value & 0x0400)
+	{                       // kiem tra bit dau
+		value = (0x07FF ^ value) + 1;           // doi sang bu 2
+		return (float) (value * (-0.125f));
+	}
+	else
+	{
+		return (float) (value * 0.125f);
+	}
 #endif
 
 #ifdef LM75_9BIT
-    return LM75_ReadTemperature_9BitReg();
-  #endif
+    LM75_ReadTemperature_9BitReg(&value);
+    if (value & 0x0100)
+    {
+    	value = (0x01FE ^ value) + 2;
+    	return (float) (value * (-0.5f));
+    }
+    else
+    {
+    	return (float) (value * 0.5f);
+    }
+#endif
 }
 //
 //

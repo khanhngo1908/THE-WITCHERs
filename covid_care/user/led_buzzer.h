@@ -11,14 +11,14 @@
 #include "em_gpio.h"
 #include "sl_app_log.h"
 
-#define  red_LED_port     gpioPortC
-#define  red_LED_pin      1
+#define  red_LED_port     gpioPortB
+#define  red_LED_pin      0
 
 #define  green_LED_port   gpioPortB
-#define  green_LED_pin    4
+#define  green_LED_pin    3
 
 #define  blue_LED_port    gpioPortB
-#define  blue_LED_pin     3
+#define  blue_LED_pin     4
 
 #define  buzzer_port      gpioPortC
 #define  buzzer_pin       0
@@ -31,6 +31,9 @@
 
 #define buzzerOff_timer 0
 #define buzzerOn_timer  1
+
+#define GPIO_GND_PORT 	gpioPortC
+#define GPIO_GND_PIN    3
 
 #define TIMER_MS(ms) ((32768 * ms) / 1000)
 

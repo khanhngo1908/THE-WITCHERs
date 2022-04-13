@@ -16,7 +16,7 @@ void MAX30102_init ()
 {
 	// Reset
 	i2c_writeByte (MAX30102_ADDRESS, REG_MODE_CONFIG, MAX30102_RESET);
-	sl_sleeptimer_delay_millisecond (500);
+	sl_sleeptimer_delay_millisecond (100);
 
 	// Mode Configuration
 	i2c_writeByte (MAX30102_ADDRESS, REG_MODE_CONFIG, MAX30102_MODE_SPO2_HR);
@@ -34,13 +34,13 @@ void MAX30102_init ()
 	// SpO2 Configuration
 	i2c_writeByte (MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr100 | pw411);
 
-	// Shutdown
-	MAX30102_Shutdown ();
-
 	// Clear FIFO
 	MAX30102_ClearFIFO ();
 
-	sl_sleeptimer_delay_millisecond (500);
+	// Shutdown
+	MAX30102_Shutdown ();
+
+	sl_sleeptimer_delay_millisecond (100);
 }
 
 void MAX30102_ReadFIFO (fifo_t *result)

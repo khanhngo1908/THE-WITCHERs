@@ -74,6 +74,7 @@ PPG_signal_t PPG_signal;
 PPG_properties_t PPG_properties;
 int32_t IR[STORAGE_SIZE];
 int32_t RED[STORAGE_SIZE];
+float T;
 
 void check(int32_t *arr, uint16_t n)
 {
@@ -112,13 +113,12 @@ SL_WEAK void app_init (void)
 	i2c_init ();
 	sl_app_log(" I2C init Ok \n");
 
+	LM75_Continue();
+	sl_app_log(" LM75 init Ok \n");
+
 	// Max30102 init
 	MAX30102_init ();
 	sl_app_log(" MAX30102 init Ok \n");
-
-	// PPG init
-//	PPG_init ();
-	sl_app_log(" PPG init Ok \n");
 
 	// LED & Buzzer init
 	led_buzzer_init ();
@@ -133,7 +133,7 @@ SL_WEAK void app_init (void)
 	sl_app_log(" GPIO Intr init Ok \n");
 
 	// MPU6050init
-	MPU6050_ConfigDMP(&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
+//	MPU6050_ConfigDMP(&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
 
 	//RTCC init
 
@@ -158,37 +158,45 @@ SL_WEAK void app_process_action (void)
 	// Do not call blocking functions from here!                               //
 	/////////////////////////////////////////////////////////////////////////////
 	/*********************** Khanh's Process **********************************/
-	if (!GPIO_PinInGet (button_port, button_pin))
-	{
-		MAX30102_Continue();
-		MAX30102_ClearFIFO();
-		FIFO_data.cnt = 0;
-		while(FIFO_data.cnt < STORAGE_SIZE)
-		{
-			MAX30102_ReadFIFO(&FIFO_data);
-		}
-		FIFO_data.cnt = 0;
+	set_LED('w');
 
-		sl_app_log(" ------------------------ \n");
+//	set_Buzzer();
 
-		// DC removal
-		float alpha = 0.95;
-//		PPG_signal.IR[0] = 0;
-		DC_removal(&FIFO_data.raw_IR[0], IR, STORAGE_SIZE, alpha);
-//		DC_removal(&FIFO_data.raw_RED[0], RED, STORAGE_SIZE, alpha);
-//		check1(&FIFO_data.raw_RED[0], STORAGE_SIZE);
+	T = LM75_ReadTemperature();
+	sl_app_log(" Nhiet do: %d \n", (uint32_t) (1000*T) );
 
-		// applying median filter
-		uint8_t filter_size = 5;
-		median_filter (IR, STORAGE_SIZE, filter_size);
-//		median_filter (red, n_red, filter_size);
+//	if (!GPIO_PinInGet (button_port, button_pin))
+//	{
+//		MAX30102_Continue();
+//		MAX30102_ClearFIFO();
+//		FIFO_data.cnt = 0;
+//		while(FIFO_data.cnt < STORAGE_SIZE)
+//		{
+//			MAX30102_ReadFIFO(&FIFO_data);
+//		}
+//		FIFO_data.cnt = 0;
+//
+//		sl_app_log(" ------------------------ \n");
+//
+//		// DC removal
+//		float alpha = 0.95;
+////		PPG_signal.IR[0] = 0;
+//		DC_removal(&FIFO_data.raw_IR[0], IR, STORAGE_SIZE, alpha);
+////		DC_removal(&FIFO_data.raw_RED[0], RED, STORAGE_SIZE, alpha);
+////		check1(&FIFO_data.raw_RED[0], STORAGE_SIZE);
+//
+//		// applying median filter
+//		uint8_t filter_size = 5;
+//		median_filter (IR, STORAGE_SIZE, filter_size);
+////		median_filter (red, n_red, filter_size);
+//
+//		int32_t thresh = 0;
+//		float sample_rate = 100.0;
+//		BPM_estimator(IR, &PPG_properties, STORAGE_SIZE, thresh, sample_rate);
+//
+//		MAX30102_Shutdown();
+//	}
 
-		int32_t thresh = 0;
-		float sample_rate = 100.0;
-		BPM_estimator(IR, &PPG_properties, STORAGE_SIZE, thresh, sample_rate);
-
-		MAX30102_Shutdown();
-	}
 //	PPG_update ();
 //	set_Buzzer();
 	/*********************** Duong's Process **********************************/

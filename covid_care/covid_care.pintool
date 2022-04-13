@@ -2,6 +2,14 @@
 <device:XMLDevice xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:device="http://www.silabs.com/ss/hwconfig/document/device.ecore" name="pin_tool.BGM220PC22HNA" partId="mcu.arm.efr32.bg22.bgm220pc22hna" contextId="com.silabs.sdk.stack.super:4.0.1._1552817681">
   <mode name="DefaultMode">
     <property object="DefaultMode" propertyId="mode.diagramLocation" value="100, 100"/>
+    <property object="I2C0" propertyId="ABModule.selectedRequirement" value="i2c%T%SL_I2CSPM_MIKROE%T%sl_i2cspm_mikroe_config.h"/>
+    <property object="I2C0" propertyId="ABPeripheral.included" value="true"/>
+    <property object="I2C1" propertyId="ABPeripheral.included" value="true"/>
+    <property object="PORTIO" propertyId="portio.i2c0.enable.scl" value="Enabled"/>
+    <property object="PORTIO" propertyId="portio.i2c0.enable.sda" value="Enabled"/>
+    <property object="PORTIO" propertyId="portio.i2c0.location.scl" value="50"/>
+    <property object="PORTIO" propertyId="portio.i2c0.location.sda" value="51"/>
+    <property object="PORTIO" propertyId="portio.i2c1.location.sda" value="51"/>
     <property object="PORTIO" propertyId="portio.pti.enable.dframe" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.pti.enable.dout" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.pti.location.dframe" value="37"/>
@@ -20,6 +28,7 @@
     <property object="PTI" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER0" propertyId="ABModule.selectedRequirement" value="timer%T%SL_PWM_BUZZER%T%sl_pwm_init_buzzer_config.h"/>
     <property object="TIMER0" propertyId="ABPeripheral.included" value="true"/>
+    <property object="TIMER0" propertyId="channel.0.name" value="OUTPUT"/>
     <property object="USART1" propertyId="ABModule.selectedRequirement" value="usart%T%SL_IOSTREAM_USART_VCOM%T%sl_iostream_usart_vcom_config.h"/>
     <property object="USART1" propertyId="ABPeripheral.included" value="true"/>
   </mode>

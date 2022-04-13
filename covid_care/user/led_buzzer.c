@@ -17,10 +17,11 @@
 void led_buzzer_init (void)
 {
 	CMU_ClockEnable (cmuClock_GPIO, true);
+	GPIO_PinModeSet (GPIO_GND_PORT, GPIO_GND_PIN, gpioModePushPull, 0);
 	GPIO_PinModeSet (red_LED_port, red_LED_pin, gpioModePushPull, 0);     // red
 	GPIO_PinModeSet (green_LED_port, green_LED_pin, gpioModePushPull, 0); // green
 	GPIO_PinModeSet (blue_LED_port, blue_LED_pin, gpioModePushPull, 0);  // blue
-	GPIO_PinModeSet (buzzer_port, buzzer_pin, gpioModePushPull, 1);    // buzzer
+	GPIO_PinModeSet (buzzer_port, buzzer_pin, gpioModePushPull, 0);    // buzzer
 	GPIO_PinModeSet (button_port, button_pin, gpioModeInput, 1);       // button
 	GPIO_PinModeSet (LED_on_board_port, LED_on_board_pin, gpioModePushPull, 1);
 	GPIO_PinOutSet (LED_on_board_port, LED_on_board_pin);
@@ -32,7 +33,7 @@ void led_buzzer_init (void)
 void set_Buzzer ()
 {
 	GPIO_PinOutSet (buzzer_port, buzzer_pin);
-	sl_pwm_start (&sl_pwm_buzzer);
+	sl_pwm_start(&sl_pwm_buzzer);
 }
 
 /**
@@ -41,7 +42,7 @@ void set_Buzzer ()
 void clear_Buzzer ()
 {
 	GPIO_PinOutClear (buzzer_port, buzzer_pin);
-	sl_pwm_stop (&sl_pwm_buzzer);
+	sl_pwm_stop(&sl_pwm_buzzer);
 }
 
 /**

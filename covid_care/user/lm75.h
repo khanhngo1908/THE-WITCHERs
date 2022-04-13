@@ -37,7 +37,7 @@ uint8_t LM75_ReadConfig (void);
  * @param[in]  reg   -   address of temperature register
  * @return     Value of temperature
  */
-float LM75_ReadTemperature_9BitReg (void);
+void LM75_ReadTemperature_9BitReg (uint16_t *value);
 
 /**
  * @brief      Read 11-bit format temperature from register
@@ -45,7 +45,7 @@ float LM75_ReadTemperature_9BitReg (void);
  * @param[in]  reg   -   address of temperature register
  * @return     Value of temperature
  */
-float LM75_ReadTemperature_11BitReg (void);
+void LM75_ReadTemperature_11BitReg (uint16_t *value);
 
 /**
  * @brief      Config LM75 into sleep mode (shutdown)
