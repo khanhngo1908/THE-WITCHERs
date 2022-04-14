@@ -21,7 +21,7 @@ typedef struct BPM_SpO2_value_t
 {
 	uint8_t BPM;
 	uint8_t SpO2;
-} BPM_SpO2_value_t;
+} BPM_SpO2_value_t[3];
 
 void DC_removal (uint32_t *raw_data, int32_t *data, uint16_t n_sample, float alpha);
 void median_filter(int32_t *signal, uint16_t n_sample, uint8_t filter_size);

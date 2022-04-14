@@ -70,6 +70,10 @@ uint8_t mpuIntStatus;
 bool dmpReady = false;
 
 BPM_SpO2_value_t BPM_SpO2_value;
+uint8_t msc_dataCount = 0;
+
+uint8_t unReadCounter = 0;
+uint8_t dataCounter = 0;
 
 /**************************************************************************//**
  * Application Init.
@@ -100,6 +104,9 @@ SL_WEAK void app_init (void)
 
 	// MSC init
 	MSC_init ();
+//	MSC_ErasePage(USERDATA);
+	MSC_CheckUnRead(&unReadCounter, &dataCounter);
+	sl_app_log(" %d %d \n", unReadCounter, dataCounter);
 	sl_app_log(" MSC init Ok \n");
 
 	// GPIO Interrupt init
@@ -149,13 +156,25 @@ SL_WEAK void app_process_action (void)
 //		BPM_SpO2_Update(&BPM_SpO2_value, 3);
 
 		/************************** MSC test *****************************/
+
+		/** Ghi vào flash vào vị trí tiếp theo */
 //		float T = 29.125;
 //		uint8_t t_d = LM75_FloatToOneByte (T);  // 73
 //
-//		// ngày, tháng, năm, giờ, phút, BPM, SpO2, nhiet do
-//		uint8_t data[8] = {14, 4, 22, 13, 50, 88, 98, t_d};
-//		uint8_t msc_wordCount = 0;
-//		MSC_read(&data[0], &msc_wordCount);
+////		 ngày, tháng, năm, giờ, phút, BPM, SpO2, nhiet do
+//		uint8_t data[9] = {20, 14, 4, 22, 13, 50, 88, 98, t_d};
+//		MSC_write(data, &dataCounter);
+//		sl_app_log(" Write OK \n");
+//		MSC_CheckPage();
+
+		/** Doc cac cac data trong flash mà chưa được gui len app */
+//		uint8_t read[9];
+//		uint8_t i;
+//		for(i = unReadCounter; i < dataCounter; i+=2)
+//		{
+//			sl_app_log(" %d \n", i);
+//			MSC_read(read, i);
+//		}
 	}
 
 	/*********************** Duong's Process **********************************/
