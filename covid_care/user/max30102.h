@@ -87,7 +87,13 @@
 
 #define I2C_BUFFER_LENGTH 32
 
-#define STORAGE_SIZE 1000
+#define SMP_AVE     1
+
+#define SMP_RATE    100
+
+#define THROUGHTPUT (SMP_RATE/SMP_AVE)
+
+#define STORAGE_SIZE (10*THROUGHTPUT)
 
 typedef struct fifo_t
 {
@@ -104,7 +110,6 @@ void MAX30102_Continue ();
 void MAX30102_CheckReg (void);
 void MAX30102_ClearIntr (void);
 void MAX30102_ClearFIFO ();
-
 
 
 #endif /* USER_MAX30102_H_ */

@@ -8,6 +8,7 @@
 #include "i2c_lib.h"
 #include "lm75.h"
 #include "app.h"
+#include "sl_app_log.h"
 
 uint16_t value;
 
@@ -72,6 +73,26 @@ void LM75_Continue ()
 	buff = buff & 0xFE;
 	i2c_writeByte (LM75_ADDRESS, LM75_CONFIGURATION, buff);
 }
+
+uint8_t LM75_FloatToOneByte (float T)
+{
+	if( (T < 20.0) || (T > 51.0) )
+		return 0;
+	uint8_t result;
+	T -= 20;
+	uint8_t n1 = (uint8_t) T;
+	uint8_t n2 = (T*1000 - n1*1000) / 125;
+	result = (n1 << 3) | n2;
+	return result;
+}
+
+float LM75_OneByteToFloat (uint8_t T)
+{
+	float result;
+	result = (T >> 3) + 20 + (T & 0x07) * 0.125;
+	return result;
+}
+
 
 /**
  * @brief    Read temperature

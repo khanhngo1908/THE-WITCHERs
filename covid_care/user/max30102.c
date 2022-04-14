@@ -38,10 +38,11 @@ void MAX30102_init ()
 	MAX30102_ClearFIFO ();
 
 	// Shutdown
-	MAX30102_Shutdown ();
+//	MAX30102_Shutdown ();
 
 	sl_sleeptimer_delay_millisecond (100);
 }
+
 
 void MAX30102_ReadFIFO (fifo_t *result)
 {
@@ -89,8 +90,8 @@ void MAX30102_ReadFIFO (fifo_t *result)
 					result->raw_RED[result->cnt] = raw_RED;
 
 //					sl_app_log("Cnt: %d - IR: %d - RED: %d \n", result->cnt, raw_IR, raw_RED);
-					sl_app_log("%d %d \n", raw_IR, raw_RED);
-//					sl_app_log("%d \n", raw_IR);
+//					sl_app_log("%d %d \n", raw_IR, raw_RED);
+					sl_app_log("%d \n", raw_IR);
 
 					result->cnt += 1;
 					toGet -= 2 * 3;

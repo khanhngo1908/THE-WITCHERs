@@ -69,30 +69,7 @@ uint8_t devStatus;
 uint8_t mpuIntStatus;
 bool dmpReady = false;
 
-fifo_t FIFO_data;
-PPG_signal_t PPG_signal;
-PPG_properties_t PPG_properties;
-int32_t IR[STORAGE_SIZE];
-int32_t RED[STORAGE_SIZE];
-float T;
-
-void check(int32_t *arr, uint16_t n)
-{
-	uint16_t i;
-	for(i = 0; i < n; i++)
-	{
-		sl_app_log("%d \n",arr[i]);
-	}
-}
-
-void check1(uint32_t *arr, uint16_t n)
-{
-	uint16_t i;
-	for(i = 0; i < n; i++)
-	{
-		sl_app_log("%d \n",arr[i]);
-	}
-}
+BPM_SpO2_value_t BPM_SpO2_value;
 
 /**************************************************************************//**
  * Application Init.
@@ -113,9 +90,6 @@ SL_WEAK void app_init (void)
 	i2c_init ();
 	sl_app_log(" I2C init Ok \n");
 
-	LM75_Continue();
-	sl_app_log(" LM75 init Ok \n");
-
 	// Max30102 init
 	MAX30102_init ();
 	sl_app_log(" MAX30102 init Ok \n");
@@ -125,7 +99,7 @@ SL_WEAK void app_init (void)
 	sl_app_log(" LED & buzzer init Ok \n");
 
 	// MSC init
-	//msc_init ();
+	MSC_init ();
 	sl_app_log(" MSC init Ok \n");
 
 	// GPIO Interrupt init
@@ -158,47 +132,32 @@ SL_WEAK void app_process_action (void)
 	// Do not call blocking functions from here!                               //
 	/////////////////////////////////////////////////////////////////////////////
 	/*********************** Khanh's Process **********************************/
-	set_LED('w');
 
-//	set_Buzzer();
+	if (!GPIO_PinInGet (button_port, button_pin))
+	{
 
-	T = LM75_ReadTemperature();
-	sl_app_log(" Nhiet do: %d \n", (uint32_t) (1000*T) );
+		/************************** LM75 test *****************************/
+//		sl_app_log("---------------- \n");
+//		float T = LM75_ReadTemperature ();
+//		sl_app_log(" %d \n", (uint32_t) (1000*T) );
+//		uint8_t t_d = LM75_FloatToOneByte (T);
+//		sl_app_log(" %d %d \n", (t_d >> 3)+20, (t_d & 0x07));
+//		float t_f = LM75_OneByteToFloat(t_d);
+//		sl_app_log(" %d \n", (uint32_t) (1000*t_f) );
 
-//	if (!GPIO_PinInGet (button_port, button_pin))
-//	{
-//		MAX30102_Continue();
-//		MAX30102_ClearFIFO();
-//		FIFO_data.cnt = 0;
-//		while(FIFO_data.cnt < STORAGE_SIZE)
-//		{
-//			MAX30102_ReadFIFO(&FIFO_data);
-//		}
-//		FIFO_data.cnt = 0;
-//
-//		sl_app_log(" ------------------------ \n");
-//
-//		// DC removal
-//		float alpha = 0.95;
-////		PPG_signal.IR[0] = 0;
-//		DC_removal(&FIFO_data.raw_IR[0], IR, STORAGE_SIZE, alpha);
-////		DC_removal(&FIFO_data.raw_RED[0], RED, STORAGE_SIZE, alpha);
-////		check1(&FIFO_data.raw_RED[0], STORAGE_SIZE);
-//
-//		// applying median filter
-//		uint8_t filter_size = 5;
-//		median_filter (IR, STORAGE_SIZE, filter_size);
-////		median_filter (red, n_red, filter_size);
-//
-//		int32_t thresh = 0;
-//		float sample_rate = 100.0;
-//		BPM_estimator(IR, &PPG_properties, STORAGE_SIZE, thresh, sample_rate);
-//
-//		MAX30102_Shutdown();
-//	}
+		/************************ MAX30102 test **************************/
+//		BPM_SpO2_Update(&BPM_SpO2_value, 3);
 
-//	PPG_update ();
-//	set_Buzzer();
+		/************************** MSC test *****************************/
+//		float T = 29.125;
+//		uint8_t t_d = LM75_FloatToOneByte (T);  // 73
+//
+//		// ngày, tháng, năm, giờ, phút, BPM, SpO2, nhiet do
+//		uint8_t data[8] = {14, 4, 22, 13, 50, 88, 98, t_d};
+//		uint8_t msc_wordCount = 0;
+//		MSC_read(&data[0], &msc_wordCount);
+	}
+
 	/*********************** Duong's Process **********************************/
 //  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus);
 }

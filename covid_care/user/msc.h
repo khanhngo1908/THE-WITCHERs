@@ -13,7 +13,8 @@
 
 #define USERDATA ((uint32_t*)USERDATA_BASE)
 
-void msc_init(void);
-void msc_write(void);
+void MSC_init(void);
+void MSC_write (uint8_t *data, uint8_t *wordCount);
+void MSC_read (uint8_t *data, uint8_t wordCount);
 
 #endif /* USER_MSC_H_ */

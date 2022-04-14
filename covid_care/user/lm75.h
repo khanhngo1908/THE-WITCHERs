@@ -57,6 +57,10 @@ void LM75_Shutdown ();
 
 void LM75_Continue ();
 
+uint8_t LM75_FloatToOneByte (float T);
+
+float LM75_OneByteToFloat (uint8_t T);
+
 /**
  * @brief    Read temparature
  *
