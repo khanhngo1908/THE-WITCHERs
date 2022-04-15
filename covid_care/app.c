@@ -118,14 +118,9 @@ SL_WEAK void app_init (void)
 
 	//RTCC init
 
-//	sl_bt_system_set_soft_timer (TIMER_MS(12000), 0, 0);
-
-	sl_app_log("Size of double: %d bytes\n", sizeof(double));
-//	sl_app_log("Min double: %lf - Max double: %lf \n", DBL_MIN, DBL_MAX)
-	sl_app_log("Size of float: %d bytes\n", sizeof(float));
-//	sl_app_log("Min float: %lf - Max float: %lf \n", FLT_MIN, FLT_MAX)
-
 	sl_app_log("Ok....... \n");
+
+//	sl_bt_system_set_soft_timer (TIMER_MS(12000), 0, 0);
 }
 
 /**************************************************************************//**
@@ -139,6 +134,8 @@ SL_WEAK void app_process_action (void)
 	// Do not call blocking functions from here!                               //
 	/////////////////////////////////////////////////////////////////////////////
 	/*********************** Khanh's Process **********************************/
+	BPM_SpO2_Update(&BPM_SpO2_value, 1);
+
 
 	if (!GPIO_PinInGet (button_port, button_pin))
 	{
@@ -158,21 +155,25 @@ SL_WEAK void app_process_action (void)
 		/************************** MSC test *****************************/
 
 		/** Ghi vào flash vào vị trí tiếp theo */
-//		float T = 29.125;
-//		uint8_t t_d = LM75_FloatToOneByte (T);  // 73
-//
-////		 ngày, tháng, năm, giờ, phút, BPM, SpO2, nhiet do
-//		uint8_t data[9] = {20, 14, 4, 22, 13, 50, 88, 98, t_d};
-//		MSC_write(data, &dataCounter);
-//		sl_app_log(" Write OK \n");
+		float T = 29.125;
+		uint8_t t_d = LM75_FloatToOneByte (T);  // 73
+
+		//	vị trí word mà từ đó các dữ liệu chưa dc đọc, ngày, tháng, năm, giờ, phút, BPM, SpO2, nhiet do
+		uint8_t data[9] = {28, 31, 12, 22, 23, 59, 88, 98, t_d};
+		uint8_t read[9];
+		MSC_write(data, &dataCounter);
+		sl_app_log(" Write OK \n");
+		MSC_read(read, dataCounter-1);
 //		MSC_CheckPage();
 
 		/** Doc cac cac data trong flash mà chưa được gui len app */
+//		MSC_CheckPage();
+//		sl_app_log("\n------------------- \n");
 //		uint8_t read[9];
 //		uint8_t i;
-//		for(i = unReadCounter; i < dataCounter; i+=2)
+//		for(i = unReadCounter; i < dataCounter; i++)
 //		{
-//			sl_app_log(" %d \n", i);
+//			sl_app_log("%d \n", i);
 //			MSC_read(read, i);
 //		}
 	}

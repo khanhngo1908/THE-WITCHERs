@@ -87,9 +87,9 @@
 
 #define I2C_BUFFER_LENGTH 32
 
-#define SMP_AVE     1
+#define SMP_AVE     4
 
-#define SMP_RATE    100
+#define SMP_RATE    400
 
 #define THROUGHTPUT (SMP_RATE/SMP_AVE)
 

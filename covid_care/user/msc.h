@@ -15,7 +15,7 @@
 #define MSC_MAX_COUNTER 128
 
 void MSC_init(void);
-uint8_t MSC_write (uint8_t *data, uint8_t *msc_DataCount);
+void MSC_write (uint8_t *data, uint8_t *msc_DataPointer);
 void MSC_read (uint8_t *data, uint8_t msc_DataCount);
 void MSC_CheckUnRead(uint8_t *unReadCounter, uint8_t *dataCounter);
 void MSC_CheckPage();

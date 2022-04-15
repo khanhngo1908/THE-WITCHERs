@@ -34,58 +34,56 @@ void check1(fifo_t *fifo, uint16_t n)
 
 void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 {
-	uint8_t i = 0;
-	while(i < n)
-	{
-		if (i > 0)
-		{
-			uint16_t j;
-			for (j = 0; j < STORAGE_SIZE - 2*THROUGHTPUT; j++)
-			{
-				FIFO_data.raw_IR[j] = FIFO_data.raw_IR[j + 2*THROUGHTPUT];
-				FIFO_data.raw_RED[j] = FIFO_data.raw_RED[j + 2*THROUGHTPUT];
-			}
-			FIFO_data.cnt = STORAGE_SIZE - 2*THROUGHTPUT;
-		}
-		else
-			FIFO_data.cnt = 0;
-
-//		MAX30102_Continue ();
-		MAX30102_ClearFIFO ();
-		while (FIFO_data.cnt < STORAGE_SIZE)
-		{
-			MAX30102_ReadFIFO (&FIFO_data);
-		}
-//		MAX30102_Shutdown ();
-
+//	uint8_t i = 0;
+	MAX30102_ReadFIFO (&FIFO_data);
+//	while(i < n)
+//	{
+//		if (i > 0)
+//		{
+//			uint16_t j;
+//			for (j = 0; j < STORAGE_SIZE - 2*THROUGHTPUT; j++)
+//			{
+//				FIFO_data.raw_IR[j] = FIFO_data.raw_IR[j + 2*THROUGHTPUT];
+//				FIFO_data.raw_RED[j] = FIFO_data.raw_RED[j + 2*THROUGHTPUT];
+//			}
+//			FIFO_data.cnt = STORAGE_SIZE - 2*THROUGHTPUT;
+//		}
+//		else
+//			FIFO_data.cnt = 0;
+//
+//		MAX30102_ClearFIFO ();
+//		while (FIFO_data.cnt < STORAGE_SIZE)
+//		{
+//			MAX30102_ReadFIFO (&FIFO_data);
+//		}
 //		check1(&FIFO_data, STORAGE_SIZE);
 
-		sl_app_log(" ------------------------ \n");
+//		sl_app_log(" ------------------------ \n");
 
 		// DC removal
-		float alpha = 0.95;
-		DC_removal (&FIFO_data.raw_IR[0], IR, STORAGE_SIZE, alpha);
+//		float alpha = 0.95;
+//		DC_removal (&FIFO_data.raw_IR[0], IR, STORAGE_SIZE, alpha);
 //		DC_removal(&FIFO_data.raw_RED[0], RED, STORAGE_SIZE, alpha);
 
 //		ppg_ir.DC = max (IR, STORAGE_SIZE);
 //		ppg_red.DC = max (RED, STORAGE_SIZE);
 
 		// applying median filter
-		uint8_t filter_size = 5;
-		median_filter (IR, STORAGE_SIZE, filter_size);
+//		uint8_t filter_size = 5;
+//		median_filter (IR, STORAGE_SIZE, filter_size);
 //		median_filter (red, n_red, filter_size);
 
-		int32_t thresh = 0;
-		float sample_rate = THROUGHTPUT;
-		BPM_estimator (IR, &ppg_ir, STORAGE_SIZE, thresh, sample_rate);
-		sl_app_log(" BPM: %d \n", ppg_ir.BPM);
+//		int32_t thresh = 0;
+//		float sample_rate = THROUGHTPUT;
+//		BPM_estimator (IR, &ppg_ir, STORAGE_SIZE, thresh, sample_rate);
+//		sl_app_log(" BPM: %d \n", ppg_ir.BPM);
 
 //		float R = (ppg_ir.AC / ppg_ir.DC) / (ppg_red.AC / ppg_red.DC);
 //		uint8_t SpO2 = SpO2_estimator(R);
 
-		i += 1;
-		sl_sleeptimer_delay_millisecond (2000);
-	}
+//		i += 1;
+//		sl_sleeptimer_delay_millisecond (2000);
+//	}
 }
 
 void DC_removal (uint32_t *raw_data, int32_t *data, uint16_t n_sample, float alpha)
