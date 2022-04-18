@@ -42,7 +42,6 @@ void MSC_write (uint8_t *data, uint8_t *msc_DataPointer)
 /** msc_DataPointer 0 -> 127 */
 void MSC_read (uint8_t *data, uint8_t msc_DataPointer)
 {
-
 	if (msc_DataPointer > 127)
 		return;
 

@@ -16,13 +16,13 @@ void MAX30102_init ()
 {
 	// Reset
 	i2c_writeByte (MAX30102_ADDRESS, REG_MODE_CONFIG, MAX30102_RESET);
-	sl_sleeptimer_delay_millisecond (100);
+	sl_sleeptimer_delay_millisecond (500);
 
 	// Mode Configuration
 	i2c_writeByte (MAX30102_ADDRESS, REG_MODE_CONFIG, MAX30102_MODE_SPO2_HR);
 
 	//FIFO Configuration
-	i2c_writeByte (MAX30102_ADDRESS, REG_FIFO_CONFIG, smp8 | FIFO_ROLLOVER_EN);
+	i2c_writeByte (MAX30102_ADDRESS, REG_FIFO_CONFIG, smp4 | FIFO_ROLLOVER_EN );
 
 	// Enable FIFO Almost Full Interrupt
 //    i2c_writeByte(MAX30102_ADDRESS, REG_INTR_ENABLE_1 , INT_A_FULL_EN);
@@ -32,7 +32,7 @@ void MAX30102_init ()
 	i2c_writeByte (MAX30102_ADDRESS, REG_LED2_PA, FIX_CURRENT);
 
 	// SpO2 Configuration
-	i2c_writeByte (MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr800 | pw411);
+	i2c_writeByte (MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr400 | pw411);
 
 	// Clear FIFO
 	MAX30102_ClearFIFO ();
@@ -40,7 +40,7 @@ void MAX30102_init ()
 	// Shutdown
 //	MAX30102_Shutdown ();
 
-	sl_sleeptimer_delay_millisecond (100);
+	sl_sleeptimer_delay_millisecond (500);
 }
 
 
@@ -51,62 +51,65 @@ void MAX30102_ReadFIFO (fifo_t *result)
 	i2c_read (MAX30102_ADDRESS, REG_FIFO_RD_PTR, &readPointer, 1);
 
 	int16_t num_samples = 0;
-	num_samples = (int16_t) writePointer - (int16_t) readPointer;
-	if (num_samples < 0)
-		num_samples += 32;
 
 	if (writePointer != readPointer)
 	{
-//       sl_app_log("OK \n");
+
 		num_samples = (int16_t) writePointer - (int16_t) readPointer;
 		if (num_samples < 0)
 			num_samples += 32;
-//        sl_app_log(" num samp %d \n", num_samples);
 
-		uint8_t bytesLeftToRead = num_samples * 2 * 3;
+		int16_t bytesLeftToRead = num_samples * BYTES_PER_SAMPLE;
+
 		while (bytesLeftToRead > 0)
 		{
-			uint8_t toGet = bytesLeftToRead;
+			int16_t toGet = bytesLeftToRead;
+
 			if (toGet > I2C_BUFFER_LENGTH)
-			{
-				toGet = I2C_BUFFER_LENGTH - (I2C_BUFFER_LENGTH % (2 * 3));
-			}
+				toGet = I2C_BUFFER_LENGTH - (I2C_BUFFER_LENGTH % BYTES_PER_SAMPLE);
+
+//			if (toGet > MAX30102_TOTAL_BYTES)
+//				toGet = MAX30102_TOTAL_BYTES - (MAX30102_TOTAL_BYTES % BYTES_PER_SAMPLE);
+
+
 			bytesLeftToRead -= toGet;
+
 			while (toGet > 0)
 			{
-//				if (result->cnt > (STORAGE_SIZE - 1))
-//				{
-//					result->cnt = STORAGE_SIZE;
-//					break;
-//				}
-//				else
-//				{
-//					uint8_t sample[6];
-//				    i2c_read (MAX30102_ADDRESS, REG_FIFO_DATA, sample, 6);
-//				    raw_RED = ((uint32_t) (sample[0] << 16) | (uint32_t) (sample[1] << 8) | (uint32_t) (sample[2])) & 0x3ffff;
-//					raw_IR = ((uint32_t) (sample[3] << 16) | (uint32_t) (sample[4] << 8) | (uint32_t) (sample[5])) & 0x3ffff;
-//
-//					result->raw_IR[result->cnt] = raw_IR;
-//					result->raw_RED[result->cnt] = raw_RED;
-//
-////					sl_app_log("Cnt: %d - IR: %d - RED: %d \n", result->cnt, raw_IR, raw_RED);
-////					sl_app_log("%d %d \n", raw_IR, raw_RED);
-//					sl_app_log("%d \n", raw_IR);
-//
-//					result->cnt += 1;
-//					toGet -= 2 * 3;
-//				}
+				if (result->cnt > (STORAGE_SIZE - 1))
+				{
+					result->cnt = STORAGE_SIZE;
+					break;
+				}
+				else
+				{
+					uint8_t sample[BYTES_PER_SAMPLE];
+				    i2c_read (MAX30102_ADDRESS, REG_FIFO_DATA, sample, BYTES_PER_SAMPLE);
+				    raw_RED = ((uint32_t) (sample[0] << 16) | (uint32_t) (sample[1] << 8) | (uint32_t) (sample[2])) & 0x3ffff;
+					raw_IR = ((uint32_t) (sample[3] << 16) | (uint32_t) (sample[4] << 8) | (uint32_t) (sample[5])) & 0x3ffff;
 
-				uint8_t sample[6];
-				i2c_read (MAX30102_ADDRESS, REG_FIFO_DATA, sample, 6);
-				raw_RED = ((uint32_t) (sample[0] << 16) | (uint32_t) (sample[1] << 8) | (uint32_t) (sample[2])) & 0x3ffff;
-				raw_IR = ((uint32_t) (sample[3] << 16) | (uint32_t) (sample[4] << 8) | (uint32_t) (sample[5])) & 0x3ffff;
+					result->raw_IR[result->cnt] = raw_IR;
+					result->raw_RED[result->cnt] = raw_RED;
 
-//				sl_app_log("Cnt: %d - IR: %d - RED: %d \n", result->cnt, raw_IR, raw_RED);
-//				sl_app_log("%d %d \n", raw_IR, raw_RED);
-				sl_app_log("%d \n", raw_IR);
+//					sl_app_log("Cnt: %d - IR: %d - RED: %d \n", result->cnt, raw_IR, raw_RED);
+//					sl_app_log("%d %d \n", raw_IR, raw_RED);
+					sl_app_log("%d \n", raw_IR);
+//					sl_app_log("%d \n", raw_RED);
 
-				toGet -= 2 * 3;
+					result->cnt += 1;
+					toGet -= BYTES_PER_SAMPLE;
+				}
+
+//				uint8_t sample[BYTES_PER_SAMPLE];
+//				i2c_read (MAX30102_ADDRESS, REG_FIFO_DATA, sample, BYTES_PER_SAMPLE);
+//				raw_RED = ((uint32_t) (sample[0] << 16) | (uint32_t) (sample[1] << 8) | (uint32_t) (sample[2])) & 0x3ffff;
+//				raw_IR = ((uint32_t) (sample[3] << 16) | (uint32_t) (sample[4] << 8) | (uint32_t) (sample[5])) & 0x3ffff;
+//
+////				sl_app_log("Cnt: %d - IR: %d - RED: %d \n", result->cnt, raw_IR, raw_RED);
+////				sl_app_log("%d %d \n", raw_IR, raw_RED);
+//				sl_app_log("%d \n", raw_IR);
+//
+//				toGet -= BYTES_PER_SAMPLE;
 			}
 		}  //End while (bytesLeftToRead > 0)
 	} //End readPtr != writePtr

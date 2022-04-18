@@ -39,7 +39,7 @@
 
 // 0x00~0xFF = 0mA~51mA
 #define MAX_CURRENT  0xFF
-#define FIX_CURRENT  0x64  // ~18mA for LED1 & LED2
+#define FIX_CURRENT  0x64  // ~20mA for LED1 & LED2
 
 #define  MAX30102_RESET           0x40
 #define  MAX30102_MODE_HR_ONLY    0b02
@@ -57,7 +57,7 @@
 #define FIFO_ROLLOVER_EN   (0b1 << 4)
 #define FIFO_ROLLOVER_DIS  (0b0 << 4)
 
-#define FIFO_A_FULL  0x00   // 22 (70%) FIFO data samples have unread data
+#define FIFO_A_FULL  0x02   // 22 (70%) FIFO data samples have unread data
 
 #define INT_A_FULL_EN   (0b1 << 7)
 #define INT_A_FILL_DIS  (0b0 << 7)
@@ -85,7 +85,9 @@
 #define  pw215  0b10    // 215us pulse
 #define  pw411  0b11  // 411us pulse
 
-#define I2C_BUFFER_LENGTH 32
+#define I2C_BUFFER_LENGTH 		32
+#define MAX30102_TOTAL_BYTES 	(6*32)
+#define BYTES_PER_SAMPLE 		6
 
 #define SMP_AVE     4
 

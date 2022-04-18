@@ -118,6 +118,8 @@ SL_WEAK void app_init (void)
 
 	//RTCC init
 
+	set_LED('b');
+
 	sl_app_log("Ok....... \n");
 
 //	sl_bt_system_set_soft_timer (TIMER_MS(12000), 0, 0);
@@ -134,11 +136,12 @@ SL_WEAK void app_process_action (void)
 	// Do not call blocking functions from here!                               //
 	/////////////////////////////////////////////////////////////////////////////
 	/*********************** Khanh's Process **********************************/
-	BPM_SpO2_Update(&BPM_SpO2_value, 1);
+//	BPM_SpO2_Update(&BPM_SpO2_value, 1);
 
 
 	if (!GPIO_PinInGet (button_port, button_pin))
 	{
+		GPIO_PinOutSet (LED_on_board_port, LED_on_board_pin);
 
 		/************************** LM75 test *****************************/
 //		sl_app_log("---------------- \n");
@@ -150,20 +153,20 @@ SL_WEAK void app_process_action (void)
 //		sl_app_log(" %d \n", (uint32_t) (1000*t_f) );
 
 		/************************ MAX30102 test **************************/
-//		BPM_SpO2_Update(&BPM_SpO2_value, 3);
+//		BPM_SpO2_Update(&BPM_SpO2_value, 6);
 
 		/************************** MSC test *****************************/
 
 		/** Ghi vào flash vào vị trí tiếp theo */
-		float T = 29.125;
-		uint8_t t_d = LM75_FloatToOneByte (T);  // 73
-
-		//	vị trí word mà từ đó các dữ liệu chưa dc đọc, ngày, tháng, năm, giờ, phút, BPM, SpO2, nhiet do
-		uint8_t data[9] = {28, 31, 12, 22, 23, 59, 88, 98, t_d};
-		uint8_t read[9];
-		MSC_write(data, &dataCounter);
-		sl_app_log(" Write OK \n");
-		MSC_read(read, dataCounter-1);
+//		float T = 29.125;
+//		uint8_t t_d = LM75_FloatToOneByte (T);  // 73
+//
+//		//	vị trí word mà từ đó các dữ liệu chưa dc đọc, ngày, tháng, năm, giờ, phút, BPM, SpO2, nhiet do
+//		uint8_t data[9] = {28, 31, 12, 22, 23, 59, 88, 98, t_d};
+//		uint8_t read[9];
+//		MSC_write(data, &dataCounter);
+//		sl_app_log(" Write OK \n");
+//		MSC_read(read, dataCounter-1);
 //		MSC_CheckPage();
 
 		/** Doc cac cac data trong flash mà chưa được gui len app */
@@ -176,6 +179,10 @@ SL_WEAK void app_process_action (void)
 //			sl_app_log("%d \n", i);
 //			MSC_read(read, i);
 //		}
+	}
+	else
+	{
+		GPIO_PinOutClear (LED_on_board_port, LED_on_board_pin);
 	}
 
 	/*********************** Duong's Process **********************************/

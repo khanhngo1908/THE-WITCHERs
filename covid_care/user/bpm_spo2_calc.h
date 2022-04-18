@@ -10,6 +10,8 @@
 #ifndef USER_BPM_SPO2_CALC_H_
 #define USER_BPM_SPO2_CALC_H_
 
+#define INTERVAL 	10
+
 typedef struct PPG_t
 {
 	uint8_t BPM;
