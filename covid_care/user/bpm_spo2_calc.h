@@ -10,28 +10,30 @@
 #ifndef USER_BPM_SPO2_CALC_H_
 #define USER_BPM_SPO2_CALC_H_
 
-#define INTERVAL 	10
+#define INTERVAL 	9
 
-typedef struct PPG_t
+typedef struct __attribute__((packed))
 {
-	uint8_t BPM;
-	uint32_t AC;
-	uint32_t DC;
+	float AC;
+	float DC;
+	float BPM;
 } PPG_t;
 
 typedef struct BPM_SpO2_value_t
 {
 	uint8_t BPM;
 	uint8_t SpO2;
-} BPM_SpO2_value_t[3];
+} BPM_SpO2_value_t;
 
-void DC_removal (uint32_t *raw_data, int32_t *data, uint16_t n_sample, float alpha);
-void median_filter(int32_t *signal, uint16_t n_sample, uint8_t filter_size);
-void sort (int32_t *array, uint8_t array_size);
-void swap (int32_t *x, int32_t *y);
-void BPM_estimator(int32_t* signal, PPG_t* PPG_properties, uint16_t n_sample, int32_t thresh, float sample_rate);
-uint8_t SpO2_estimator(float R);
-int32_t max(int32_t *array, int32_t array_size);
-void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n);
+float max(float *array, int array_size);
+float sum(float *array, int array_size);
+void swap(float* x, float* y);
+void sort(float* array, int array_size);
+void trim(float* array, int* array_size, int offset);
+void DC_removal(float* signal, int n_sample, float alpha);
+void median_filter(float* signal, int n_sample, int filter_size);
+void BPM_estimator(float* signal, PPG_t* ppg, int n_sample, float thresh, float sample_rate);
+float SpO2_estimator(float R);
+void assign_signal(float* ori, float* des, int n_sample);
 
 #endif /* USER_BPM_SPO2_CALC_H_ */

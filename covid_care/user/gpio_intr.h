@@ -18,6 +18,9 @@
 #define  intr_port      gpioPortB
 #define  intr_pin       1
 
+//#define  intr_port      gpioPortC
+//#define  intr_pin       2
+
 #define  LED_on_board_port     gpioPortA
 #define  LED_on_board_pin     4
 

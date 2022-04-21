@@ -56,21 +56,20 @@ uint8_t app_connection;
 static uint8_t advertising_set_handle = 0xff;
 
 /*----------------- Define Area -----------------*/
-#define TIMER_MS(ms) ((32768 * ms) / 1000)
-#define TEMPERATURE 0
-/*MPU6050 */
-volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
-void dmpDataReady() {
-    mpuInterrupt = true;
-}
-struct MPU6050_Base mpu;
-uint16_t packetSize;
-uint8_t devStatus;
-uint8_t mpuIntStatus;
-bool dmpReady = false;
+//#define TIMER_MS(ms) ((32768 * ms) / 1000)
+//#define TEMPERATURE 0
+///*MPU6050 */
+//volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
+//void dmpDataReady() {
+//    mpuInterrupt = true;
+//}
+//struct MPU6050_Base mpu;
+//uint16_t packetSize;
+//uint8_t devStatus;
+//uint8_t mpuIntStatus;
+//bool dmpReady = false;
 
 BPM_SpO2_value_t BPM_SpO2_value;
-uint8_t msc_dataCount = 0;
 
 uint8_t unReadCounter = 0;
 uint8_t dataCounter = 0;
@@ -110,7 +109,7 @@ SL_WEAK void app_init (void)
 	sl_app_log(" MSC init Ok \n");
 
 	// GPIO Interrupt init
-	//    gpio_INTR_init();
+	gpio_INTR_init();
 	sl_app_log(" GPIO Intr init Ok \n");
 
 	// MPU6050init
@@ -119,6 +118,10 @@ SL_WEAK void app_init (void)
 	//RTCC init
 
 	set_LED('b');
+
+	set_Buzzer();
+	sl_sleeptimer_delay_millisecond (600);
+	clear_Buzzer();
 
 	sl_app_log("Ok....... \n");
 
@@ -136,24 +139,26 @@ SL_WEAK void app_process_action (void)
 	// Do not call blocking functions from here!                               //
 	/////////////////////////////////////////////////////////////////////////////
 	/*********************** Khanh's Process **********************************/
-//	BPM_SpO2_Update(&BPM_SpO2_value, 1);
 
+	/************************** LM75 test *****************************/
+	sl_app_log("---------------- \n");
+	float T = LM75_ReadTemperature ();
+	sl_app_log(" %d \n", (uint32_t ) (1000 * T));
+//	T += 1.4;
+//	sl_app_log(" %d \n", (uint32_t ) (1000 * T));
+//	uint8_t t_d = LM75_FloatToOneByte (T);
+//	sl_app_log(" %d %d \n", (t_d >> 3) + 20, (t_d & 0x07));
+//	float t_f = LM75_OneByteToFloat (t_d);
+//	sl_app_log(" %d \n", (uint32_t) (1000*t_f) );
 
 	if (!GPIO_PinInGet (button_port, button_pin))
 	{
-		GPIO_PinOutSet (LED_on_board_port, LED_on_board_pin);
-
-		/************************** LM75 test *****************************/
-//		sl_app_log("---------------- \n");
-//		float T = LM75_ReadTemperature ();
-//		sl_app_log(" %d \n", (uint32_t) (1000*T) );
-//		uint8_t t_d = LM75_FloatToOneByte (T);
-//		sl_app_log(" %d %d \n", (t_d >> 3)+20, (t_d & 0x07));
-//		float t_f = LM75_OneByteToFloat(t_d);
-//		sl_app_log(" %d \n", (uint32_t) (1000*t_f) );
+//		sl_app_log(" nhan nut \n");
+//		GPIO_PinOutSet(LED_on_board_port, LED_on_board_pin);
 
 		/************************ MAX30102 test **************************/
-//		BPM_SpO2_Update(&BPM_SpO2_value, 6);
+//		sl_app_log(" Dang tinh \n");
+//		BPM_SpO2_Update(&BPM_SpO2_value, 1);
 
 		/************************** MSC test *****************************/
 
@@ -180,10 +185,10 @@ SL_WEAK void app_process_action (void)
 //			MSC_read(read, i);
 //		}
 	}
-	else
-	{
-		GPIO_PinOutClear (LED_on_board_port, LED_on_board_pin);
-	}
+//	else
+//	{
+//		GPIO_PinOutClear (LED_on_board_port, LED_on_board_pin);
+//	}
 
 	/*********************** Duong's Process **********************************/
 //  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus);
@@ -310,7 +315,8 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 //        }
 //      break;
     case sl_bt_evt_system_external_signal_id:
-      dmpDataReady();
+//      dmpDataReady();
+//    	GPIO_PinOutToggle(LED_on_board_port, LED_on_board_pin);
       break;
     // -------------------------------
     // Default event handler.

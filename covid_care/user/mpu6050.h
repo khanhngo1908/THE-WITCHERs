@@ -151,9 +151,6 @@ struct MPU6050_Base {
               uint32_t fifoTimeout;
 };
 
-void MPU6050_Init(void);
-void MPU6050_Read(void);
-void CheckID(void);
 void MPU6050_init_DMP(void);
 void MPU6050_setSleepEnabled(bool enabled);
 void MPU6050_reset();

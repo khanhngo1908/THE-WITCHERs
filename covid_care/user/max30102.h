@@ -39,7 +39,7 @@
 
 // 0x00~0xFF = 0mA~51mA
 #define MAX_CURRENT  0xFF
-#define FIX_CURRENT  0x64  // ~20mA for LED1 & LED2
+#define FIX_CURRENT  0x32  // 10mA for LED1 & LED2
 
 #define  MAX30102_RESET           0x40
 #define  MAX30102_MODE_HR_ONLY    0b02
@@ -91,16 +91,16 @@
 
 #define SMP_AVE     4
 
-#define SMP_RATE    400
+#define SMP_RATE    200
 
 #define THROUGHTPUT (SMP_RATE/SMP_AVE)
 
-#define STORAGE_SIZE (10*THROUGHTPUT)
+#define STORAGE_SIZE (9*THROUGHTPUT)
 
 typedef struct fifo_t
 {
-	uint32_t raw_IR[STORAGE_SIZE];
-	uint32_t raw_RED[STORAGE_SIZE];
+	uint16_t raw_IR[STORAGE_SIZE];
+	uint16_t raw_RED[STORAGE_SIZE];
 	uint16_t cnt;
 } fifo_t;
 

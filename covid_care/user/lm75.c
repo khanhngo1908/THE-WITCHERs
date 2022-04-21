@@ -10,8 +10,6 @@
 #include "app.h"
 #include "sl_app_log.h"
 
-uint16_t value;
-
 //
 /**
  * @brief      Read config register of LM75
@@ -104,6 +102,7 @@ float LM75_ReadTemperature (void)
 {
 
 #ifdef LM75_11BIT
+	uint16_t value;
 	LM75_ReadTemperature_11BitReg (&value);
 	if (value & 0x0400)
 	{                       // kiem tra bit dau
@@ -117,6 +116,7 @@ float LM75_ReadTemperature (void)
 #endif
 
 #ifdef LM75_9BIT
+	uint16_t value;
     LM75_ReadTemperature_9BitReg(&value);
     if (value & 0x0100)
     {

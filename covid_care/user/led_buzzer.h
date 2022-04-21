@@ -24,7 +24,7 @@
 #define  buzzer_pin       0
 
 #define  button_port      gpioPortC
-#define  button_pin       7
+#define  button_pin       2
 
 #define  LED_on_board_port    gpioPortA
 #define  LED_on_board_pin     4
