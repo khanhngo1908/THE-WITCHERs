@@ -95,12 +95,12 @@
 
 #define THROUGHTPUT (SMP_RATE/SMP_AVE)
 
-#define STORAGE_SIZE (9*THROUGHTPUT)
+#define STORAGE_SIZE (10*THROUGHTPUT)
 
 typedef struct fifo_t
 {
-	uint16_t raw_IR[STORAGE_SIZE];
-	uint16_t raw_RED[STORAGE_SIZE];
+	float IR[STORAGE_SIZE];
+	float RED[STORAGE_SIZE];
 	uint16_t cnt;
 } fifo_t;
 

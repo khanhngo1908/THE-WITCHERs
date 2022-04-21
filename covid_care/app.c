@@ -71,7 +71,7 @@ static uint8_t advertising_set_handle = 0xff;
 
 BPM_SpO2_value_t BPM_SpO2_value;
 
-uint8_t unReadCounter = 0;
+uint8_t unReadCounter = 0;   // luu vi tri data mà từ đó chưa dc đọc
 uint8_t dataCounter = 0;
 
 /**************************************************************************//**
@@ -141,9 +141,9 @@ SL_WEAK void app_process_action (void)
 	/*********************** Khanh's Process **********************************/
 
 	/************************** LM75 test *****************************/
-	sl_app_log("---------------- \n");
-	float T = LM75_ReadTemperature ();
-	sl_app_log(" %d \n", (uint32_t ) (1000 * T));
+//	sl_app_log("---------------- \n");
+//	float T = LM75_ReadTemperature ();
+//	sl_app_log(" %d \n", (uint32_t ) (1000 * T));
 //	T += 1.4;
 //	sl_app_log(" %d \n", (uint32_t ) (1000 * T));
 //	uint8_t t_d = LM75_FloatToOneByte (T);
@@ -158,7 +158,7 @@ SL_WEAK void app_process_action (void)
 
 		/************************ MAX30102 test **************************/
 //		sl_app_log(" Dang tinh \n");
-//		BPM_SpO2_Update(&BPM_SpO2_value, 1);
+		BPM_SpO2_Update(&BPM_SpO2_value, 1);
 
 		/************************** MSC test *****************************/
 
@@ -166,8 +166,9 @@ SL_WEAK void app_process_action (void)
 //		float T = 29.125;
 //		uint8_t t_d = LM75_FloatToOneByte (T);  // 73
 //
-//		//	vị trí word mà từ đó các dữ liệu chưa dc đọc, ngày, tháng, năm, giờ, phút, BPM, SpO2, nhiet do
-//		uint8_t data[9] = {28, 31, 12, 22, 23, 59, 88, 98, t_d};
+//		//	vị trí data mà từ đó các dữ liệu chưa dc đọc, ngày, tháng, năm, giờ, phút, BPM, SpO2, nhiet do
+//		uint8_t check;
+//		uint8_t data[9] = {2, 31, 12, 22, 23, 59, 88, 98, t_d};
 //		uint8_t read[9];
 //		MSC_write(data, &dataCounter);
 //		sl_app_log(" Write OK \n");

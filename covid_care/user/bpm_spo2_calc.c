@@ -32,7 +32,7 @@ void check1(fifo_t *fifo, uint16_t n)
 	uint16_t i;
 	for(i = 0; i < n; i++)
 	{
-		sl_app_log(" %d %d \n", fifo->raw_IR[i], fifo->raw_RED[i]);
+		sl_app_log(" %d %d \n", fifo->IR[i], fifo->RED[i]);
 	}
 }
 
@@ -50,8 +50,8 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 			uint16_t j;
 			for (j = 0; j < (STORAGE_SIZE - INTERVAL*THROUGHTPUT); j++)
 			{
-				FIFO_data.raw_IR[j] = FIFO_data.raw_IR[j + INTERVAL*THROUGHTPUT];
-				FIFO_data.raw_RED[j] = FIFO_data.raw_RED[j + INTERVAL*THROUGHTPUT];
+				FIFO_data.IR[j] = FIFO_data.IR[j + INTERVAL*THROUGHTPUT];
+				FIFO_data.RED[j] = FIFO_data.RED[j + INTERVAL*THROUGHTPUT];
 			}
 			FIFO_data.cnt = STORAGE_SIZE - INTERVAL*THROUGHTPUT;
 		}
@@ -67,104 +67,38 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 		sl_app_log(" ----------- End read ------------- \n");
 
 		/****************** Calc BPM, SpO2 **********************/
-		int max_sample = 450;
-		sl_app_log(" 0.1 \n");
-	 // temp array to process signal
-	// original array to save signal
-		sl_app_log(" 0.2 \n");
-		int idx_ir = 0, idx_red = 0;
-		sl_app_log(" 1 \n");
+		// DC removal
+		float alpha = 0.95;
+		DC_removal (FIFO_data.IR, STORAGE_SIZE, alpha);
+		DC_removal(FIFO_data.RED, STORAGE_SIZE, alpha);
+
+		// Get DC components of ir signal and red signal
+		float DC_ir = max (FIFO_data.IR, STORAGE_SIZE);
+		float DC_red = max (FIFO_data.RED, STORAGE_SIZE);
 
 		PPG_t ppg_ir;
 		PPG_t ppg_red;
 
-		ppg_ir.BPM = 0.0;
-		ppg_red.BPM = 0.0;
-		sl_app_log(" 2 \n");
+		ppg_ir.DC = DC_ir;
+		ppg_red.DC = DC_red;
 
-		float spo2 = 0.0;
+		// applying median filter
+		int filter_size = 5;
+		median_filter (FIFO_data.IR, STORAGE_SIZE, filter_size);
+		median_filter (FIFO_data.RED, STORAGE_SIZE, filter_size);
 
-		float alpha = 0.95;
 		float thresh = 0.0;
 		float sample_rate = 50.0;
+		BPM_estimator (FIFO_data.IR, &ppg_ir, STORAGE_SIZE, thresh, sample_rate);
+		BPM_estimator(FIFO_data.RED, &ppg_red, STORAGE_SIZE, thresh, sample_rate);
 
-		float DC_ir = 0.0;
-		float DC_red = 0.0;
-		float R = -1.0;
-		sl_app_log(" 3 \n");
+		// Calculate Spo2
+		float R = (ppg_ir.AC / DC_ir) / (ppg_red.AC / DC_red);
+		float spo2 = SpO2_estimator (R);
 
-		int offset = 100;
-
-		int i;
-		for (i = 0; i < max_sample; ++i)
-		{
-			o_ir[i] = FIFO_data.raw_IR[i];
-			o_red[i] = FIFO_data.raw_RED[i];
-
-			if ((i + 1) % (3*THROUGHTPUT) == 0)
-			{
-				idx_ir = (i + 1) > max_sample ? (i + 1) - max_sample : (i + 1);
-				idx_red = idx_ir;
-
-				sl_app_log("idx %d\n", idx_ir);
-//				printf ("idx %d\n", idx_ir);
-
-				// asignal original array to temp array
-				assign_signal (o_ir, t_ir, idx_ir);
-				assign_signal (o_red, t_red, idx_red);
-
-				DC_removal (t_ir, idx_ir, alpha);
-				DC_removal (t_red, idx_red, alpha);
-
-				// Get DC components of ir signal and red signal
-				DC_ir = max (t_ir, idx_ir);
-				DC_red = max (t_red, idx_red);
-
-				if (DC_ir < 10000.0 && DC_red < 10000.0)
-				{
-					sl_app_log("Please put your finger in to measure Spo2 & BPM!\n");
-//					printf ("Please put your finger in to measure Spo2 & BPM!\n");
-					continue;
-				}
-
-				ppg_ir.DC = DC_ir;
-				ppg_red.DC = DC_red;
-
-				sl_app_log("ir DC component: %d\n", (int) DC_ir);
-				sl_app_log("red DC component: %d \n", (int) DC_red);
-//				printf ("ir DC component: %lf\n", DC_ir);
-//				printf ("red DC component: %lf\n", DC_red);
-
-				// Cut off 100 first samples to remove redundant DC components in signal
-				trim (t_ir, &idx_ir, offset);
-				trim (t_red, &idx_red, offset);
-
-				// Estimate BPM
-				BPM_estimator (t_ir, &ppg_ir, idx_ir, thresh, sample_rate);
-				BPM_estimator (t_red, &ppg_red, idx_red, thresh, sample_rate);
-
-				sl_app_log("ir BPM: %d AC: %d\n", (int) ppg_ir.BPM, (int) ppg_ir.AC);
-				sl_app_log("red BPM: %d AC: %d\n", (int) ppg_red.BPM, (int) ppg_red.AC);
-//				printf ("ir BPM: %lf AC: %lf\n", ppg_ir.BPM, ppg_ir.AC);
-//				printf ("red BPM: %lf AC: %lf\n", ppg_red.BPM, ppg_red.AC);
-
-				// Calculate Spo2
-				R = (ppg_ir.AC / DC_ir) / (ppg_red.AC / DC_red);
-
-				if (spo2 > 79.0)
-				{
-					spo2 = (spo2 + SpO2_estimator (R)) / 2;
-				}
-				else
-				{
-					spo2 = SpO2_estimator (R);
-				}
-				sl_app_log("Spo2: %d \n", (int) spo2);
-				sl_app_log("-----------{%d}-----------\n----------------------------\n", i);
-//				printf ("Spo2: %lf\n", spo2);
-//				printf ("-----------{%d}-----------\n----------------------------\n", i);
-			}
-		}
+		sl_app_log("ir BPM: %d AC: %d \n", (int) ppg_ir.BPM, (int) ppg_ir.AC);
+		sl_app_log("red BPM: %d AC: %d\n", (int) ppg_red.BPM, (int) ppg_red.AC);
+		sl_app_log("Spo2: %d \n", (int) spo2);
 		/********************************************************/
 		i += 1;
 	}
@@ -318,14 +252,15 @@ void BPM_estimator(float* signal, PPG_t* ppg, int n_sample, float thresh, float 
     sl_app_log("peaks: %d   n_sample: %d\n", peaks, n_sample);
 //    printf("peaks: %d   n_sample: %d\n", peaks, n_sample);
 
-    float bpm = peaks / (n_sample / sample_rate) * 60.0;
+    float bpm = peaks / (n_sample / sample_rate) * 60.0 + 9;
     float AC = lmax / nmax;
 
-    if((ppg->BPM) > 60.0){
-        ppg->BPM = (ppg->BPM + bpm) / 2;
-    } else {
-        ppg->BPM = bpm;
-    }
+//    if((ppg->BPM) > 60.0){
+//        ppg->BPM = (ppg->BPM + bpm) / 2;
+//    } else {
+//        ppg->BPM = bpm;
+//    }
+    ppg->BPM = bpm;
     ppg->AC = AC;
 }
 
