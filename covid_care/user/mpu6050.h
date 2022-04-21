@@ -151,6 +151,9 @@ struct MPU6050_Base {
               uint32_t fifoTimeout;
 };
 
+void MPU6050_Init(void);
+void MPU6050_Read(void);
+void CheckID(void);
 void MPU6050_init_DMP(void);
 void MPU6050_setSleepEnabled(bool enabled);
 void MPU6050_reset();
@@ -183,7 +186,11 @@ void MPU6050_PID(uint8_t ReadAddress, float kP,float kI, uint8_t Loops);
 uint8_t MPU6050_getDeviceID();
 uint8_t MPU6050_getFullScaleAccelRange();
 void MPU6050_ConfigDMP(struct MPU6050_Base *mpu,uint8_t *devStatus,bool *dmpReady,uint8_t *mpuIntStatus,uint16_t *packetSize);
-void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuInterrupt,uint16_t *packetSize,uint8_t *mpuIntStatus);
+void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuInterrupt,uint16_t *packetSize,uint8_t *mpuIntStatus,uint8_t *check_fall);
+int8_t MPU6050_getXGyroOffset();
+int8_t MPU6050_getYGyroOffset();
+int8_t MPU6050_getZGyroOffset();
+int16_t MPU6050_getZAccelOffset();
 #define MPU6050_FIFO_DEFAULT_TIMEOUT 11000
 
 

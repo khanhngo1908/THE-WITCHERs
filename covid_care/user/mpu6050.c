@@ -358,25 +358,26 @@ void MPU6050_getFIFOBytes(uint8_t *data, uint8_t length) {
 uint8_t MPU6050_getOTPBankValid() {
     uint8_t data;
     i2c_read(MPU6050_ADD, 0x00,&data , 1);
-    data = (data >> 0) & 0x01;
+    data = data & (1 << 0);
     return data;
 }
 uint8_t DMP_Init()
 {
-  app_log("\n\nResetting MPU6050...");
+  app_log("\n\nResetting MPU6050...\n");
   MPU6050_reset();
+  sl_sleeptimer_delay_millisecond(30);
   //
-  MPU6050_setSleepEnabled(false);
-  MPU6050_setMemoryBank(0x10, true, true);
+  MPU6050_setSleepEnabled(0);
+  MPU6050_setMemoryBank(0x10, 1, 1);
   i2c_writeByte(MPU6050_ADD, 0x6E, 0x06);
   app_log("Checking hardware revision...\n");
-  app_log("Revision @ user[16][6] = \n");
+  app_log("Revision @ user[16][6] = ");
   app_log("%d\n",MPU6050_readMemoryByte());
-  MPU6050_setMemoryBank(0, false, false);
+  MPU6050_setMemoryBank(0, 0, 0);
   // check OTP bank valid
   app_log("Reading OTP bank valid flag...\n");
   app_log("OTP bank is :");
-  app_log(MPU6050_getOTPBankValid() ? F("valid!") : F("invalid!"));
+  app_log(MPU6050_getOTPBankValid() ? F("valid!\n") : F("invalid!\n"));
   app_log("Setting slave 0 address to 0x7F...\n");
   MPU6050_setSlaveAddress(0, 0x07);
   MPU6050_setI2CMasterModeEnabled (false);
@@ -436,7 +437,58 @@ uint8_t DMP_Init()
   app_log("%d\n",MPU6050_getIntStatus());
   return 0; // success
 }
-
+void MPU6050_Init(void)
+{
+  i2c_writeByte(MPU6050_ADD, SMPLRT_DIV, 0x07);//set sample rate to 8000/(1+7) = 1000Hz
+  i2c_writeByte(MPU6050_ADD, PWR_MGMT_1, 0x00);// wake up MPU6050
+  //i2c_write(MPU6050_ADD,CONFIG,0x00);//disable DLPF
+  i2c_writeByte(MPU6050_ADD,ACCEL_CONFIG,0x00);//full scale range mode 0 +- 2g
+  i2c_writeByte(MPU6050_ADD,GYRO_CONFIG,0x00);//full scale range mode 0 +- 250do/s
+  //i2c_write(MPU6050_ADD,0x74,0x06);//disable sensor output to FIFO buffer
+}
+void MPU6050_Read(void)
+{
+  int16_t Ax,Ay,Az;
+  int16_t Gx,Gy,Gz;
+  // Prepare For Reading, Starting From ACCEL_XOUT_H
+  uint8_t data_ax_h,data_ax_l,data_ay_h,data_ay_l,data_az_h,data_az_l;
+  uint8_t data_gx_h,data_gx_l,data_gy_h,data_gy_l,data_gz_h,data_gz_l;
+  //read data accelerometer
+  i2c_read(MPU6050_ADD, ACCEL_XOUT_H, &data_ax_h, 1);
+  i2c_read(MPU6050_ADD, ACCEL_XOUT_L, &data_ax_l, 1);
+  Ax = (int16_t)(data_ax_h << 8 | data_ax_l);
+  i2c_read(MPU6050_ADD, ACCEL_YOUT_H, &data_ay_h, 1);
+  i2c_read(MPU6050_ADD, ACCEL_YOUT_L, &data_ay_l, 1);
+  Ay = (int16_t)(data_ay_h << 8 | data_ay_l);
+  i2c_read(MPU6050_ADD, ACCEL_ZOUT_H, &data_az_h, 1);
+  i2c_read(MPU6050_ADD, ACCEL_ZOUT_L, &data_az_l, 1);
+  Az = (int16_t)(data_az_h << 8 | data_az_l);
+  // read data gyroscope
+  i2c_read(MPU6050_ADD, GYRO_XOUT_H, &data_gx_h, 1);
+  i2c_read(MPU6050_ADD, GYRO_XOUT_L, &data_gx_l, 1);
+  Gx = (int16_t)(data_gx_h << 8 | data_gx_l);
+  i2c_read(MPU6050_ADD, GYRO_YOUT_H, &data_gy_h, 1);
+  i2c_read(MPU6050_ADD, GYRO_YOUT_L, &data_gy_l, 1);
+  Gy = (int16_t)(data_gy_h << 8 | data_gy_l);
+  i2c_read(MPU6050_ADD, GYRO_ZOUT_H, &data_gz_h, 1);
+  i2c_read(MPU6050_ADD, GYRO_ZOUT_L, &data_gz_l, 1);
+  Gz = (int16_t)(data_gz_h << 8 | data_gz_l);
+  //log data accelerometer
+  app_log("Ax :%d", Ax);
+  app_log(" | Ay :%d", Ay);
+  app_log(" | Az :%d", Az);
+  //log data accelerometer
+  app_log(" | Gx :%d", Gx);
+  app_log(" | Gy :%d", Gy);
+  app_log(" | Gz :%d", Gz);
+  app_log("\n");
+}
+void CheckID(void)
+{
+    uint8_t data;
+    i2c_read(0x68, 0x75, &data, 1);
+    app_log("check : %d\n",data);
+  }
 uint8_t MPU6050_dmpGetQuaternion16(int16_t *data, const uint8_t* packet) {
     // TODO: accommodate different arrangements of sent data (ONLY default supported now)
     if (packet == 0) packet = MPUdmpPacketBuffer;
@@ -585,7 +637,6 @@ void MPU6050_CalibrateGyro(uint8_t Loops) {
 void MPU6050_ConfigDMP(struct MPU6050_Base *mpu,uint8_t *devStatus,bool *dmpReady,uint8_t *mpuIntStatus,uint16_t *packetSize)
 {
       mpu->dmpPacketSize = 42;
-      mpu->fifoTimeout=MPU6050_FIFO_DEFAULT_TIMEOUT;
       app_log("Initializing I2C devices...\n");
       MPU6050_init_DMP();
       app_log("Initializing DMP...\n");
@@ -611,7 +662,7 @@ void MPU6050_ConfigDMP(struct MPU6050_Base *mpu,uint8_t *devStatus,bool *dmpRead
               app_log(")\n");
           }
 }
-void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuInterrupt,uint16_t *packetSize,uint8_t *mpuIntStatus)
+void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuInterrupt,uint16_t *packetSize,uint8_t *mpuIntStatus, uint8_t * check_fall)
 {
   struct Quaternion_Base q;           // [w, x, y, z]         quaternion container
   struct VectorInt16_Base aa;         // [x, y, z]            accel sensor measurements
@@ -670,10 +721,20 @@ void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuI
         app_log("\t");
         app_log("%d", (uint16_t )(SVM * 1000));
         app_log("\t\n");
-        while (SVM > 1.7 && (ypr[2] * 180/M_PI)< 10 )
+        app_log("y[1] : %d  y[2] :%d \n",(uint16_t)((ypr[1] * 180/M_PI)*1000),(uint16_t)((ypr[2] * 180/M_PI)*1000));
+
+//        app_log("------\n");
+//        app_log("%d    %d    %d\n",(uint16_t )(gravity.x * 1000),(uint16_t )(gravity.y * 1000),(uint16_t )(gravity.z * 1000));
+        if (SVM > 2 && (ypr[2] * 180/M_PI)< 10 )
         {
-            set_LED('r');
+            *check_fall = 1;
         }
+        else  if(SVM < 1.1)
+          {
+            *check_fall = 0;
+          }
       }
 
 }
+
+

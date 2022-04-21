@@ -61,8 +61,8 @@ gecko_sdk_4.0.2/util/silicon_labs/silabs_core/memory_manager/sl_malloc.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h
+ C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
+ C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/util/silicon_labs/silabs_core/memory_manager/sl_malloc.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
@@ -124,5 +124,5 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm2
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_assert.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/emlib_core_debug_config.h:
+C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
+C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\config/emlib_core_debug_config.h:

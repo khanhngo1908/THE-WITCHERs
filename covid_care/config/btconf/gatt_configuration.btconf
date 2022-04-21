@@ -53,39 +53,23 @@
   <service advertise="true" name="Custom Service" requirement="mandatory" sourceId="" type="primary" uuid="12345678-1234-1234-1234-12345678910a">
     <informativeText/>
     
-    <!--Temperature-->
-    <characteristic const="false" id="temp_ch" name="Temperature" sourceId="" uuid="12345678-1234-1234-1234-12345678910a">
+    <!--Data-->
+    <characteristic const="false" id="data_ch" name="Data" sourceId="" uuid="12345678-1234-1234-1234-12345678910a">
       <informativeText/>
-      <value length="7" type="hex" variable_length="false">00</value>
+      <value length="0" type="user" variable_length="false"/>
       <properties>
         <read authenticated="false" bonded="false" encrypted="false"/>
-        <write authenticated="false" bonded="false" encrypted="false"/>
-        <indicate authenticated="false" bonded="false" encrypted="false"/>
         <notify authenticated="false" bonded="false" encrypted="false"/>
       </properties>
     </characteristic>
     
-    <!--Sp02-->
-    <characteristic const="false" id="sp02_ch" name="Sp02" sourceId="" uuid="12345678-1234-1234-1234-12345678910b">
+    <!--Device Send-->
+    <characteristic const="false" id="device_ch" name="Device Send" sourceId="" uuid="12345678-1234-1234-1234-12345678910b">
       <informativeText/>
-      <value length="6" type="hex" variable_length="true">00</value>
+      <value length="0" type="user" variable_length="false"/>
       <properties>
-        <read authenticated="false" bonded="false" encrypted="false"/>
         <write authenticated="false" bonded="false" encrypted="false"/>
-        <indicate authenticated="false" bonded="false" encrypted="false"/>
-        <notify authenticated="false" bonded="false" encrypted="false"/>
-      </properties>
-    </characteristic>
-    
-    <!--Bmp-->
-    <characteristic const="false" id="bmp_ch" name="Bmp" sourceId="" uuid="12345678-1234-1234-1234-12345678910c">
-      <informativeText/>
-      <value length="6" type="hex" variable_length="false">00</value>
-      <properties>
-        <read authenticated="false" bonded="false" encrypted="false"/>
-        <write authenticated="false" bonded="false" encrypted="false"/>
-        <indicate authenticated="false" bonded="false" encrypted="false"/>
-        <notify authenticated="false" bonded="false" encrypted="false"/>
+        <write_no_response authenticated="false" bonded="false" encrypted="false"/>
       </properties>
     </characteristic>
   </service>

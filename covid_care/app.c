@@ -36,6 +36,8 @@
 #include "em_chip.h"
 #include "sl_simple_timer.h"
 
+#include "sl_sleeptimer.h"
+
 /*---- Include User's Header ----*/
 #include "i2c_lib.h"
 #include "lm75.h"
@@ -46,8 +48,9 @@
 #include "msc.h"
 #include "mpu6050.h"
 #include "test_variable.h"
-#include "float.h"
-
+#include "time.h"
+#include "em_rtcc.h"
+#include "function.h"
 uint8_t notifyEnabled = false;
 uint8_t indicateEnabled = false;
 uint8_t app_connection;
@@ -56,76 +59,70 @@ uint8_t app_connection;
 static uint8_t advertising_set_handle = 0xff;
 
 /*----------------- Define Area -----------------*/
-//#define TIMER_MS(ms) ((32768 * ms) / 1000)
-//#define TEMPERATURE 0
-///*MPU6050 */
-//volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
-//void dmpDataReady() {
-//    mpuInterrupt = true;
-//}
-//struct MPU6050_Base mpu;
-//uint16_t packetSize;
-//uint8_t devStatus;
-//uint8_t mpuIntStatus;
-//bool dmpReady = false;
-
-BPM_SpO2_value_t BPM_SpO2_value;
-
-uint8_t unReadCounter = 0;   // luu vi tri data mà từ đó chưa dc đọc
-uint8_t dataCounter = 0;
-
+#define TIMER_MS(ms) ((32768 * ms) / 1000)
+#define TEMPERATURE 0
+#define SEC 1
+/*MPU6050 */
+volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
+void dmpDataReady() {
+  mpuInterrupt = true;
+}
+struct MPU6050_Base mpu;
+uint16_t packetSize;
+uint8_t devStatus;
+uint8_t mpuIntStatus;
+bool dmpReady = false;
+struct tm time_date;
+float te = 36.125;
+float spo2 = 96.0;
+float bmp = 80.0;
+uint32_t diff;
+uint8_t check_count;
+uint8_t check_fall = 0;
+sl_sleeptimer_date_t date_disconnect;
+sl_sleeptimer_date_t datetest;
 /**************************************************************************//**
  * Application Init.
  *****************************************************************************/
 SL_WEAK void app_init (void)
 {
-	/////////////////////////////////////////////////////////////////////////////
-	// Put your additional application init code here!                         //
-	// This is called once during start-up.                                    //
-	/////////////////////////////////////////////////////////////////////////////
-	sl_app_log("Initiation.... \n");
+  /////////////////////////////////////////////////////////////////////////////
+  // Put your additional application init code here!                         //
+  // This is called once during start-up.                                    //
+  /////////////////////////////////////////////////////////////////////////////
+  sl_app_log("Initiation.... \n");
 
-	// Chip init
-	CHIP_Init ();
-	sl_app_log(" Chip init Ok \n");
+  // Chip init
+  CHIP_Init ();
+  sl_app_log(" Chip init Ok \n");
 
-	// I2C init
-	i2c_init ();
-	sl_app_log(" I2C init Ok \n");
+  // I2C init
+  i2c_init ();
+  sl_app_log(" I2C init Ok \n");
 
-	// Max30102 init
-	MAX30102_init ();
-	sl_app_log(" MAX30102 init Ok \n");
+  // Max30102 init
+  MAX30102_init ();
+  sl_app_log(" MAX30102 init Ok \n");
 
-	// LED & Buzzer init
-	led_buzzer_init ();
-	sl_app_log(" LED & buzzer init Ok \n");
 
-	// MSC init
-	MSC_init ();
-//	MSC_ErasePage(USERDATA);
-	MSC_CheckUnRead(&unReadCounter, &dataCounter);
-	sl_app_log(" %d %d \n", unReadCounter, dataCounter);
-	sl_app_log(" MSC init Ok \n");
+  // LED & Buzzer init
+  led_buzzer_init ();
+  sl_app_log(" LED & buzzer init Ok \n");
 
-	// GPIO Interrupt init
-	gpio_INTR_init();
-	sl_app_log(" GPIO Intr init Ok \n");
+  // MSC init
+  //msc_init ();
+  sl_app_log(" MSC init Ok \n");
 
-	// MPU6050init
-//	MPU6050_ConfigDMP(&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
+  // GPIO Interrupt init
+  gpio_INTR_init();
+  sl_app_log(" GPIO Intr init Ok \n");
 
-	//RTCC init
+  // MPU6050init
+//  MPU6050_ConfigDMP(&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
+//  set_LED('g');
+  sl_bt_system_set_soft_timer(TIMER_MS(1000), TEMPERATURE, 0);
 
-	set_LED('b');
 
-	set_Buzzer();
-	sl_sleeptimer_delay_millisecond (600);
-	clear_Buzzer();
-
-	sl_app_log("Ok....... \n");
-
-//	sl_bt_system_set_soft_timer (TIMER_MS(12000), 0, 0);
 }
 
 /**************************************************************************//**
@@ -133,195 +130,237 @@ SL_WEAK void app_init (void)
  *****************************************************************************/
 SL_WEAK void app_process_action (void)
 {
-	/////////////////////////////////////////////////////////////////////////////
-	// Put your additional application code here!                              //
-	// This is called infinitely.                                              //
-	// Do not call blocking functions from here!                               //
-	/////////////////////////////////////////////////////////////////////////////
-	/*********************** Khanh's Process **********************************/
 
-	/************************** LM75 test *****************************/
-//	sl_app_log("---------------- \n");
-//	float T = LM75_ReadTemperature ();
-//	sl_app_log(" %d \n", (uint32_t ) (1000 * T));
-//	T += 1.4;
-//	sl_app_log(" %d \n", (uint32_t ) (1000 * T));
-//	uint8_t t_d = LM75_FloatToOneByte (T);
-//	sl_app_log(" %d %d \n", (t_d >> 3) + 20, (t_d & 0x07));
-//	float t_f = LM75_OneByteToFloat (t_d);
-//	sl_app_log(" %d \n", (uint32_t) (1000*t_f) );
+  /*********************** Duong's Process **********************************/
+//  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus,&check_fall);
+//  if(check_fall == 1)
+//    {
+//      sl_bt_system_set_soft_timer(TIMER_MS(5000), SEC, 1);
+//    }
 
-	if (!GPIO_PinInGet (button_port, button_pin))
-	{
-//		sl_app_log(" nhan nut \n");
-//		GPIO_PinOutSet(LED_on_board_port, LED_on_board_pin);
-
-		/************************ MAX30102 test **************************/
-//		sl_app_log(" Dang tinh \n");
-		BPM_SpO2_Update(&BPM_SpO2_value, 1);
-
-		/************************** MSC test *****************************/
-
-		/** Ghi vào flash vào vị trí tiếp theo */
-//		float T = 29.125;
-//		uint8_t t_d = LM75_FloatToOneByte (T);  // 73
-//
-//		//	vị trí data mà từ đó các dữ liệu chưa dc đọc, ngày, tháng, năm, giờ, phút, BPM, SpO2, nhiet do
-//		uint8_t check;
-//		uint8_t data[9] = {2, 31, 12, 22, 23, 59, 88, 98, t_d};
-//		uint8_t read[9];
-//		MSC_write(data, &dataCounter);
-//		sl_app_log(" Write OK \n");
-//		MSC_read(read, dataCounter-1);
-//		MSC_CheckPage();
-
-		/** Doc cac cac data trong flash mà chưa được gui len app */
-//		MSC_CheckPage();
-//		sl_app_log("\n------------------- \n");
-//		uint8_t read[9];
-//		uint8_t i;
-//		for(i = unReadCounter; i < dataCounter; i++)
-//		{
-//			sl_app_log("%d \n", i);
-//			MSC_read(read, i);
-//		}
-	}
-//	else
-//	{
-//		GPIO_PinOutClear (LED_on_board_port, LED_on_board_pin);
-//	}
-
-	/*********************** Duong's Process **********************************/
-//  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus);
 }
 
-/**************************************************************************//**
- * Bluetooth stack event handler.
- * This overrides the dummy weak implementation.
- *
- * @param[in] evt Event coming from the Bluetooth stack.
- *****************************************************************************/
-void sl_bt_on_event(sl_bt_msg_t *evt)
+
+void process_server_user_write_request(sl_bt_msg_t *evt)
 {
   sl_status_t sc;
-  bd_addr address;
-  uint8_t address_type;
-  uint8_t system_id[8];
+  uint32_t connection =
+      evt->data.evt_gatt_server_user_write_request.connection;
+  uint32_t characteristic =
+      evt->data.evt_gatt_server_user_write_request.characteristic;
+  sc = sl_bt_gatt_server_send_user_write_response(connection,characteristic,0);
 
-  switch (SL_BT_MSG_ID(evt->header)) {
-    // -------------------------------
-    // This event indicates the device has started and the radio is ready.
-    // Do not call any stack command before receiving this boot event!
-    case sl_bt_evt_system_boot_id:
+  if (characteristic == gattdb_device_ch)
+    {
 
-      // Extract unique ID from BT Address.
-      sc = sl_bt_system_get_identity_address(&address, &address_type);
-      app_assert_status(sc);
+      uint8_t header = evt->data.evt_gatt_server_attribute_value.value.data[0];
+      uint8_t header1 = evt->data.evt_gatt_server_attribute_value.value.data[1];
+      uint8_t header2 = evt->data.evt_gatt_server_attribute_value.value.data[2];
+      uint8_t len = evt->data.evt_gatt_server_attribute_value.value.len;
 
-      // Pad and reverse unique ID to get System ID.
-      system_id[0] = address.addr[5];
-      system_id[1] = address.addr[4];
-      system_id[2] = address.addr[3];
-      system_id[3] = 0xFF;
-      system_id[4] = 0xFE;
-      system_id[5] = address.addr[2];
-      system_id[6] = address.addr[1];
-      system_id[7] = address.addr[0];
+      app_log("header: %d %d %d - len: %d \n",header,header1,header2, len);
 
-      sc = sl_bt_gatt_server_write_attribute_value(gattdb_system_id,
-                                                   0,
-                                                   sizeof(system_id),
-                                                   system_id);
-      app_assert_status(sc);
-
-      // Create an advertising set.
-      sc = sl_bt_advertiser_create_set(&advertising_set_handle);
-      app_assert_status(sc);
-
-      // Set advertising interval to 100ms.
-      sc = sl_bt_advertiser_set_timing(
-        advertising_set_handle,
-        160, // min. adv. interval (milliseconds * 1.6)
-        160, // max. adv. interval (milliseconds * 1.6)
-        0,   // adv. duration
-        0);  // max. num. adv. events
-      app_assert_status(sc);
-      // Start general advertising and enable connections.
-      sc = sl_bt_advertiser_start(
-        advertising_set_handle,
-        sl_bt_advertiser_general_discoverable,
-        sl_bt_advertiser_connectable_scannable);
-      app_assert_status(sc);
-      break;
-
-    // -------------------------------
-    // This event indicates that a new connection was opened.
-    case sl_bt_evt_connection_opened_id:
-      app_connection = evt->data.evt_connection_opened.connection;
-      break;
-
-    // -------------------------------
-    // This event indicates that a connection was closed.
-    case sl_bt_evt_connection_closed_id:
-      // Restart advertising after client has disconnected.
-      sc = sl_bt_advertiser_start(
-        advertising_set_handle,
-        sl_bt_advertiser_general_discoverable,
-        sl_bt_advertiser_connectable_scannable);
-      app_assert_status(sc);
-      break;
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Add additional event handlers here as your application requires!      //
-    ///////////////////////////////////////////////////////////////////////////
-
-    case sl_bt_evt_gatt_server_characteristic_status_id :
-      if(evt->data.evt_gatt_server_characteristic_status.characteristic == gattdb_temp_ch)
-        {
-          if(evt->data.evt_gatt_server_characteristic_status.status_flags == 0x01)
-            {
-              notifyEnabled = true;
-              app_log("enable notifyEnabled \n");
-            }
-          else if(evt->data.evt_gatt_server_characteristic_status.status_flags == 0x02)
-            {
-              indicateEnabled = true;
-              app_log("enable indicateEnabled \n");
-            }
-          else if(evt->data.evt_gatt_server_characteristic_status.status_flags == 0x00)
-            {
-              notifyEnabled = false;
-              indicateEnabled = false;
-              app_log("disable \n");
-            }
-        }
-
-      break;
-    case sl_bt_evt_gatt_server_attribute_value_id:
-      if (evt->data.evt_gatt_server_characteristic_status.characteristic
-          == gattdb_temp_ch)
-        {
-          uint8_t data = evt->data.evt_gatt_server_attribute_value.value.data[0];
-          app_log("data :%d\n", data);
-          if (data == 1)
-            {
-              clear_data ();
-            }
-        }
-      break;
-//    case sl_bt_evt_system_soft_timer_id:
-//      if (evt->data.evt_system_soft_timer.handle == TEMPERATURE)
-//        {
-//          send_notify ();
-//        }
-//      break;
-    case sl_bt_evt_system_external_signal_id:
-//      dmpDataReady();
-//    	GPIO_PinOutToggle(LED_on_board_port, LED_on_board_pin);
-      break;
-    // -------------------------------
-    // Default event handler.
-    default:
-      break;
-  }
+      if (header == 1 && len ==  7 ){ //set date time
+	  datetest.time_zone = 0;
+	  datetest.year = evt->data.evt_gatt_server_attribute_value.value.data[3];
+	  datetest.month = evt->data.evt_gatt_server_attribute_value.value.data[2];
+	  datetest.month_day = evt->data.evt_gatt_server_attribute_value.value.data[1];
+	  datetest.hour = evt->data.evt_gatt_server_attribute_value.value.data[4];
+	  datetest.min = evt->data.evt_gatt_server_attribute_value.value.data[5];
+	  datetest.sec = evt->data.evt_gatt_server_attribute_value.value.data[6];
+	  sl_sleeptimer_set_datetime(&datetest);
+      }
+      	  else if(header == 2 && len == 1 )
+      	    {
+      	      send_data(&notifyEnabled, &app_connection, &te, 1);
+      	    }
+      	  else if(header == 3 && len ==1 )
+      	    {
+      	      send_data(&notifyEnabled, &app_connection, &spo2, 2);
+      	    }
+      	  else if(header == 4 && len ==1 )
+      	    {
+      	      send_data(&notifyEnabled, &app_connection, &bmp, 3);
+      	    }
+      	  else if(header == 5 && len ==1)
+      	    {
+      	      send_all_data(&notifyEnabled, &app_connection, &te, &spo2, &bmp);
+      	    }
+      	  else if(header == 6 && len == 1)
+      	    {
+      		check_count = 3;
+      	    }
+      	  else if(header == 7 && len ==1)
+      	    {
+      	uint32_t diff = diff_time(&date_disconnect);
+      	app_log("time unix : %d\n",diff);
+      	    }
+    }
 }
+  /**************************************************************************//**
+   * Bluetooth stack event handler.
+   * This overrides the dummy weak implementation.
+   *
+   * @param[in] evt Event coming from the Bluetooth stack.
+   *****************************************************************************/
+  void sl_bt_on_event(sl_bt_msg_t *evt)
+  {
+    sl_status_t sc;
+    bd_addr address;
+    uint8_t address_type;
+    uint8_t system_id[8];
+
+    switch (SL_BT_MSG_ID(evt->header)) {
+      // -------------------------------
+      // This event indicates the device has started and the radio is ready.
+      // Do not call any stack command before receiving this boot event!
+      case sl_bt_evt_system_boot_id:
+
+	// Extract unique ID from BT Address.
+	sc = sl_bt_system_get_identity_address(&address, &address_type);
+	app_assert_status(sc);
+
+	// Pad and reverse unique ID to get System ID.
+	system_id[0] = address.addr[5];
+	system_id[1] = address.addr[4];
+	system_id[2] = address.addr[3];
+	system_id[3] = 0xFF;
+	system_id[4] = 0xFE;
+	system_id[5] = address.addr[2];
+	system_id[6] = address.addr[1];
+	system_id[7] = address.addr[0];
+
+	sc = sl_bt_gatt_server_write_attribute_value(gattdb_system_id,
+						     0,
+						     sizeof(system_id),
+						     system_id);
+	app_assert_status(sc);
+
+	// Create an advertising set.
+	sc = sl_bt_advertiser_create_set(&advertising_set_handle);
+	app_assert_status(sc);
+
+	// Set advertising interval to 100ms.
+	sc = sl_bt_advertiser_set_timing(
+	    advertising_set_handle,
+	    160, // min. adv. interval (milliseconds * 1.6)
+	    160, // max. adv. interval (milliseconds * 1.6)
+	    0,   // adv. duration
+	    0);  // max. num. adv. events
+	app_assert_status(sc);
+	// Start general advertising and enable connections.
+	sc = sl_bt_advertiser_start(
+	    advertising_set_handle,
+	    sl_bt_advertiser_general_discoverable,
+	    sl_bt_advertiser_connectable_scannable);
+	app_assert_status(sc);
+	break;
+
+	// -------------------------------
+	// This event indicates that a new connection was opened.
+      case sl_bt_evt_connection_opened_id:
+	app_connection = evt->data.evt_connection_opened.connection;
+	sl_app_log("connection opened \n");
+	break;
+
+	// -------------------------------
+	// This event indicates that a connection was closed.
+      case sl_bt_evt_connection_closed_id:
+	// Restart advertising after client has disconnected.
+	sc = sl_bt_advertiser_start(
+	    advertising_set_handle,
+	    sl_bt_advertiser_general_discoverable,
+	    sl_bt_advertiser_connectable_scannable);
+	sl_app_log("connection closed \n");
+	sl_sleeptimer_get_datetime(&date_disconnect);
+	app_assert_status(sc);
+	app_connection = 0;
+	break;
+
+	///////////////////////////////////////////////////////////////////////////
+	// Add additional event handlers here as your application requires!      //
+	///////////////////////////////////////////////////////////////////////////
+
+      case sl_bt_evt_gatt_server_characteristic_status_id :
+	if(evt->data.evt_gatt_server_characteristic_status.characteristic == gattdb_data_ch)
+	  {
+	    if(evt->data.evt_gatt_server_characteristic_status.status_flags == 0x01)
+	      {
+		notifyEnabled = true;
+		app_log("enable notifyEnabled \n");
+	      }
+	    else if(evt->data.evt_gatt_server_characteristic_status.status_flags == 0x02)
+	      {
+		indicateEnabled = true;
+		app_log("enable indicateEnabled \n");
+	      }
+	    else if(evt->data.evt_gatt_server_characteristic_status.status_flags == 0x00)
+	      {
+		notifyEnabled = false;
+		indicateEnabled = false;
+		app_log("disable \n");
+	      }
+	  }
+
+	break;
+	//    case sl_bt_evt_gatt_server_attribute_value_id:
+	//      if (evt->data.evt_gatt_server_characteristic_status.characteristic
+	//          == gattdb_device_ch)
+	//        {
+	//          uint8_t header = evt->data.evt_gatt_server_attribute_value.value.data[0];
+	//          if (header == 1){ //set date time
+	//                datetest.time_zone = 7;
+	//                datetest.year = evt->data.evt_gatt_server_attribute_value.value.data[3];
+	//                datetest.month = evt->data.evt_gatt_server_attribute_value.value.data[2];
+	//                datetest.month_day = evt->data.evt_gatt_server_attribute_value.value.data[1];
+	//                datetest.hour = evt->data.evt_gatt_server_attribute_value.value.data[4];
+	//                datetest.min = evt->data.evt_gatt_server_attribute_value.value.data[5];
+	//                datetest.sec = evt->data.evt_gatt_server_attribute_value.value.data[6];
+	//                sl_sleeptimer_set_datetime(&datetest);
+	//          }
+	//
+	//        }
+	//      break;
+      case sl_bt_evt_gatt_server_user_write_request_id:
+	process_server_user_write_request(evt);
+
+
+	break;
+	          case sl_bt_evt_system_soft_timer_id:
+	            if (evt->data.evt_system_soft_timer.handle == TEMPERATURE)
+	              {
+	                sl_sleeptimer_get_datetime(&datetest);
+	                app_log("date time %d/%d/%d  %d:%d:%d\n",
+	                        datetest.month_day,
+	                        datetest.month,
+	                        datetest.year+1900,
+	                        datetest.hour,
+	                        datetest.min,
+	                        datetest.sec
+	                        );
+//	        	send_check(&notifyEnabled, &app_connection);
+	              }
+	            if (evt->data.evt_system_soft_timer.handle == SEC)
+	              {
+//	        	  if(check_fall == 0)
+//	        	    {
+//	        	      set_LED('r');
+//	        	    }
+	        	// get data, check connect_condition => push memory
+
+	        	if(app_connection == 0)
+	        	  {
+	        	    // push memory
+	        	  }
+
+	              }
+	            break;
+      case sl_bt_evt_system_external_signal_id:
+	dmpDataReady();
+	break;
+	// -------------------------------
+	// Default event handler.
+      default:
+	break;
+    }
+  }

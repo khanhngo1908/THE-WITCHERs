@@ -62,7 +62,7 @@ gecko_sdk_4.0.2/util/third_party/crypto/sl_component/se_manager/src/sl_se_manage
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\se_manager\inc\sl_se_manager_types.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\se_manager\inc\sl_se_manager_defines.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\se_manager\inc\sl_se_manager_config.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h \
+ C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\se_manager\inc\sl_se_manager_check_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_se.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h \
@@ -137,7 +137,7 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_compo
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\se_manager\inc\sl_se_manager_types.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\se_manager\inc\sl_se_manager_defines.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\se_manager\inc\sl_se_manager_config.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_component_catalog.h:
+C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\autogen/sl_component_catalog.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\se_manager\inc\sl_se_manager_check_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_se.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:

@@ -3,8 +3,8 @@ gecko_sdk_4.0.2/util/third_party/crypto/mbedtls/library/psa_crypto_rsa.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/mbedtls/library/common.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\build_info.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/mbedtls_config.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/mbedtls_config_autogen.h \
+ C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\config/mbedtls_config.h \
+ C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\autogen/mbedtls_config_autogen.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\config\config-device-acceleration.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
@@ -63,10 +63,10 @@ gecko_sdk_4.0.2/util/third_party/crypto/mbedtls/library/psa_crypto_rsa.o: \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_dma_descriptor.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\silicon_labs\silabs_core\memory_manager\sl_malloc.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_mbedtls_config_transform_autogen.h \
+ C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\autogen/sl_mbedtls_config_transform_autogen.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\config_psa.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/psa_crypto_config.h \
- C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/psa_crypto_config_autogen.h \
+ C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\config/psa_crypto_config.h \
+ C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\autogen/psa_crypto_config_autogen.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_platform.h \
@@ -133,8 +133,8 @@ gecko_sdk_4.0.2/util/third_party/crypto/mbedtls/library/psa_crypto_rsa.o: \
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 C\:/Users/ADMIN/SimplicityStudio/SDKs/gecko_sdk/util/third_party/crypto/mbedtls/library/common.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\build_info.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/mbedtls_config.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/mbedtls_config_autogen.h:
+C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\config/mbedtls_config.h:
+C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\autogen/mbedtls_config_autogen.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\sl_component\sl_mbedtls_support\config\config-device-acceleration.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h:
@@ -193,10 +193,10 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm2
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_dma_descriptor.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\silicon_labs\silabs_core\memory_manager\sl_malloc.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/sl_mbedtls_config_transform_autogen.h:
+C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\autogen/sl_mbedtls_config_transform_autogen.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\config_psa.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\config/psa_crypto_config.h:
-C\:\Users\ADMIN\SimplicityStudio\v5_workspace\covid_care\autogen/psa_crypto_config_autogen.h:
+C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\config/psa_crypto_config.h:
+C\:\Users\ADMIN\Documents\GitHub\THE-WITCHERs\covid_care\autogen/psa_crypto_config_autogen.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\mbedtls\check_config.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk\util\third_party\crypto\mbedtls\include\psa\crypto_platform.h:

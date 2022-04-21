@@ -53,7 +53,7 @@
 // <q SL_SLEEPTIMER_WALLCLOCK_CONFIG> Enable wallclock functionality
 // <i> Enable or disable wallclock functionalities (get_time, get_date, etc).
 // <i> Default: 0
-#define SL_SLEEPTIMER_WALLCLOCK_CONFIG  0
+#define SL_SLEEPTIMER_WALLCLOCK_CONFIG  1
 
 // <o SL_SLEEPTIMER_FREQ_DIVIDER> Timer frequency divider
 // <i> Default: 1
@@ -65,7 +65,7 @@
 
 // <q SL_SLEEPTIMER_DEBUGRUN> Enable DEBUGRUN functionality on hardware RTC.
 // <i> Default: 0
-#define SL_SLEEPTIMER_DEBUGRUN  0
+#define SL_SLEEPTIMER_DEBUGRUN  1
 
 #endif /* SLEEPTIMER_CONFIG_H */
 
