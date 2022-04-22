@@ -62,6 +62,7 @@ static uint8_t advertising_set_handle = 0xff;
 #define TIMER_MS(ms) ((32768 * ms) / 1000)
 #define TEMPERATURE 0
 #define SEC 1
+#define MIIN 2
 /*MPU6050 */
 volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
 void dmpDataReady() {
@@ -81,6 +82,10 @@ uint8_t check_count;
 uint8_t check_fall = 0;
 sl_sleeptimer_date_t date_disconnect;
 sl_sleeptimer_date_t datetest;
+uint8_t unReadCheck;
+uint8_t dataCounter;
+uint8_t dataPointer = 0;
+BPM_SpO2_value_t bpm_spo2_value;
 /**************************************************************************//**
  * Application Init.
  *****************************************************************************/
@@ -120,9 +125,11 @@ SL_WEAK void app_init (void)
   // MPU6050init
 //  MPU6050_ConfigDMP(&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
 //  set_LED('g');
-  sl_bt_system_set_soft_timer(TIMER_MS(1000), TEMPERATURE, 0);
+  sl_bt_system_set_soft_timer(TIMER_MS(30*1000), MIIN, 0);
 
-
+  // MSC init
+  MSC_Init();
+  MSC_CheckUnRead(&dataCounter, dataCounter);
 }
 
 /**************************************************************************//**
@@ -169,6 +176,13 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 	  datetest.min = evt->data.evt_gatt_server_attribute_value.value.data[5];
 	  datetest.sec = evt->data.evt_gatt_server_attribute_value.value.data[6];
 	  sl_sleeptimer_set_datetime(&datetest);
+  	        uint8_t read[2][9] ={{8,2,34,6,3,5,87,14,26},{9,21,124,65,32,115,27,124,216}};
+//  	        for(i = 4; i < 12; i++)
+//  	        {
+//  	            MSC_read(&read[i][0], i);
+//  	        }
+  	        send_all_old_data(&notifyEnabled, &app_connection, read, 2);
+  	        app_log("send success\n");
       }
       	  else if(header == 2 && len == 1 )
       	    {
@@ -188,7 +202,14 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
       	    }
       	  else if(header == 6 && len == 1)
       	    {
-      		check_count = 3;
+	        uint8_t read[2][9] ={{8,2,34,6,3,5,87,14,26},{9,21,124,65,32,115,27,124,216}};
+//  	        for(i = 4; i < 12; i++)
+//  	        {
+//  	            MSC_read(&read[i][0], i);
+//  	        }
+	        uint8_t len =2;
+	        send_all_old_data(&notifyEnabled, &app_connection, read, len);
+	        app_log("send success\n");
       	    }
       	  else if(header == 7 && len ==1)
       	    {
@@ -261,6 +282,15 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
       case sl_bt_evt_connection_opened_id:
 	app_connection = evt->data.evt_connection_opened.connection;
 	sl_app_log("connection opened \n");
+        sl_sleeptimer_get_datetime(&datetest);
+                app_log("date time %d/%d/%d  %d:%d:%d\n",
+                        datetest.month_day,
+                        datetest.month,
+                        datetest.year+1900,
+                        datetest.hour,
+                        datetest.min,
+                        datetest.sec
+                        );
 	break;
 
 	// -------------------------------
@@ -289,15 +319,10 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 		notifyEnabled = true;
 		app_log("enable notifyEnabled \n");
 	      }
-	    else if(evt->data.evt_gatt_server_characteristic_status.status_flags == 0x02)
-	      {
-		indicateEnabled = true;
-		app_log("enable indicateEnabled \n");
-	      }
+
 	    else if(evt->data.evt_gatt_server_characteristic_status.status_flags == 0x00)
 	      {
 		notifyEnabled = false;
-		indicateEnabled = false;
 		app_log("disable \n");
 	      }
 	  }
@@ -327,32 +352,67 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 
 	break;
 	          case sl_bt_evt_system_soft_timer_id:
-	            if (evt->data.evt_system_soft_timer.handle == TEMPERATURE)
-	              {
-	                sl_sleeptimer_get_datetime(&datetest);
-	                app_log("date time %d/%d/%d  %d:%d:%d\n",
-	                        datetest.month_day,
-	                        datetest.month,
-	                        datetest.year+1900,
-	                        datetest.hour,
-	                        datetest.min,
-	                        datetest.sec
-	                        );
-//	        	send_check(&notifyEnabled, &app_connection);
-	              }
+//	            if (evt->data.evt_system_soft_timer.handle == TEMPERATURE)
+//	              {
+//	                sl_sleeptimer_get_datetime(&datetest);
+//	                app_log("date time %d/%d/%d  %d:%d:%d\n",
+//	                        datetest.month_day,
+//	                        datetest.month,
+//	                        datetest.year+1900,
+//	                        datetest.hour,
+//	                        datetest.min,
+//	                        datetest.sec
+//	                        );
+////	        	send_check(&notifyEnabled, &app_connection);
+//	              }
 	            if (evt->data.evt_system_soft_timer.handle == SEC)
 	              {
-//	        	  if(check_fall == 0)
-//	        	    {
-//	        	      set_LED('r');
-//	        	    }
+	        	  if(check_fall == 0)
+	        	    {
+	        	      set_LED('r');
+	        	    }
 	        	// get data, check connect_condition => push memory
 
 	        	if(app_connection == 0)
 	        	  {
 	        	    // push memory
+
 	        	  }
 
+	              }
+	            if(evt->data.evt_system_soft_timer.handle == MIIN)
+	              {
+	        	if(app_connection == 0)
+	        	  {
+//		                sl_sleeptimer_get_datetime(&datetest);
+//		                float T = LM75_ReadTemperature();
+//		                uint8_t t = LM75_FloatToOneByte(T);
+//		                BPM_SpO2_Update(&bpm_spo2_value, 1);
+//		                uint8_t savedData[9] = {unReadCheck, datetest.month_day, datetest.month+1, datetest.year, datetest.hour, datetest.min, bpm_spo2_value.BPM, bpm_spo2_value.SpO2, t};
+//		                MSC_write(savedData, &dataPointer);
+//				MSC_CheckPage();
+//	        	        int i;
+//	        	        uint8_t read[9];
+//	        	        for(i = 4; i < 12; i++)
+//	        	        {
+//	        	            MSC_read(read, i);
+//	        		    float T = LM75_OneByteToFloat(read[8]);
+//	        	            sl_app_log("%d \n", i);
+//	        	            sl_app_log("     %d \n", read[0]);
+//	        	            sl_app_log("     %d %d %d %d %d \n", read[1], read[2], read[3], read[4], read[5]);
+//	        	            sl_app_log("     %d %d %d \n", read[6], read[7], (uint32_t) (1000*T) );
+//	        	            send_all_data(&notifyEnabled, &app_connection,&T, &(float)(read[7]), &(float)(read[6]));
+//	        	        }
+	        	  }
+	        	if(app_connection == 0)
+	        	  {
+	        	        int i;
+	        	        uint8_t read[8][9];
+	        	        for(i = 4; i < 12; i++)
+	        	        {
+	        	            MSC_read(&read[i][0], i);
+	        	        }
+	        	  }
 	              }
 	            break;
       case sl_bt_evt_system_external_signal_id:

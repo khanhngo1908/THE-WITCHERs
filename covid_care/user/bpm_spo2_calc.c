@@ -101,6 +101,9 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 		sl_app_log("Spo2: %d \n", (int) spo2);
 		/********************************************************/
 		i += 1;
+
+		result->BPM = (int) ppg_ir.BPM;
+		result->SpO2 = (int) spo2;
 	}
 	MAX30102_Shutdown();
 }

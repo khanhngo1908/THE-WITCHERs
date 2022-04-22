@@ -21,6 +21,7 @@
 #include "time.h"
 #include "test_variable.h"
 #include "math.h"
+#include "lm75.h"
 void convert_data(uint8_t arr[],float *data)
 {
   arr[0] = (uint8_t) (*data);
@@ -106,7 +107,7 @@ void send_check(uint8_t *notifyEnabled,uint8_t *app_connection)
 }
 void send_all_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *temperature, float *spo2, float *bmp)
 {
-  sl_status_t sc;
+   sl_status_t sc;
    uint8_t buffer[10];
    uint8_t arr[1];
    uint16_t len = 11;
@@ -114,6 +115,7 @@ void send_all_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *tempera
    sl_sleeptimer_get_datetime(&date_time);
    convert_data(arr, temperature);
    buffer[0] = 4;
+
    buffer[1] = arr[0];
    buffer[2] = arr[1];
    buffer[3] = (uint8_t) (*spo2);
@@ -137,6 +139,47 @@ void send_all_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *tempera
      {
      app_log("send erorr\n");
      }
+}
+void send_all_old_data(uint8_t *notifyEnabled,uint8_t *app_connection,uint8_t arr[][8], uint8_t len)
+
+{
+     sl_status_t sc;
+     uint8_t buffer[1+(len)*10];
+     uint8_t temp[1];
+     buffer[0] = 6;
+     buffer[1] = (len) ;
+     uint16_t length = 2+(len)*10;
+     uint8_t count = 0;
+     for(int i=0;i<(len);i++)
+       {
+//	     float T = LM75_OneByteToFloat (arr[i][8]);
+//	     convert_data(temp, &T);
+	     buffer[count+2]=36;
+	     buffer[count+3]=1;
+	     buffer[count+4]=arr[i][7];
+	     buffer[count+5]=arr[i][6];
+	     buffer[count+6]=arr[i][1];
+	     buffer[count+7]=arr[i][2];
+	     buffer[count+8]=arr[i][3];
+	     buffer[count+9]=arr[i][4];
+	     buffer[count+10]=arr[i][5];
+	     buffer[count+11]=0;
+	     count+=10;
+       }
+     if (*notifyEnabled)
+       {
+         sc = sl_bt_gatt_server_send_notification (*app_connection, gattdb_data_ch,
+                                                   length, buffer);
+       }
+     if (sc == SL_STATUS_OK)
+       {
+         app_log("send ok\n");
+       }
+     else
+       {
+       app_log("send erorr\n");
+       }
+
 }
 void
 clear_data (void)
