@@ -133,19 +133,19 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 					spo2 = SpO2_estimator (R);
 				}
 
-				sl_app_log("ir BPM: %d AC: %d \n", (int ) ppg_ir.BPM,
-						   (int ) ppg_ir.AC);
-				sl_app_log("red BPM: %d AC: %d\n", (int ) ppg_red.BPM,
-						   (int ) ppg_red.AC);
-				sl_app_log("----------\n");
+//				sl_app_log("ir BPM: %d AC: %d \n", (int ) ppg_ir.BPM,
+//						   (int ) ppg_ir.AC);
+//				sl_app_log("red BPM: %d AC: %d\n", (int ) ppg_red.BPM,
+//						   (int ) ppg_red.AC);
+//				sl_app_log("----------\n");
 			}
 		}
 	}
 	/**********************************************************/
 	result->BPM = (int) ((ppg_ir.BPM + ppg_red.BPM) / 2);
 	result->SpO2 = (int) spo2;
-	sl_app_log("BPM: %d \n", result->BPM);
-	sl_app_log("Spo2: %d \n", result->SpO2);
+//	sl_app_log("BPM: %d \n", result->BPM);
+//	sl_app_log("Spo2: %d \n", result->SpO2);
 	MAX30102_Shutdown ();
 }
 
@@ -293,7 +293,7 @@ void BPM_estimator(float* signal, PPG_t* ppg, int n_sample, float thresh, float 
 
     }
 
-    sl_app_log("peaks: %d   n_sample: %d\n", peaks, n_sample);
+//    sl_app_log("peaks: %d   n_sample: %d\n", peaks, n_sample);
 //    printf("peaks: %d   n_sample: %d\n", peaks, n_sample);
 
     float bpm = (peaks + 1) / (n_sample / sample_rate) * 60.0;

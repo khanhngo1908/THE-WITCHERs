@@ -97,6 +97,12 @@ SL_WEAK void app_init (void)
   /////////////////////////////////////////////////////////////////////////////
   sl_app_log("Initiation.... \n");
 
+  // LED & Buzzer init
+    led_buzzer_init ();
+    sl_app_log(" LED & buzzer init Ok \n");
+
+  set_LED('w');
+
   // Chip init
   CHIP_Init ();
   sl_app_log(" Chip init Ok \n");
@@ -109,11 +115,6 @@ SL_WEAK void app_init (void)
   MAX30102_init ();
   sl_app_log(" MAX30102 init Ok \n");
 
-
-  // LED & Buzzer init
-  led_buzzer_init ();
-  sl_app_log(" LED & buzzer init Ok \n");
-
   // MSC init
   //msc_init ();
   sl_app_log(" MSC init Ok \n");
@@ -124,12 +125,16 @@ SL_WEAK void app_init (void)
 
   // MPU6050init
   MPU6050_ConfigDMP(&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
-  set_LED('g');
-  //sl_bt_system_set_soft_timer(TIMER_MS(30*1000), MIIN, 0);
+  sl_bt_system_set_soft_timer(TIMER_MS(30*1000), MIIN, 0);
 
   // MSC init
   MSC_Init();
   MSC_CheckUnRead(&dataCounter, dataCounter);
+
+   set_Buzzer();
+   sl_sleeptimer_delay_millisecond(600);
+   clear_Buzzer();
+   clear_all_LED();
 }
 
 /**************************************************************************//**
@@ -140,10 +145,10 @@ SL_WEAK void app_process_action (void)
 
   /*********************** Duong's Process **********************************/
   MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus,&check_fall);
-//  if(check_fall == 1)
-//    {
-//      sl_bt_system_set_soft_timer(TIMER_MS(5000), SEC, 1);
-//    }
+  if(check_fall == 1)
+    {
+      sl_bt_system_set_soft_timer(TIMER_MS(5000), SEC, 1);
+    }
 
 }
 
@@ -200,7 +205,20 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
       	    }
       	  else if(header == 5 && len ==1)
       	    {
-      	      send_all_data(&notifyEnabled, &app_connection, &te, &spo2, &bmp);
+      		   float T;
+      		   uint8_t i;
+      		   for(i = 1; i < 4; i++)
+      		   {
+      			   T = LM75_ReadTemperature();
+      			   BPM_SpO2_Update(&bpm_spo2_value, i);
+					float a1 = (float) (bpm_spo2_value.BPM);
+					float a2 = (float) (bpm_spo2_value.SpO2);
+					sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
+					sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
+					sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
+					send_all_data (&notifyEnabled, &app_connection, &T, &a2, &a1);
+					sl_app_log(" Gui data manual \n");
+      		   }
       	    }
       	  else if(header == 6 && len == 1)
       	    {
@@ -284,11 +302,11 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
       case sl_bt_evt_connection_opened_id:
 	app_connection = evt->data.evt_connection_opened.connection;
 	sl_app_log("connection opened \n");
-	uint32_t diff_t = diff_time(&date_disconnect);
-	if(date_disconnect.year != 1900 && diff_t > 600)
-	  {
-	    // todo
-	  }
+//	uint32_t diff_t = diff_time(&date_disconnect);
+//	if(date_disconnect.year != 1900 && diff_t > 600)
+//	  {
+//	    // todo
+//	  }
 	break;
 
 	// -------------------------------
@@ -349,53 +367,33 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 
 
 	break;
-	          case sl_bt_evt_system_soft_timer_id:
-	            if (evt->data.evt_system_soft_timer.handle == SEC)
-	              {
-	        	  if(check_fall == 0)
-	        	    {
-	        	      set_LED('r');
-	        	    }
-	        	// get data, check connect_condition => push memory
-
-	              }
-	            if(evt->data.evt_system_soft_timer.handle == MIIN)
-	              {
-	        	if(app_connection == 0)
-	        	  {
-//		                sl_sleeptimer_get_datetime(&datetest);
-
-//		                float T = LM75_ReadTemperature();
-//		                uint8_t t = LM75_FloatToOneByte(T);
-//		                BPM_SpO2_Update(&bpm_spo2_value, 1);
-//		                uint8_t savedData[9] = {unReadCheck, datetest.month_day, datetest.month+1, datetest.year, datetest.hour, datetest.min, bpm_spo2_value.BPM, bpm_spo2_value.SpO2, t};
-//		                MSC_write(savedData, &dataPointer);
-//				MSC_CheckPage();
-//	        	        int i;
-//	        	        uint8_t read[9];
-//	        	        for(i = 4; i < 12; i++)
-//	        	        {
-//	        	            MSC_read(read, i);
-//	        		    float T = LM75_OneByteToFloat(read[8]);
-//	        	            sl_app_log("%d \n", i);
-//	        	            sl_app_log("     %d \n", read[0]);
-//	        	            sl_app_log("     %d %d %d %d %d \n", read[1], read[2], read[3], read[4], read[5]);
-//	        	            sl_app_log("     %d %d %d \n", read[6], read[7], (uint32_t) (1000*T) );
-//	        	            send_all_data(&notifyEnabled, &app_connection,&T, &(float)(read[7]), &(float)(read[6]));
-//	        	        }
-	        	  }
-	        	if(app_connection == 0)
-	        	  {
-	        	        int i;
-	        	        uint8_t read[8][9];
-	        	        for(i = 4; i < 12; i++)
-	        	        {
-	        	            MSC_read(&read[i][0], i);
-	        	        }
-	        	  }
-	              }
-	            break;
-      case sl_bt_evt_system_external_signal_id:
+		case sl_bt_evt_system_soft_timer_id:
+			if (evt->data.evt_system_soft_timer.handle == SEC)
+			{
+				if (check_fall == 0)
+				{
+					set_LED ('r');
+				}
+				// get data, check connect_condition => push memory
+			}
+			if (evt->data.evt_system_soft_timer.handle == MIIN)
+			{
+				float T = LM75_ReadTemperature ();
+				BPM_SpO2_Update (&bpm_spo2_value, 1);
+				float a1 = (float) (bpm_spo2_value.BPM);
+				float a2 = (float) (bpm_spo2_value.SpO2);
+				sl_app_log(" Nhiet do: %d \n", (uint32_t) (1000*T));
+				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
+				sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
+				send_all_data (&notifyEnabled, &app_connection, &T, &a2, &a1);
+				sl_app_log(" Gui data dinh ky \n");
+				if(app_connection == 0)
+				{
+					// ghi vào memory
+				}
+			}
+			break;
+		case sl_bt_evt_system_external_signal_id:
 	dmpDataReady();
 	break;
 	// -------------------------------

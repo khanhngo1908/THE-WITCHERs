@@ -23,8 +23,15 @@ void gpio_INTR_init (void)
 						false,
 						true);
 
+	GPIO_ExtIntConfig (button_port,
+		button_pin,
+							button_pin,
+							false,
+							true,
+							true);
 //  GPIO_ExtIntConfig(intr_port,intr_pin, AD5940_INT_DATA_FIFO_FLAG, 0, 1, true);
 	GPIOINT_CallbackRegister (intr_pin, (void*) ad5940_gpio_ext_handler);
+	GPIOINT_CallbackRegister (button_pin, (void*) ad5940_gpio_ext_handler);
 
 //  // Enable EVEN interrupt to catch button press that changes slew rate
 //  NVIC_ClearPendingIRQ(GPIO_EVEN_IRQn);
@@ -73,5 +80,9 @@ void ad5940_gpio_ext_handler (uint32_t int_num)
 	if (int_num == intr_pin)
 	{
 		sl_bt_external_signal (intr_pin);
+	}
+	if (int_num == button_pin)
+	{
+		sl_bt_external_signal (button_pin);
 	}
 }

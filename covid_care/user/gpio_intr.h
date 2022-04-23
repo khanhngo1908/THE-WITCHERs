@@ -24,6 +24,9 @@
 #define  LED_on_board_port     gpioPortA
 #define  LED_on_board_pin     4
 
+#define button_port gpioPortC
+#define button_pin 2
+
 void gpio_INTR_init (void);
 //void GPIO_EVEN_IRQHandler(void);
 //void GPIO_ODD_IRQHandler(void);
