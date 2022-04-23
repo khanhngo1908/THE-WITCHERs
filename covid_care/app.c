@@ -212,6 +212,7 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
       	  else if(header == 5 && len ==1)
       	    {
       		   sl_app_log(" Gui data manual - nut nhan app \n");
+      		   set_LED('w');
       		   float T;
       		   uint8_t i;
       		   for(i = 1; i < 4; i++)
@@ -225,6 +226,7 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 					sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
 					send_all_data (&notifyEnabled, &app_connection, &T, &a2, &a1);
       		   }
+      		   clear_all_LED();
       	    }
       	  else if(header == 6 && len == 1)
       	    {
@@ -385,6 +387,7 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 			if (evt->data.evt_system_soft_timer.handle == MIIN)
 			{
 				sl_app_log(" Gui data dinh ky \n");
+				set_LED('w');
 				float T = LM75_ReadTemperature ();
 				BPM_SpO2_Update (&bpm_spo2_value, 1);
 				float a1 = (float) (bpm_spo2_value.BPM);
@@ -397,6 +400,7 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 				{
 					// ghi vào memory
 				}
+				clear_all_LED();
 			}
 			if(evt->data.evt_system_soft_timer.handle == BUTTON_PRESS_TIMER)
 			{
@@ -429,6 +433,7 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 					if(button_press_timerCounter > DEBOUND_TIMEOUT && button_press_timerCounter < SINGLE_PRESS_TIMEOUT)
 					{
 						sl_app_log(" Gui data manual - nut nhan mach \n");
+						set_LED('w');
 						float T;
 						uint8_t i;
 						for (i = 1; i < 4; i++)
@@ -444,6 +449,7 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 							send_all_data (&notifyEnabled, &app_connection, &T,
 										   &a2, &a1);
 						}
+						clear_all_LED();
 					}
 					button_press_timerCounter = 0;
 					button_press_counter = 0;
