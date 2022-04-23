@@ -16,6 +16,7 @@ void gpio_INTR_init (void)
 	GPIOINT_Init ();
 	// Configure Button PB1 as input and enable interrupt
 	GPIO_PinModeSet (mpu_intr_port, mpu_intr_pin, gpioModeInput, 1);
+	GPIO_PinModeSet (button_port, button_pin, gpioModeInput, 1);
 	GPIO_ExtIntConfig (mpu_intr_port,
 					   mpu_intr_pin,
 					   mpu_intr_pin,

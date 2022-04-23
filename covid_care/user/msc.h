@@ -19,5 +19,6 @@ void MSC_write (uint8_t *data, uint8_t *msc_DataPointer);
 void MSC_read (uint8_t *data, uint8_t msc_DataCount);
 void MSC_CheckUnRead(uint8_t *unReadCounter, uint8_t *dataCounter);
 void MSC_CheckPage();
+void MSC_Clear();
 
 #endif /* USER_MSC_H_ */

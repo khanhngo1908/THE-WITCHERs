@@ -106,3 +106,8 @@ void MSC_CheckPage()
 		sl_app_log("    Word 1: %x - Word 2: %x \n",  USERDATA[2*i],  USERDATA[2*i+1]);
 	}
 }
+
+void MSC_Clear()
+{
+	MSC_ErasePage(USERDATA);
+}

@@ -88,8 +88,10 @@ uint8_t button_press_timerCounter = 0;
 uint8_t button_press_counter = 0;
 uint8_t help = 0;
 
-uint8_t unReadCheck;
-uint8_t dataCounter;
+uint8_t memory_data_header = 0;
+
+uint8_t unReadCheck = 0;
+uint8_t dataCounter = 0;
 uint8_t dataPointer = 0;
 BPM_SpO2_value_t bpm_spo2_value;
 /**************************************************************************//**
@@ -103,15 +105,15 @@ SL_WEAK void app_init (void)
   /////////////////////////////////////////////////////////////////////////////
   sl_app_log("Initiation.... \n");
 
-  // LED & Buzzer init
-    led_buzzer_init ();
-    sl_app_log(" LED & buzzer init Ok \n");
-
-  set_LED('w');
-
   // Chip init
   CHIP_Init ();
   sl_app_log(" Chip init Ok \n");
+
+  // LED & Buzzer init
+	led_buzzer_init ();
+	sl_app_log(" LED & buzzer init Ok \n");
+
+  set_LED('w');
 
   // I2C init
   i2c_init ();
@@ -121,9 +123,6 @@ SL_WEAK void app_init (void)
   MAX30102_init ();
   sl_app_log(" MAX30102 init Ok \n");
 
-  // MSC init
-  //msc_init ();
-  sl_app_log(" MSC init Ok \n");
 
   // GPIO Interrupt init
   gpio_INTR_init();
@@ -134,8 +133,9 @@ SL_WEAK void app_init (void)
 //  sl_bt_system_set_soft_timer(TIMER_MS(300*1000), MIIN, 0);
 
   // MSC init
-  MSC_Init();
-  MSC_CheckUnRead(&dataCounter, dataCounter);
+  MSC_init();
+//  MSC_Clear();
+  sl_app_log(" MSC init Ok \n");
 
    set_Buzzer();
    sl_sleeptimer_delay_millisecond(600);
@@ -390,15 +390,19 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 				set_LED('w');
 				float T = LM75_ReadTemperature ();
 				BPM_SpO2_Update (&bpm_spo2_value, 1);
-				float a1 = (float) (bpm_spo2_value.BPM);
-				float a2 = (float) (bpm_spo2_value.SpO2);
-				sl_app_log(" Nhiet do: %d \n", (uint32_t) (1000*T));
-				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
-				sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
-				send_all_data (&notifyEnabled, &app_connection, &T, &a2, &a1);
 				if(app_connection == 0)
 				{
 					// ghi vào memory
+				}
+				else
+				{
+					float a1 = (float) (bpm_spo2_value.BPM);
+					float a2 = (float) (bpm_spo2_value.SpO2);
+					sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
+					sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
+					sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
+					send_all_data (&notifyEnabled, &app_connection, &T, &a2,
+								   &a1);
 				}
 				clear_all_LED();
 			}
