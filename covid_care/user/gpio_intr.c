@@ -14,11 +14,11 @@ void gpio_INTR_init (void)
 {
 	CMU_ClockEnable (cmuClock_GPIO, true);
 	GPIOINT_Init ();
-	// Configure Button PB0 as input and enable interrupt
-	GPIO_PinModeSet (intr_port, intr_pin, gpioModeInput, 1);
-	GPIO_ExtIntConfig (intr_port,
-	intr_pin,
-						intr_pin,
+	// Configure Button PB1 as input and enable interrupt
+	GPIO_PinModeSet (mpu_intr_port, mpu_intr_pin, gpioModeInput, 1);
+	GPIO_ExtIntConfig (mpu_intr_port,
+					   mpu_intr_pin,
+					   mpu_intr_pin,
 						true,
 						false,
 						true);
@@ -30,7 +30,7 @@ void gpio_INTR_init (void)
 							true,
 							true);
 //  GPIO_ExtIntConfig(intr_port,intr_pin, AD5940_INT_DATA_FIFO_FLAG, 0, 1, true);
-	GPIOINT_CallbackRegister (intr_pin, (void*) ad5940_gpio_ext_handler);
+	GPIOINT_CallbackRegister (mpu_intr_pin, (void*) ad5940_gpio_ext_handler);
 	GPIOINT_CallbackRegister (button_pin, (void*) ad5940_gpio_ext_handler);
 
 //  // Enable EVEN interrupt to catch button press that changes slew rate
@@ -43,21 +43,21 @@ void gpio_INTR_init (void)
 
 }
 
-void IRQ_Handler (void)
-{
-	// Get and clear all pending GPIO interrupts
-	uint32_t interruptMask = GPIO_IntGet ();
-	GPIO_IntClear (interruptMask);
-
-	// Check if button 0 was pressed
-	if (interruptMask & (1 << intr_pin))
-	{
-//          MAX30102_ReadFIFO();
-		MAX30102_ClearIntr ();
-		GPIO_PinOutToggle (LED_on_board_port, LED_on_board_pin);
-//          MAX30102_CheckReg();
-	}
-}
+//void IRQ_Handler (void)
+//{
+//	// Get and clear all pending GPIO interrupts
+//	uint32_t interruptMask = GPIO_IntGet ();
+//	GPIO_IntClear (interruptMask);
+//
+//	// Check if button 0 was pressed
+//	if (interruptMask & (1 << mpu_intr_pin))
+//	{
+////          MAX30102_ReadFIFO();
+//		MAX30102_ClearIntr ();
+//		GPIO_PinOutToggle (LED_on_board_port, LED_on_board_pin);
+////          MAX30102_CheckReg();
+//	}
+//}
 
 // /**************************************************************************//**
 //  * @brief GPIO Interrupt handler for even pins.
@@ -77,9 +77,9 @@ void IRQ_Handler (void)
 
 void ad5940_gpio_ext_handler (uint32_t int_num)
 {
-	if (int_num == intr_pin)
+	if (int_num == mpu_intr_pin)
 	{
-		sl_bt_external_signal (intr_pin);
+		sl_bt_external_signal (mpu_intr_pin);
 	}
 	if (int_num == button_pin)
 	{

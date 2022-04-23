@@ -124,7 +124,7 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 				R = (ppg_ir.AC / ppg_ir.DC) / (ppg_red.AC / ppg_red.DC);
 				//				R = (ppg_red.AC / ppg_red.DC) / (ppg_ir.AC / ppg_ir.DC);
 
-				if (spo2 > 80.0)
+				if (spo2 > 90.0)
 				{
 					spo2 = (spo2 + SpO2_estimator (R)) / 2;
 				}
@@ -137,6 +137,7 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 //						   (int ) ppg_ir.AC);
 //				sl_app_log("red BPM: %d AC: %d\n", (int ) ppg_red.BPM,
 //						   (int ) ppg_red.AC);
+//				sl_app_log("spo2: %d\n", (int) spo2);
 //				sl_app_log("----------\n");
 			}
 		}

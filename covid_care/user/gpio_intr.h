@@ -15,8 +15,8 @@
 #include "em_emu.h"
 #include "em_cmu.h"
 
-#define  intr_port      gpioPortB
-#define  intr_pin       1
+#define  mpu_intr_port      gpioPortB
+#define  mpu_intr_pin       1
 
 //#define  intr_port      gpioPortC
 //#define  intr_pin       2
@@ -25,8 +25,16 @@
 #define  LED_on_board_pin     4
 
 #define button_port gpioPortC
-#define button_pin 2
+#define button_pin  2
 
+#define LONG_PRESS_TIMEOUT 50
+#define SINGLE_PRESS_TIMEOUT 6
+#define DEBOUND_TIMEOUT 1
+
+typedef struct
+{
+
+};
 void gpio_INTR_init (void);
 //void GPIO_EVEN_IRQHandler(void);
 //void GPIO_ODD_IRQHandler(void);

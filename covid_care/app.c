@@ -63,6 +63,7 @@ static uint8_t advertising_set_handle = 0xff;
 #define TEMPERATURE 0
 #define SEC 1
 #define MIIN 2
+#define BUTTON_PRESS_TIMER 3
 /*MPU6050 */
 volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
 void dmpDataReady() {
@@ -82,6 +83,11 @@ uint8_t check_count;
 uint8_t check_fall = 0;
 sl_sleeptimer_date_t date_disconnect;
 sl_sleeptimer_date_t datetest;
+
+uint8_t button_press_timerCounter = 0;
+uint8_t button_press_counter = 0;
+uint8_t help = 0;
+
 uint8_t unReadCheck;
 uint8_t dataCounter;
 uint8_t dataPointer = 0;
@@ -125,7 +131,7 @@ SL_WEAK void app_init (void)
 
   // MPU6050init
   MPU6050_ConfigDMP(&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
-  sl_bt_system_set_soft_timer(TIMER_MS(30*1000), MIIN, 0);
+//  sl_bt_system_set_soft_timer(TIMER_MS(300*1000), MIIN, 0);
 
   // MSC init
   MSC_Init();
@@ -144,11 +150,11 @@ SL_WEAK void app_process_action (void)
 {
 
   /*********************** Duong's Process **********************************/
-  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus,&check_fall);
-  if(check_fall == 1)
-    {
-      sl_bt_system_set_soft_timer(TIMER_MS(5000), SEC, 1);
-    }
+//  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus,&check_fall);
+//  if(check_fall == 1)
+//    {
+//      sl_bt_system_set_soft_timer(TIMER_MS(5000), SEC, 1);
+//    }
 
 }
 
@@ -205,6 +211,7 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
       	    }
       	  else if(header == 5 && len ==1)
       	    {
+      		   sl_app_log(" Gui data manual - nut nhan app \n");
       		   float T;
       		   uint8_t i;
       		   for(i = 1; i < 4; i++)
@@ -217,7 +224,6 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 					sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 					sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
 					send_all_data (&notifyEnabled, &app_connection, &T, &a2, &a1);
-					sl_app_log(" Gui data manual \n");
       		   }
       	    }
       	  else if(header == 6 && len == 1)
@@ -378,6 +384,7 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 			}
 			if (evt->data.evt_system_soft_timer.handle == MIIN)
 			{
+				sl_app_log(" Gui data dinh ky \n");
 				float T = LM75_ReadTemperature ();
 				BPM_SpO2_Update (&bpm_spo2_value, 1);
 				float a1 = (float) (bpm_spo2_value.BPM);
@@ -386,15 +393,76 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 				sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
 				send_all_data (&notifyEnabled, &app_connection, &T, &a2, &a1);
-				sl_app_log(" Gui data dinh ky \n");
 				if(app_connection == 0)
 				{
 					// ghi vào memory
 				}
 			}
+			if(evt->data.evt_system_soft_timer.handle == BUTTON_PRESS_TIMER)
+			{
+				button_press_timerCounter += 1;
+				sl_app_log(" button_press_timerCounter: %d \n", button_press_timerCounter);
+				if(!GPIO_PinInGet (button_port, button_pin))
+				{
+					if(button_press_timerCounter >= LONG_PRESS_TIMEOUT)
+					{
+						sl_bt_system_set_soft_timer (TIMER_MS(0), BUTTON_PRESS_TIMER, 1);
+						button_press_timerCounter = 0;
+						if(help == 0)
+						{
+							help = 1;
+							set_LED ('r');
+//							set_Buzzer ();
+						}
+						else if(help == 1)
+						{
+							help = 0;
+							clear_all_LED();
+							clear_Buzzer();
+						}
+						button_press_counter = 0;
+					}
+				}
+				else
+				{
+					sl_bt_system_set_soft_timer (TIMER_MS(0), BUTTON_PRESS_TIMER, 1);
+					if(button_press_timerCounter > DEBOUND_TIMEOUT && button_press_timerCounter < SINGLE_PRESS_TIMEOUT)
+					{
+						sl_app_log(" Gui data manual - nut nhan mach \n");
+						float T;
+						uint8_t i;
+						for (i = 1; i < 4; i++)
+						{
+							T = LM75_ReadTemperature ();
+							BPM_SpO2_Update (&bpm_spo2_value, i);
+							float a1 = (float) (bpm_spo2_value.BPM);
+							float a2 = (float) (bpm_spo2_value.SpO2);
+							sl_app_log(" Nhiet do: %d \n",
+									   (uint32_t ) (1000 * T));
+							sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
+							sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
+							send_all_data (&notifyEnabled, &app_connection, &T,
+										   &a2, &a1);
+						}
+					}
+					button_press_timerCounter = 0;
+					button_press_counter = 0;
+				}
+			}
 			break;
 		case sl_bt_evt_system_external_signal_id:
-	dmpDataReady();
+			if(evt->data.evt_system_external_signal.extsignals == button_pin)
+			{
+				if(button_press_counter == 0)
+				{
+					sl_bt_system_set_soft_timer (TIMER_MS(100), BUTTON_PRESS_TIMER, 0);
+					button_press_counter += 1;
+				}
+			}
+			if(evt->data.evt_system_external_signal.extsignals == mpu_intr_pin)
+			{
+				dmpDataReady ();
+			}
 	break;
 	// -------------------------------
 	// Default event handler.
