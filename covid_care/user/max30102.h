@@ -91,7 +91,7 @@
 
 #define SMP_AVE     4
 
-#define SMP_RATE    200
+#define SMP_RATE    400
 
 #define THROUGHTPUT (SMP_RATE/SMP_AVE)
 

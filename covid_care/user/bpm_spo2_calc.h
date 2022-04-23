@@ -10,7 +10,7 @@
 #ifndef USER_BPM_SPO2_CALC_H_
 #define USER_BPM_SPO2_CALC_H_
 
-#define INTERVAL 	10
+#define INTERVAL 	4
 
 typedef struct __attribute__((packed))
 {
