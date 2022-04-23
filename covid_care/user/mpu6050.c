@@ -509,6 +509,12 @@ void MPU6050_dmpGetQuaternion(struct Quaternion_Base *q, const uint8_t* packet) 
         q -> z = (float)qI[3] / 16384.0f;
     }
 }
+void MPU6050_dmpGetGyro(int16_t *data, const uint8_t* packet) {
+    if (packet == 0) packet = MPUdmpPacketBuffer;
+    data[0] = (packet[16] << 8) | packet[17];
+    data[1] = (packet[20] << 8) | packet[21];
+    data[2] = (packet[24] << 8) | packet[25];
+}
 void MPU6050_dmpGetAccel(struct VectorInt16_Base *v, const uint8_t* packet) {
     // TODO: accommodate different arrangements of sent data (ONLY default supported now)
     if (packet == 0) packet = MPUdmpPacketBuffer;
@@ -673,6 +679,7 @@ void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuI
   double ay;
   double az;
   double SVM;
+  int16_t data[3];
   uint16_t fifoCount;     // count of all bytes currently in FIFO
   uint8_t fifoBuffer[64];
   float euler[3];         // [psi, theta, phi]    Euler angle container
@@ -710,6 +717,7 @@ void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuI
         fifoCount -= *packetSize;
   // display real acceleration, adjusted to remove gravity
         MPU6050_dmpGetQuaternion (&q, fifoBuffer);
+        MPU6050_dmpGetGyro(data, fifoBuffer);
         MPU6050_dmpGetAccel (&aa, fifoBuffer);
         MPU6050_dmpGetGravity (&gravity, &q);
         MPU6050_dmpGetLinearAccel (&aaReal, &aa, &gravity);
@@ -718,11 +726,10 @@ void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuI
         ay = (aaReal.y) / 16384.0;
         az = (aaReal.z) / 16384.0;
         SVM = sqrt (pow(ax,2) + pow(ay,2) + pow(az,2)) + 1.0;
-        app_log("\t");
-        app_log("%d", (uint16_t )(SVM * 1000));
-        app_log("\t\n");
-//        app_log("y[1] : %d  y[2] :%d \n",(uint16_t)((ypr[1] * 180/M_PI)*1000),(uint16_t)((ypr[2] * 180/M_PI)*1000));
-
+//        app_log("\t");
+//        app_log("SVM : %d | ", (uint16_t )(SVM * 1000));
+//        app_log("y[1] : %d | y[2] :%d \n",(uint16_t)((ypr[1] * 180/M_PI)*1000),(uint16_t)((ypr[2] * 180/M_PI)*1000));
+	  app_log("d[0] : %d | d[1] : %d | d[2] : %d \n",data[0],data[1],data[2]);
 //        app_log("------\n");
 //        app_log("%d    %d    %d\n",(uint16_t )(gravity.x * 1000),(uint16_t )(gravity.y * 1000),(uint16_t )(gravity.z * 1000));
         if (SVM > 2.1 && (ypr[2] * 180/M_PI)< 20 && (ypr[1] *180/M_PI) < 10)

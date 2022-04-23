@@ -191,6 +191,7 @@ int8_t MPU6050_getXGyroOffset();
 int8_t MPU6050_getYGyroOffset();
 int8_t MPU6050_getZGyroOffset();
 int16_t MPU6050_getZAccelOffset();
+void MPU6050_dmpGetGyro(int16_t *data, const uint8_t* packet);
 #define MPU6050_FIFO_DEFAULT_TIMEOUT 11000
 
 

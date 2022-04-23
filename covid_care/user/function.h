@@ -14,5 +14,5 @@ void convert_data(uint8_t arr[],float *data);
 void send_all_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *temperature, float *spo2, float *bmp);
 void send_check(uint8_t *notifyEnabled,uint8_t *app_connection);
 uint32_t diff_time(sl_sleeptimer_date_t *date_disconnect);
-void send_all_old_data(uint8_t *notifyEnabled,uint8_t *app_connection,uint8_t arr[][9], uint8_t *len);
+void send_all_old_data(uint8_t *notifyEnabled,uint8_t *app_connection,uint8_t arr[], uint8_t *len);
 #endif /* USER_FUNCTION_H_ */

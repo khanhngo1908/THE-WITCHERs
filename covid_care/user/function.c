@@ -140,29 +140,27 @@ void send_all_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *tempera
      app_log("send erorr\n");
      }
 }
-void send_all_old_data(uint8_t *notifyEnabled,uint8_t *app_connection,uint8_t arr[][8], uint8_t len)
+void send_all_old_data(uint8_t *notifyEnabled,uint8_t *app_connection,uint8_t arr[], uint8_t *len)
 
 {
      sl_status_t sc;
-     uint8_t buffer[1+(len)*10];
+     uint8_t buffer[2+(*len/9)*10];
      uint8_t temp[1];
      buffer[0] = 6;
-     buffer[1] = (len) ;
-     uint16_t length = 2+(len)*10;
+     buffer[1] = (*len/9) ;
+     uint16_t length = 2 +(buffer[1]*10) ;
      uint8_t count = 0;
-     for(int i=0;i<(len);i++)
+     for(int i=0;i<(buffer[1]);i++)
        {
-//	     float T = LM75_OneByteToFloat (arr[i][8]);
-//	     convert_data(temp, &T);
 	     buffer[count+2]=36;
-	     buffer[count+3]=1;
-	     buffer[count+4]=arr[i][7];
-	     buffer[count+5]=arr[i][6];
-	     buffer[count+6]=arr[i][1];
-	     buffer[count+7]=arr[i][2];
-	     buffer[count+8]=arr[i][3];
-	     buffer[count+9]=arr[i][4];
-	     buffer[count+10]=arr[i][5];
+	     buffer[count+3]=2;
+	     buffer[count+4]=arr[i*9+7];
+	     buffer[count+5]=arr[i*9+6];
+	     buffer[count+6]=arr[i*9+1];
+	     buffer[count+7]=arr[i*9+2];
+	     buffer[count+8]=arr[i*9+3];
+	     buffer[count+9]=arr[i*9+4];
+	     buffer[count+10]=arr[i*9+5];
 	     buffer[count+11]=0;
 	     count+=10;
        }

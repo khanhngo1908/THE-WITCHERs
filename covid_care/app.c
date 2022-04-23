@@ -123,9 +123,9 @@ SL_WEAK void app_init (void)
   sl_app_log(" GPIO Intr init Ok \n");
 
   // MPU6050init
-//  MPU6050_ConfigDMP(&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
-//  set_LED('g');
-  sl_bt_system_set_soft_timer(TIMER_MS(30*1000), MIIN, 0);
+  MPU6050_ConfigDMP(&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
+  set_LED('g');
+  //sl_bt_system_set_soft_timer(TIMER_MS(30*1000), MIIN, 0);
 
   // MSC init
   MSC_Init();
@@ -139,7 +139,7 @@ SL_WEAK void app_process_action (void)
 {
 
   /*********************** Duong's Process **********************************/
-//  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus,&check_fall);
+  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus,&check_fall);
 //  if(check_fall == 1)
 //    {
 //      sl_bt_system_set_soft_timer(TIMER_MS(5000), SEC, 1);
@@ -176,12 +176,14 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 	  datetest.min = evt->data.evt_gatt_server_attribute_value.value.data[5];
 	  datetest.sec = evt->data.evt_gatt_server_attribute_value.value.data[6];
 	  sl_sleeptimer_set_datetime(&datetest);
-  	        uint8_t read[2][9] ={{8,2,34,6,3,5,87,14,26},{9,21,124,65,32,115,27,124,216}};
+  	        uint8_t read[27] ={0,22,4,122,21,44,87,98,26,0,22,4,122,21,30,80,96,22,0,22,4,122,21,20,81,98,22};
+  	        uint8_t len1 = sizeof(read)/sizeof(uint8_t);
 //  	        for(i = 4; i < 12; i++)
 //  	        {
 //  	            MSC_read(&read[i][0], i);
 //  	        }
-  	        send_all_old_data(&notifyEnabled, &app_connection, read, 2);
+  	      send_all_old_data(&notifyEnabled, &app_connection, read, &len1);
+  	      app_log("%d\n",len1);
   	        app_log("send success\n");
       }
       	  else if(header == 2 && len == 1 )
@@ -282,15 +284,11 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
       case sl_bt_evt_connection_opened_id:
 	app_connection = evt->data.evt_connection_opened.connection;
 	sl_app_log("connection opened \n");
-        sl_sleeptimer_get_datetime(&datetest);
-                app_log("date time %d/%d/%d  %d:%d:%d\n",
-                        datetest.month_day,
-                        datetest.month,
-                        datetest.year+1900,
-                        datetest.hour,
-                        datetest.min,
-                        datetest.sec
-                        );
+	uint32_t diff_t = diff_time(&date_disconnect);
+	if(date_disconnect.year != 1900 && diff_t > 600)
+	  {
+	    // todo
+	  }
 	break;
 
 	// -------------------------------
@@ -352,19 +350,6 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 
 	break;
 	          case sl_bt_evt_system_soft_timer_id:
-//	            if (evt->data.evt_system_soft_timer.handle == TEMPERATURE)
-//	              {
-//	                sl_sleeptimer_get_datetime(&datetest);
-//	                app_log("date time %d/%d/%d  %d:%d:%d\n",
-//	                        datetest.month_day,
-//	                        datetest.month,
-//	                        datetest.year+1900,
-//	                        datetest.hour,
-//	                        datetest.min,
-//	                        datetest.sec
-//	                        );
-////	        	send_check(&notifyEnabled, &app_connection);
-//	              }
 	            if (evt->data.evt_system_soft_timer.handle == SEC)
 	              {
 	        	  if(check_fall == 0)
@@ -373,18 +358,13 @@ void process_server_user_write_request(sl_bt_msg_t *evt)
 	        	    }
 	        	// get data, check connect_condition => push memory
 
-	        	if(app_connection == 0)
-	        	  {
-	        	    // push memory
-
-	        	  }
-
 	              }
 	            if(evt->data.evt_system_soft_timer.handle == MIIN)
 	              {
 	        	if(app_connection == 0)
 	        	  {
 //		                sl_sleeptimer_get_datetime(&datetest);
+
 //		                float T = LM75_ReadTemperature();
 //		                uint8_t t = LM75_FloatToOneByte(T);
 //		                BPM_SpO2_Update(&bpm_spo2_value, 1);
