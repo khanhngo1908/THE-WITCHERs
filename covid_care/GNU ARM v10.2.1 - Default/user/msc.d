@@ -86,7 +86,8 @@ user/msc.o: ../user/msc.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_emu.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\service\iostream\inc\sl_iostream_uart.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\service\iostream\inc\sl_iostream.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/app_log_config.h
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/app_log_config.h \
+ ../user/lm75.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 ../user/msc.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_msc.h:
@@ -175,3 +176,4 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_emu.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\service\iostream\inc\sl_iostream_uart.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\service\iostream\inc\sl_iostream.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\config/app_log_config.h:
+../user/lm75.h:

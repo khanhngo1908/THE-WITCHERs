@@ -30,6 +30,7 @@
 #define LONG_PRESS_TIMEOUT 50
 #define SINGLE_PRESS_TIMEOUT 6
 #define DEBOUND_TIMEOUT 1
+#define DOUBLE_PRESS_TIMEOUT 5
 
 typedef struct
 {
