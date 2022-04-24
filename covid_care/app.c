@@ -134,9 +134,7 @@ SL_WEAK void app_init (void)
 
 	// MSC init
 	MSC_init ();
-//	MSC_Clear ();
-	MSC_CheckPage(&unReadCounter, &dataCounter);
-	memory_data_header = unReadCounter;
+//  MSC_Clear();
 	sl_app_log(" MSC init Ok \n");
 
 	set_Buzzer ();
@@ -315,7 +313,7 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 			uint32_t diff_t = diff_time (&date_disconnect);
 			if (date_disconnect.year != 1900 && diff_t > 30)
 			{
-				sl_app_log(" Gui data luu tru len app\n");
+
 				// check page
 				MSC_CheckPage (&unReadCounter, &dataCounter);
 				sl_app_log(" unread: %d - datacounter: %d \n", unReadCounter,
