@@ -7,7 +7,7 @@
 #include "msc.h"
 #include "em_cmu.h"
 #include "sl_app_log.h"
-#include "lm75.h"
+
 
 void MSC_init (void)
 {
@@ -16,9 +16,9 @@ void MSC_init (void)
 }
 
 /** msc_DataPointer 0 -> 127 */
-void MSC_write (uint8_t *data, uint8_t msc_DataPointer)
+void MSC_write (uint8_t *data, uint8_t *msc_DataPointer)
 {
-	uint8_t tmp = msc_DataPointer;
+	uint8_t tmp = *msc_DataPointer;
 
 	if(tmp>127)
 		return;
@@ -36,7 +36,7 @@ void MSC_write (uint8_t *data, uint8_t msc_DataPointer)
 	MSC_WriteWord ((USERDATA + (2*tmp + 1) ), &word2, 4);
 	MSC_Deinit ();
 
-//	*msc_DataPointer += 1;
+	*msc_DataPointer += 1;
 }
 
 /** msc_DataPointer 0 -> 127 */
@@ -62,26 +62,20 @@ void MSC_read (uint8_t *data, uint8_t msc_DataPointer)
 	data[7] = (word2 >> 8) & 0x7f;				// SpO2
 	data[8] = word2 & 0xff;						// Nhiet do
 
-	sl_app_log("    Word1: %x - Word 2: %x \n", word1, word2);
-	sl_app_log("    %d \n", data[0]);
-	sl_app_log("    %d %d %d %d %d \n", data[1], data[2], data[3], data[4], data[5]);
-	sl_app_log("    %d %d %d \n", data[6], data[7], (uint32_t) (1000*LM75_OneByteToFloat(data[8])) );
+//	sl_app_log("    Word1: %x - Word 2: %x \n", word1, word2);
+//	sl_app_log("    %d \n", data[0]);
+//	sl_app_log("    %d %d %d %d %d \n", data[1], data[2], data[3], data[4], data[5]);
+//	sl_app_log("    %d %d %d \n", data[6], data[7], data[8]);
 }
 
-void MSC_CheckPage(uint8_t *unReadCounter, uint8_t *dataCounter)
+void MSC_CheckUnRead(uint8_t *unReadCounter, uint8_t *dataCounter)
 {
 	*unReadCounter = 0;
 	*dataCounter = 0;
 	uint32_t check = 0;
 	uint8_t i = 0;
-	while(i <= MSC_MAX_COUNTER)
+	while(i < MSC_MAX_COUNTER)
 	{
-		if(i == MSC_MAX_COUNTER)
-		{
-			i = 0;
-			MSC_Clear();
-			break;
-		}
 		check = USERDATA[2*i];
 //		sl_app_log(" i: %d - data: %x \n", i, check);
 		if(check == 0xffffffff)
@@ -103,7 +97,7 @@ void MSC_CheckPage(uint8_t *unReadCounter, uint8_t *dataCounter)
 	}
 }
 
-void MSC_PrintPage()
+void MSC_CheckPage()
 {
 	uint8_t i;
 	for(i = 0; i < MSC_MAX_COUNTER; i++ )
