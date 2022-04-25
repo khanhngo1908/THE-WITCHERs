@@ -104,15 +104,21 @@ float LM75_ReadTemperature (void)
 #ifdef LM75_11BIT
 	uint16_t value;
 	LM75_ReadTemperature_11BitReg (&value);
+	float t = 0;
 	if (value & 0x0400)
 	{                       // kiem tra bit dau
 		value = (0x07FF ^ value) + 1;           // doi sang bu 2
-		return (float) (value * (-0.125f));
+		t = (float) (value * (-0.125f));
 	}
 	else
 	{
-		return (float) (value * 0.125f);
+		t = (float) (value * 0.125f);
 	}
+	if(t < LM75_MIN)
+		t = LM75_MIN;
+	if(t > LM75_MAX)
+		t =  LM75_MAX;
+	return t;
 #endif
 
 #ifdef LM75_9BIT

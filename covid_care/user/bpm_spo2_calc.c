@@ -148,6 +148,24 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 //	sl_app_log("BPM: %d \n", result->BPM);
 //	sl_app_log("Spo2: %d \n", result->SpO2);
 	MAX30102_Shutdown ();
+	if(ppg_ir.DC < FINGER_THRESH && ppg_red.DC < FINGER_THRESH)
+	{
+		result->BPM = 0;
+		result->SpO2 = 0;
+//		return 2;
+	}
+	else
+	{
+		if(result->BPM < BPM_MIN)
+			result->BPM = BPM_MIN;
+		if(result->BPM > BPM_MAX)
+			result->BPM = BPM_MAX;
+		if(result->SpO2 < SpO2_MIN)
+			result->SpO2 = SpO2_MIN;
+		if(result->SpO2 > SpO2_MAX)
+			result->SpO2 = SpO2_MAX;
+	}
+//	return 0;
 }
 
 float max(float *array, int array_size)

@@ -11,6 +11,11 @@
 #define USER_BPM_SPO2_CALC_H_
 
 #define INTERVAL 	4
+#define BPM_MAX		230
+#define BPM_MIN		30
+#define SpO2_MAX	100
+#define SpO2_MIN	80
+#define FINGER_THRESH 20000
 
 typedef struct __attribute__((packed))
 {
@@ -35,5 +40,6 @@ void median_filter(float* signal, int n_sample, int filter_size);
 void BPM_estimator(float* signal, PPG_t* ppg, int n_sample, float thresh, float sample_rate);
 float SpO2_estimator(float R);
 void assign_signal(float* ori, float* des, int n_sample);
+void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n);
 
 #endif /* USER_BPM_SPO2_CALC_H_ */

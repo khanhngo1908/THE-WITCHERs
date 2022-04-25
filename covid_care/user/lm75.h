@@ -18,6 +18,8 @@
 #define LM75_THYST          0x02
 #define LM75_TOS            0x03
 
+#define LM75_MAX	51
+#define LM75_MIN	20
 //uint8_t a = 9;
 
 #define ABS(x)   ((x) > 0 ? (x) : -(x))
