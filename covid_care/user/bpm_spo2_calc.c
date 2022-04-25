@@ -158,11 +158,11 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 	{
 		if(result->BPM < BPM_MIN)
 			result->BPM = BPM_MIN;
-		if(result->BPM > BPM_MAX)
+		else if(result->BPM > BPM_MAX)
 			result->BPM = BPM_MAX;
 		if(result->SpO2 < SpO2_MIN)
 			result->SpO2 = SpO2_MIN;
-		if(result->SpO2 > SpO2_MAX)
+		else if(result->SpO2 > SpO2_MAX)
 			result->SpO2 = SpO2_MAX;
 	}
 //	return 0;

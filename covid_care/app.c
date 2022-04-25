@@ -90,7 +90,7 @@ uint8_t button_press_counter = 0;
 uint8_t help = 0;
 
 uint8_t memory_data_header = 0;
-uint8_t unReadCheck = 0;
+uint8_t unReadCounter = 0;
 uint8_t dataCounter = 0;
 uint8_t dataPointer = 0;
 
@@ -232,8 +232,8 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 				T = LM75_ReadTemperature ();
 				BPM_SpO2_Update (&bpm_spo2_value, i);
 				sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
-				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 				sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
+				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
 				float a1 = (float) (bpm_spo2_value.BPM);
 				float a2 = (float) (bpm_spo2_value.SpO2);
@@ -427,12 +427,47 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 				float T = LM75_ReadTemperature ();
 				BPM_SpO2_Update (&bpm_spo2_value, 1);
 				sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
-				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 				sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
+				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
-				float a1 = (float) (bpm_spo2_value.BPM);
-				float a2 = (float) (bpm_spo2_value.SpO2);
-				send_all_data (&notifyEnabled, &app_connection, &T, &a2, &a1);
+				if (app_connection == 0)
+				{
+//					// ghi vào memory
+//					MSC_CheckPage (&unReadCounter, &dataCounter);
+//					sl_app_log(" unread: %d; counter: %d \n", unReadCounter,
+//							   dataCounter);
+//					dataPointer = dataCounter;
+//					uint8_t data[9];
+//					uint8_t t = LM75_FloatToOneByte (T);
+//
+//					// lấy ngay, thang, nam, gio, phut
+//					sl_sleeptimer_get_datetime (&datetest);
+//
+//					// gan vao mang
+//					data[0] = memory_data_header;
+//					data[1] = datetest.month_day; 				// ngày
+//					data[2] = datetest.month + 1;				// tháng
+//					data[3] = datetest.year;					// năm;
+//					data[4] = datetest.hour;					// giờ;
+//					data[5] = datetest.min;						// phút;
+//					data[6] = bpm_spo2_value.BPM;				// nhip tim
+//					data[7] = bpm_spo2_value.SpO2;				// spo2
+//					data[8] = t;								// nhiet do
+//
+//					// viet vao bo nho
+//					MSC_write (data, dataPointer);
+//
+//					// Doc lai de kiem tra
+//					uint8_t read[9];
+//					MSC_read (read, dataPointer);
+				}
+				else
+				{
+					float a1 = (float) (bpm_spo2_value.BPM);
+					float a2 = (float) (bpm_spo2_value.SpO2);
+					send_all_data (&notifyEnabled, &app_connection, &T, &a2,
+								   &a1);
+				}
 
 				if (T > 38)
 					caution = 1;
@@ -500,8 +535,8 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 							BPM_SpO2_Update (&bpm_spo2_value, i);
 							sl_app_log(" Nhiet do: %d \n",
 									   (uint32_t ) (1000 * T));
-							sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 							sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
+							sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
 							float a1 = (float) (bpm_spo2_value.BPM);
 							float a2 = (float) (bpm_spo2_value.SpO2);

@@ -116,7 +116,7 @@ float LM75_ReadTemperature (void)
 	}
 	if(t < LM75_MIN)
 		t = LM75_MIN;
-	if(t > LM75_MAX)
+	else if(t > LM75_MAX)
 		t =  LM75_MAX;
 	return t;
 #endif
