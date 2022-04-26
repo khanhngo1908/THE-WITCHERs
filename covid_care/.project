@@ -446,6 +446,36 @@
 			<locationURI>STUDIO_SDK_LOC/platform/common/toolchain/src/sl_memory.c</locationURI>
 		</link>
 		<link>
+			<name>gecko_sdk_4.0.2/platform/driver/leddrv/inc/sl_led.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/driver/leddrv/inc/sl_led.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_4.0.2/platform/driver/leddrv/inc/sl_pwm_led.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/driver/leddrv/inc/sl_pwm_led.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_4.0.2/platform/driver/leddrv/inc/sl_simple_rgb_pwm_led.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/driver/leddrv/inc/sl_simple_rgb_pwm_led.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_4.0.2/platform/driver/leddrv/src/sl_led.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/driver/leddrv/src/sl_led.c</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_4.0.2/platform/driver/leddrv/src/sl_pwm_led.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/driver/leddrv/src/sl_pwm_led.c</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_4.0.2/platform/driver/leddrv/src/sl_simple_rgb_pwm_led.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/driver/leddrv/src/sl_simple_rgb_pwm_led.c</locationURI>
+		</link>
+		<link>
 			<name>gecko_sdk_4.0.2/platform/driver/pwm/inc/sl_pwm.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/driver/pwm/inc/sl_pwm.h</locationURI>

@@ -16,6 +16,12 @@
     <property object="PORTIO" propertyId="portio.pti.location.dout" value="36"/>
     <property object="PORTIO" propertyId="portio.timer0.enable.cc0" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.timer0.location.cc0" value="32"/>
+    <property object="PORTIO" propertyId="portio.timer2.enable.cc0" value="Enabled"/>
+    <property object="PORTIO" propertyId="portio.timer2.enable.cc1" value="Enabled"/>
+    <property object="PORTIO" propertyId="portio.timer2.enable.cc2" value="Enabled"/>
+    <property object="PORTIO" propertyId="portio.timer2.location.cc0" value="16"/>
+    <property object="PORTIO" propertyId="portio.timer2.location.cc1" value="19"/>
+    <property object="PORTIO" propertyId="portio.timer2.location.cc2" value="20"/>
     <property object="PORTIO" propertyId="portio.usart1.enable.cts" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.usart1.enable.rts" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.usart1.enable.rx" value="Enabled"/>
@@ -29,6 +35,11 @@
     <property object="TIMER0" propertyId="ABModule.selectedRequirement" value="timer%T%SL_PWM_BUZZER%T%sl_pwm_init_buzzer_config.h"/>
     <property object="TIMER0" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER0" propertyId="channel.0.name" value="OUTPUT"/>
+    <property object="TIMER2" propertyId="ABModule.selectedRequirement" value="timer%T%SL_SIMPLE_RGB_PWM_LED_RGB_LED%T%sl_simple_rgb_pwm_led_RGB_LED_config.h"/>
+    <property object="TIMER2" propertyId="ABPeripheral.included" value="true"/>
+    <property object="TIMER2" propertyId="channel.0.name" value="RED"/>
+    <property object="TIMER2" propertyId="channel.1.name" value="GREEN"/>
+    <property object="TIMER2" propertyId="channel.2.name" value="BLUE"/>
     <property object="USART1" propertyId="ABModule.selectedRequirement" value="usart%T%SL_IOSTREAM_USART_VCOM%T%sl_iostream_usart_vcom_config.h"/>
     <property object="USART1" propertyId="ABPeripheral.included" value="true"/>
   </mode>

@@ -127,6 +127,13 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  ../autogen/sl_pwm_instances.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\pwm\inc\sl_pwm.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_timer.h \
+ ../autogen/sl_simple_rgb_pwm_led_instances.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_simple_rgb_pwm_led.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_led.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_pwm_led.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_cmu.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_cmu_compat.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_gpio.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\app\bluetooth\common\simple_timer\sl_simple_timer.h \
  ../autogen/sl_iostream_init_instances.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\common\toolchain\inc\sl_gcc_preinclude.h:
@@ -257,5 +264,12 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emdrv\nvm3\inc\nvm3_de
 ../autogen/sl_pwm_instances.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\pwm\inc\sl_pwm.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_timer.h:
+../autogen/sl_simple_rgb_pwm_led_instances.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_simple_rgb_pwm_led.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_led.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_pwm_led.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_cmu.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_cmu_compat.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_gpio.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\app\bluetooth\common\simple_timer\sl_simple_timer.h:
 ../autogen/sl_iostream_init_instances.h:

@@ -20,6 +20,7 @@
     <file name="sl_pwm_init_buzzer_config.h" generated="true" linked="false"/>
     <file name="sl_rail_util_pti_config.h" generated="true" linked="false"/>
     <file name="nvm3_default_config.h" generated="true" linked="false"/>
+    <file name="sl_simple_rgb_pwm_led_RGB_LED_config.h" generated="true" linked="false"/>
     <file name="app_properties_config.h" generated="true" linked="false"/>
     <file name="sl_bluetooth_advertiser_config.h" generated="true" linked="false"/>
     <file name="sl_iostream_usart_vcom_config.h" generated="true" linked="false"/>

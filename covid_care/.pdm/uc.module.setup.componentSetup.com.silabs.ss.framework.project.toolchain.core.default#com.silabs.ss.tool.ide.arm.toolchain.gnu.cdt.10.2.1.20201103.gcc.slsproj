@@ -281,6 +281,18 @@
         </folder>
       </folder>
       <folder name="driver">
+        <folder name="leddrv">
+          <folder name="src">
+            <file name="sl_led.c" uri="studio:/sdk/platform/driver/leddrv/src/sl_led.c"/>
+            <file name="sl_pwm_led.c" uri="studio:/sdk/platform/driver/leddrv/src/sl_pwm_led.c"/>
+            <file name="sl_simple_rgb_pwm_led.c" uri="studio:/sdk/platform/driver/leddrv/src/sl_simple_rgb_pwm_led.c"/>
+          </folder>
+          <folder name="inc">
+            <file name="sl_led.h" uri="studio:/sdk/platform/driver/leddrv/inc/sl_led.h"/>
+            <file name="sl_pwm_led.h" uri="studio:/sdk/platform/driver/leddrv/inc/sl_pwm_led.h"/>
+            <file name="sl_simple_rgb_pwm_led.h" uri="studio:/sdk/platform/driver/leddrv/inc/sl_simple_rgb_pwm_led.h"/>
+          </folder>
+        </folder>
         <folder name="pwm">
           <folder name="src">
             <file name="sl_pwm.c" uri="studio:/sdk/platform/driver/pwm/src/sl_pwm.c"/>
@@ -724,6 +736,7 @@
   <includePath uri="studio:/sdk/platform/emdrv/gpiointerrupt/inc"/>
   <includePath uri="studio:/sdk/platform/service/hfxo_manager/inc"/>
   <includePath uri="studio:/sdk/platform/service/iostream/inc"/>
+  <includePath uri="studio:/sdk/platform/driver/leddrv/inc"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/sl_component/sl_mbedtls_support/config"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/mbedtls/include"/>
   <includePath uri="studio:/sdk/util/third_party/crypto/mbedtls/library"/>

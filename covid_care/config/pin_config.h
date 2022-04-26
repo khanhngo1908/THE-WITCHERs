@@ -66,6 +66,18 @@
 // [TIMER1]$
 
 // $[TIMER2]
+// TIMER2 CC0 on PB00
+#define TIMER2_CC0_PORT                          gpioPortB
+#define TIMER2_CC0_PIN                           0
+
+// TIMER2 CC1 on PB03
+#define TIMER2_CC1_PORT                          gpioPortB
+#define TIMER2_CC1_PIN                           3
+
+// TIMER2 CC2 on PB04
+#define TIMER2_CC2_PORT                          gpioPortB
+#define TIMER2_CC2_PIN                           4
+
 // [TIMER2]$
 
 // $[TIMER3]

@@ -33,6 +33,8 @@ component:
 - {id: brd4314a}
 - {id: BGM220PC22HNA}
 - {id: emlib_i2c}
+- instance: [RGB_LED]
+  id: simple_rgb_pwm_led
 - {id: app_log}
 - {id: bluetooth_feature_connection}
 - {id: bluetooth_feature_advertiser}

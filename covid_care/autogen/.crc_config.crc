@@ -25,4 +25,5 @@ sl_power_manager_config.h=-1475773310
 sl_pwm_init_buzzer_config.h=-1335542696
 sl_rail_util_pa_config.h=-2122058088
 sl_rail_util_pti_config.h=-810486626
+sl_simple_rgb_pwm_led_RGB_LED_config.h=-187251086
 sl_sleeptimer_config.h=-1879962229

@@ -124,7 +124,7 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 				R = (ppg_ir.AC / ppg_ir.DC) / (ppg_red.AC / ppg_red.DC);
 				//				R = (ppg_red.AC / ppg_red.DC) / (ppg_ir.AC / ppg_ir.DC);
 
-				if (spo2 > 90.0)
+				if (spo2 > 94.0)
 				{
 					spo2 = (spo2 + SpO2_estimator (R)) / 2;
 				}
@@ -343,7 +343,7 @@ float SpO2_estimator(float R)
     } else if (spo2 < SpO2_MIN){
         spo2 = SpO2_MIN;
     }
-    return (spo2+0.5);
+    return (spo2+0.3);
 }
 
 void assign_signal(float* ori, float* des, int n_sample)

@@ -87,7 +87,11 @@ user/led_buzzer.o: ../user/led_buzzer.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_gpio.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\pwm\inc\sl_pwm.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_timer.h \
- C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_pwm_instances.h
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_pwm_instances.h \
+ C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_simple_rgb_pwm_led_instances.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_simple_rgb_pwm_led.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_led.h \
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_pwm_led.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 ../user/led_buzzer.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_gpio.h:
@@ -177,3 +181,7 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_gpio.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\pwm\inc\sl_pwm.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_timer.h:
 C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_pwm_instances.h:
+C\:\Users\Admin\Documents\THE-WITCHERs\covid_care\autogen/sl_simple_rgb_pwm_led_instances.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_simple_rgb_pwm_led.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_led.h:
+c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\driver\leddrv\inc\sl_pwm_led.h:

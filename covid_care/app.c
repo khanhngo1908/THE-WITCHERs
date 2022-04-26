@@ -132,13 +132,13 @@ SL_WEAK void app_init (void)
 
 	// MPU6050init
 	MPU6050_ConfigDMP (&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
-	uint32_t autoMode_timer = 60*5*1000;
+	uint32_t autoMode_timer = 60 * 5 * 1000;
 	sl_bt_system_set_soft_timer (TIMER_MS(60*1000), MIIN, 0);
 
 	// MSC init
 	MSC_init ();
 //	MSC_Clear ();
-	MSC_CheckPage();
+	MSC_CheckPage ();
 	memory_data_header = unReadCounter;
 	sl_app_log(" MSC init Ok \n");
 
@@ -155,18 +155,19 @@ SL_WEAK void app_process_action (void)
 {
 
 	/*********************** Duong's Process **********************************/
-//  MPU6050_GetData(&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus,&check_fall);
-//  if(check_fall == 1)
-//    {
-//      sl_bt_system_set_soft_timer(TIMER_MS(5000), SEC, 1);
-//    }
-	if(caution == 1)
+//	MPU6050_GetData (&mpu, &dmpReady, &mpuInterrupt, &packetSize, &mpuIntStatus,
+//					 &check_fall);
+//	if (check_fall == 1)
+//	{
+//		sl_bt_system_set_soft_timer (TIMER_MS(5000), SEC, 1);
+//	}
+	if (caution == 1)
 	{
-		set_LED('r');
+		set_LED ('r');
 	}
 	else
 	{
-		clear_all_LED();
+		clear_all_LED ();
 	}
 }
 
@@ -235,7 +236,7 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 		else if (header == 5 && len == 1)
 		{
 			sl_app_log(" Gui data manual - nut nhan app \n");
-			set_LED('w');
+			set_LED ('w');
 			float T;
 			uint8_t i;
 			for (i = 1; i < 4; i++)
@@ -253,9 +254,9 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 				if (T > 38 || res == 1)
 					caution = 1;
 				else
-				    caution = 0;
+					caution = 0;
 			}
-			clear_all_LED();
+			clear_all_LED ();
 		}
 		else if (header == 6 && len == 1)
 		{
@@ -470,7 +471,7 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 				else
 					caution = 0;
 
-				clear_all_LED();
+				clear_all_LED ();
 			}
 			if (evt->data.evt_system_soft_timer.handle == BUTTON_PRESS_TIMER)
 			{
@@ -482,7 +483,8 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 					if (button_press_timerCounter >= LONG_PRESS_TIMEOUT)
 					{
 						sl_bt_system_set_soft_timer (TIMER_MS(0),
-													 BUTTON_PRESS_TIMER, 1);
+						BUTTON_PRESS_TIMER,
+													 1);
 						button_press_timerCounter = 0;
 						if (help == 0)
 						{
@@ -502,7 +504,8 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 				else
 				{
 					sl_bt_system_set_soft_timer (TIMER_MS(0),
-												 BUTTON_PRESS_TIMER, 1);
+					BUTTON_PRESS_TIMER,
+												 1);
 					if (button_press_timerCounter > DEBOUND_TIMEOUT
 							&& button_press_timerCounter < SINGLE_PRESS_TIMEOUT)
 					{
@@ -542,7 +545,8 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 				if (button_press_counter == 0)
 				{
 					sl_bt_system_set_soft_timer (TIMER_MS(100),
-												 BUTTON_PRESS_TIMER, 0);
+					BUTTON_PRESS_TIMER,
+												 0);
 					button_press_counter += 1;
 				}
 			}
