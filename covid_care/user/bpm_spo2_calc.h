@@ -40,6 +40,6 @@ void median_filter(float* signal, int n_sample, int filter_size);
 void BPM_estimator(float* signal, PPG_t* ppg, int n_sample, float thresh, float sample_rate);
 float SpO2_estimator(float R);
 void assign_signal(float* ori, float* des, int n_sample);
-void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n);
+uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n);
 
 #endif /* USER_BPM_SPO2_CALC_H_ */

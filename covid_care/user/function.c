@@ -22,6 +22,10 @@
 #include "test_variable.h"
 #include "math.h"
 #include "lm75.h"
+#include "bpm_spo2_calc.h"
+
+uint8_t isCaution = 0;
+
 void convert_data(uint8_t arr[],float *data)
 {
   arr[0] = (uint8_t) (*data);
@@ -205,4 +209,30 @@ uint32_t diff_time(sl_sleeptimer_date_t *date_disconnect)
 	  sl_sleeptimer_convert_date_to_time(&date_current, &timestamp);
 	  sl_sleeptimer_convert_date_to_time(date_disconnect, &timestamp1);
 	  return timestamp - timestamp1;
+}
+
+void sendDataManual(uint8_t *notifyEnabled,uint8_t *app_connection, uint8_t *caution)
+{
+	float T;
+	uint8_t i;
+	BPM_SpO2_value_t bpm_spo2_value;
+	for (i = 1; i < 4; i++)
+	{
+		set_LED ('w');
+
+		T = LM75_ReadTemperature ();
+		uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, i);
+		sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
+		sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
+		sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
+
+		float a1 = (float) (bpm_spo2_value.BPM);
+		float a2 = (float) (bpm_spo2_value.SpO2);
+		send_all_data (notifyEnabled, app_connection, &T, &a2, &a1);
+
+		if (T > 38 || res == 1)
+			*caution = 1;
+
+		clear_all_LED();
+	}
 }

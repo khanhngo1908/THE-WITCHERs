@@ -89,9 +89,9 @@
 #define MAX30102_TOTAL_BYTES 	(6*32)
 #define BYTES_PER_SAMPLE 		6
 
-#define SMP_AVE     4
+#define SMP_AVE     2
 
-#define SMP_RATE    400
+#define SMP_RATE    200
 
 #define THROUGHTPUT (SMP_RATE/SMP_AVE)
 

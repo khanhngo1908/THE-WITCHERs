@@ -111,7 +111,8 @@ user/function.o: ../user/function.c \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_rtcc.h \
  ../user/gpio_intr.h \
  c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_cmu.h \
- c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_cmu_compat.h
+ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_cmu_compat.h \
+ ../user/bpm_spo2_calc.h
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_common.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\device\siliconlabs\bgm22\include\em_device.h:
@@ -228,3 +229,4 @@ c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_rtcc.h:
 ../user/gpio_intr.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_cmu.h:
 c\:\users\admin\simplicitystudio\sdks\gecko_sdk3\platform\emlib\inc\em_cmu_compat.h:
+../user/bpm_spo2_calc.h:

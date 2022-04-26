@@ -95,6 +95,7 @@ uint8_t dataCounter = 0;
 uint8_t dataPointer = 0;
 
 uint8_t caution = 0;
+uint8_t cautionCounter = 0;
 BPM_SpO2_value_t bpm_spo2_value;
 /**************************************************************************//**
  * Application Init.
@@ -131,11 +132,14 @@ SL_WEAK void app_init (void)
 
 	// MPU6050init
 	MPU6050_ConfigDMP (&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
+	uint32_t autoMode_timer = 60*5*1000;
 	sl_bt_system_set_soft_timer (TIMER_MS(60*1000), MIIN, 0);
 
 	// MSC init
 	MSC_init ();
-//  MSC_Clear();
+//	MSC_Clear ();
+	MSC_CheckPage();
+	memory_data_header = unReadCounter;
 	sl_app_log(" MSC init Ok \n");
 
 	set_Buzzer ();
@@ -156,6 +160,14 @@ SL_WEAK void app_process_action (void)
 //    {
 //      sl_bt_system_set_soft_timer(TIMER_MS(5000), SEC, 1);
 //    }
+	if(caution == 1)
+	{
+		set_LED('r');
+	}
+	else
+	{
+		clear_all_LED();
+	}
 }
 
 void process_server_user_write_request (sl_bt_msg_t *evt)
@@ -223,14 +235,13 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 		else if (header == 5 && len == 1)
 		{
 			sl_app_log(" Gui data manual - nut nhan app \n");
+			set_LED('w');
 			float T;
 			uint8_t i;
 			for (i = 1; i < 4; i++)
 			{
-				set_LED('w');
-
 				T = LM75_ReadTemperature ();
-				BPM_SpO2_Update (&bpm_spo2_value, i);
+				uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, i);
 				sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
 				sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
 				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
@@ -239,27 +250,12 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 				float a2 = (float) (bpm_spo2_value.SpO2);
 				send_all_data (&notifyEnabled, &app_connection, &T, &a2, &a1);
 
-				if (T > 38)
+				if (T > 38 || res == 1)
 					caution = 1;
-				if (bpm_spo2_value.BPM != 0 && bpm_spo2_value.SpO2 != 0)
-				{
-					if (bpm_spo2_value.BPM < 50 || bpm_spo2_value.BPM > 120)
-						caution = 1;
-					if (bpm_spo2_value.SpO2 < 96)
-						caution = 1;
-				}
-				if (caution == 1)
-				{
-					set_LED ('r');
-					set_Buzzer ();
-					caution = 0;
-				}
 				else
-				{
-					clear_all_LED();
-					clear_Buzzer ();
-				}
+				    caution = 0;
 			}
+			clear_all_LED();
 		}
 		else if (header == 6 && len == 1)
 		{
@@ -425,41 +421,41 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 				sl_app_log(" Gui data dinh ky \n");
 				set_LED ('w');
 				float T = LM75_ReadTemperature ();
-				BPM_SpO2_Update (&bpm_spo2_value, 1);
+				uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, 1);
 				sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
 				sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
 				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
 				if (app_connection == 0)
 				{
-//					// ghi vào memory
-//					MSC_CheckPage (&unReadCounter, &dataCounter);
-//					sl_app_log(" unread: %d; counter: %d \n", unReadCounter,
-//							   dataCounter);
-//					dataPointer = dataCounter;
-//					uint8_t data[9];
-//					uint8_t t = LM75_FloatToOneByte (T);
-//
-//					// lấy ngay, thang, nam, gio, phut
-//					sl_sleeptimer_get_datetime (&datetest);
-//
-//					// gan vao mang
-//					data[0] = memory_data_header;
-//					data[1] = datetest.month_day; 				// ngày
-//					data[2] = datetest.month + 1;				// tháng
-//					data[3] = datetest.year;					// năm;
-//					data[4] = datetest.hour;					// giờ;
-//					data[5] = datetest.min;						// phút;
-//					data[6] = bpm_spo2_value.BPM;				// nhip tim
-//					data[7] = bpm_spo2_value.SpO2;				// spo2
-//					data[8] = t;								// nhiet do
-//
-//					// viet vao bo nho
-//					MSC_write (data, dataPointer);
-//
-//					// Doc lai de kiem tra
-//					uint8_t read[9];
-//					MSC_read (read, dataPointer);
+					// ghi vào memory
+					MSC_CheckPage (&unReadCounter, &dataCounter);
+					sl_app_log(" unread: %d; counter: %d \n", unReadCounter,
+							   dataCounter);
+					dataPointer = dataCounter;
+					uint8_t data[9];
+					uint8_t t = LM75_FloatToOneByte (T);
+
+					// lấy ngay, thang, nam, gio, phut
+					sl_sleeptimer_get_datetime (&datetest);
+
+					// gan vao mang
+					data[0] = memory_data_header;
+					data[1] = datetest.month_day; 				// ngày
+					data[2] = datetest.month + 1;				// tháng
+					data[3] = datetest.year;					// năm;
+					data[4] = datetest.hour;					// giờ;
+					data[5] = datetest.min;						// phút;
+					data[6] = bpm_spo2_value.BPM;				// nhip tim
+					data[7] = bpm_spo2_value.SpO2;				// spo2
+					data[8] = t;								// nhiet do
+
+					// viet vao bo nho
+					MSC_write (data, dataPointer);
+
+					// Doc lai de kiem tra
+					uint8_t read[9];
+					MSC_read (read, dataPointer);
 				}
 				else
 				{
@@ -469,26 +465,12 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 								   &a1);
 				}
 
-				if (T > 38)
+				if (T > 38 || res == 1)
 					caution = 1;
-				if (bpm_spo2_value.BPM != 0 && bpm_spo2_value.SpO2 != 0)
-				{
-					if (bpm_spo2_value.BPM < 50 || bpm_spo2_value.BPM > 120)
-						caution = 1;
-					if (bpm_spo2_value.SpO2 < 96)
-						caution = 1;
-				}
-				if (caution == 1)
-				{
-					set_LED ('r');
-					set_Buzzer ();
-					caution = 0;
-				}
 				else
-				{
-					clear_all_LED ();
-					clear_Buzzer ();
-				}
+					caution = 0;
+
+				clear_all_LED();
 			}
 			if (evt->data.evt_system_soft_timer.handle == BUTTON_PRESS_TIMER)
 			{
@@ -525,14 +507,13 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 							&& button_press_timerCounter < SINGLE_PRESS_TIMEOUT)
 					{
 						sl_app_log(" Gui data manual - nut nhan mach \n");
+						set_LED ('w');
 						float T;
 						uint8_t i;
 						for (i = 1; i < 4; i++)
 						{
-							set_LED ('w');
-
 							T = LM75_ReadTemperature ();
-							BPM_SpO2_Update (&bpm_spo2_value, i);
+							uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, i);
 							sl_app_log(" Nhiet do: %d \n",
 									   (uint32_t ) (1000 * T));
 							sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
@@ -543,29 +524,12 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 							send_all_data (&notifyEnabled, &app_connection, &T,
 										   &a2, &a1);
 
-							if (T > 38)
+							if (T > 38 || res == 1)
 								caution = 1;
-							if (bpm_spo2_value.BPM != 0
-									&& bpm_spo2_value.SpO2 != 0)
-							{
-								if (bpm_spo2_value.BPM < 50
-										|| bpm_spo2_value.BPM > 120)
-									caution = 1;
-								if (bpm_spo2_value.SpO2 < 96)
-									caution = 1;
-							}
-							if (caution == 1)
-							{
-								set_LED ('r');
-								set_Buzzer ();
-								caution = 0;
-							}
 							else
-							{
-								clear_all_LED ();
-								clear_Buzzer ();
-							}
+								caution = 0;
 						}
+						clear_all_LED ();
 					}
 					button_press_timerCounter = 0;
 					button_press_counter = 0;

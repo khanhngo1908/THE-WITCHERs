@@ -11,7 +11,7 @@
 fifo_t FIFO_data;
 float t[STORAGE_SIZE]; // temp array to process signal
 
-void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
+uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 {
 
 //	uint8_t i = 0;
@@ -103,10 +103,10 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 				DC_removal (t, idx, alpha);
 				DC_ir = max (t, idx);
 				ppg_ir.DC = DC_ir;
-				int idx_t = idx;
+//				int idx_t = idx;
 				//					trim (t, &idx_t, offset);
-				median_filter (t, idx_t, filter_size);
-				BPM_estimator (t, &ppg_ir, idx_t, thresh, sample_rate);
+				median_filter (t, idx, filter_size);
+				BPM_estimator (t, &ppg_ir, idx, thresh, sample_rate);
 				/****************************/
 
 				/**** Calc for RED signal ****/
@@ -114,10 +114,10 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 				DC_removal (t, idx, alpha);
 				DC_red = max (t, idx);
 				ppg_red.DC = DC_red;
-				idx_t = idx;
+//				idx_t = idx;
 				//					trim (t, &idx_t, offset);
-				median_filter (t, idx_t, filter_size);
-				BPM_estimator (t, &ppg_red, idx_t, thresh, sample_rate);
+				median_filter (t, idx, filter_size);
+				BPM_estimator (t, &ppg_red, idx, thresh, sample_rate);
 				/*****************************/
 
 				// Calculate Spo2
@@ -144,28 +144,22 @@ void BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 	}
 	/**********************************************************/
 	result->BPM = (int) ((ppg_ir.BPM + ppg_red.BPM) / 2);
-	result->SpO2 = (int) spo2;
+	result->SpO2 = (int) (spo2);
 //	sl_app_log("BPM: %d \n", result->BPM);
 //	sl_app_log("Spo2: %d \n", result->SpO2);
 	MAX30102_Shutdown ();
-	if(ppg_ir.DC < FINGER_THRESH && ppg_red.DC < FINGER_THRESH)
+	if(ppg_ir.DC < FINGER_THRESH && ppg_red.DC < FINGER_THRESH)  // check có ngon tay dat cam bien
 	{
 		result->BPM = 0;
 		result->SpO2 = 0;
-//		return 2;
+		return 2;
 	}
 	else
 	{
-		if(result->BPM < BPM_MIN)
-			result->BPM = BPM_MIN;
-		else if(result->BPM > BPM_MAX)
-			result->BPM = BPM_MAX;
-		if(result->SpO2 < SpO2_MIN)
-			result->SpO2 = SpO2_MIN;
-		else if(result->SpO2 > SpO2_MAX)
-			result->SpO2 = SpO2_MAX;
+		if (result->BPM < 50 || result->BPM > 120 || result->SpO2 < 96)
+			return 1;
 	}
-//	return 0;
+	return 0;
 }
 
 float max(float *array, int array_size)
@@ -325,7 +319,12 @@ void BPM_estimator(float* signal, PPG_t* ppg, int n_sample, float thresh, float 
 	{
 		ppg->BPM = bpm;
 	}
-//    ppg->BPM = bpm;
+
+	if (ppg->BPM < BPM_MIN)
+		ppg->BPM = BPM_MIN;
+	else if (ppg->BPM > BPM_MAX)
+		ppg->BPM = BPM_MAX;
+
     ppg->AC = AC;
 }
 
@@ -339,12 +338,12 @@ float SpO2_estimator(float R)
     } else if(R <= 3.5){
         spo2 = 350.0 / 3.0 - 100.0 / 3.0 * R;
     }
-    if(spo2 > 100.0){
-        spo2 = 100.0;
-    } else if (spo2 < 80.0){
-        spo2 = 80.0;
+    if(spo2 > SpO2_MAX){
+        spo2 = SpO2_MAX;
+    } else if (spo2 < SpO2_MIN){
+        spo2 = SpO2_MIN;
     }
-    return spo2;
+    return (spo2+0.5);
 }
 
 void assign_signal(float* ori, float* des, int n_sample)

@@ -19,7 +19,7 @@ void MAX30102_init ()
 	i2c_writeByte (MAX30102_ADDRESS, REG_MODE_CONFIG, MAX30102_MODE_SPO2_HR);
 
 	//FIFO Configuration
-	i2c_writeByte (MAX30102_ADDRESS, REG_FIFO_CONFIG, smp4 | FIFO_ROLLOVER_EN );
+	i2c_writeByte (MAX30102_ADDRESS, REG_FIFO_CONFIG, smp2 | FIFO_ROLLOVER_EN );
 
 	// Enable FIFO Almost Full Interrupt
 //    i2c_writeByte(MAX30102_ADDRESS, REG_INTR_ENABLE_1 , INT_A_FULL_EN);
@@ -29,7 +29,7 @@ void MAX30102_init ()
 	i2c_writeByte (MAX30102_ADDRESS, REG_LED2_PA, FIX_CURRENT);
 
 	// SpO2 Configuration
-	i2c_writeByte (MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr400 | pw411);
+	i2c_writeByte (MAX30102_ADDRESS, REG_SPO2_CONFIG, adc16384 | sr200 | pw411);
 
 	// Clear FIFO
 	MAX30102_ClearFIFO ();
