@@ -253,9 +253,9 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 				sl_app_log(" SpO2: %d \n", bpm_spo2_value.SpO2);
 				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
-				float a1 = (float) (bpm_spo2_value.BPM);
-				float a2 = (float) (bpm_spo2_value.SpO2);
-				send_all_data_count (&notifyEnabled, &app_connection, &T, &a2, &a1, i);
+				float spo2 = (float) (bpm_spo2_value.SpO2);
+				float bpm = (float) (bpm_spo2_value.BPM);
+				send_all_data_count (&notifyEnabled, &app_connection, &T, &spo2, &bpm, i);
 
 				if (T > 38 || res == 1)
 					caution = 1;
@@ -501,10 +501,10 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 					}
 					else
 					{
-						float a1 = (float) (bpm_spo2_value.BPM);
-						float a2 = (float) (bpm_spo2_value.SpO2);
-						send_all_data (&notifyEnabled, &app_connection, &T, &a2,
-									   &a1);
+						float spo2 = (float) (bpm_spo2_value.SpO2);
+						float bpm = (float) (bpm_spo2_value.BPM);
+						send_all_data (&notifyEnabled, &app_connection, &T, &spo2,
+									   &bpm);
 					}
 
 					if (T > 38 || res == 1)
@@ -560,9 +560,11 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 							sl_app_log(" SpO2: %d \n", bpm_spo2_value.SpO2);
 							sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
-							float a1 = (float) (bpm_spo2_value.BPM);
-							float a2 = (float) (bpm_spo2_value.SpO2);
-							send_all_data_count (&notifyEnabled, &app_connection, &T, &a2, &a1, i);
+							float spo2 = (float) (bpm_spo2_value.SpO2);
+							float bpm = (float) (bpm_spo2_value.BPM);
+							send_all_data_count (&notifyEnabled,
+												 &app_connection, &T, &spo2,
+												 &bpm, i);
 
 							if (T > 38 || res == 1)
 								caution = 1;

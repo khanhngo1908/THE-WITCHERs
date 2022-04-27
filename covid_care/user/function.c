@@ -118,7 +118,7 @@ void send_all_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *tempera
 //   sl_sleeptimer_date_t date_time;
 //   sl_sleeptimer_get_datetime(&date_time);
    convert_data(arr, temperature);
-   buffer[0] = 4;
+   buffer[0] = 7;
 
    buffer[1] = arr[0];
    buffer[2] = arr[1];

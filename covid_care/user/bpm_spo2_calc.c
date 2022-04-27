@@ -29,8 +29,12 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 		}
 		FIFO_data.cnt = STORAGE_SIZE - INTERVAL * THROUGHTPUT;
 		ppg_ir.BPM = result->BPM;
-		ppg_ir.BPM = result->BPM;
+		ppg_red.BPM = result->BPM;
 		spo2 = result->SpO2;
+
+//		ppg_ir.BPM = 0;
+//		ppg_red.BPM = 0;
+//		spo2 = 0;
 	}
 	else
 	{
