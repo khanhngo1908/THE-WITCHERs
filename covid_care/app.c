@@ -210,18 +210,18 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 			datetest.sec =
 					evt->data.evt_gatt_server_attribute_value.value.data[6];
 			sl_sleeptimer_set_datetime (&datetest);
-			uint8_t read[27] =
-			{ 0, 22, 4, 122, 21, 44, 87, 98, 26, 0, 22, 4, 122, 21, 30, 80, 96,
-					22, 0, 22, 4, 122, 21, 20, 81, 98, 22 };
-			uint8_t len1 = sizeof(read) / sizeof(uint8_t);
+//			uint8_t read[27] =
+//			{ 0, 22, 4, 122, 21, 44, 87, 98, 26, 0, 22, 4, 122, 21, 30, 80, 96,
+//					22, 0, 22, 4, 122, 21, 20, 81, 98, 22 };
+//			uint8_t len1 = sizeof(read) / sizeof(uint8_t);
 			sl_app_log(" C: %d %d %d %d %d %d \n", datetest.month_day, datetest.month+1, datetest.year+1900, datetest.hour, datetest.min, datetest.sec);
-//  	        for(i = 4; i < 12; i++)
-//  	        {
-//  	            MSC_read(&read[i][0], i);
-//  	        }
-			send_all_old_data (&notifyEnabled, &app_connection, read, &len1);
-			app_log("%d\n", len1);
-			app_log("send success\n");
+////  	        for(i = 4; i < 12; i++)
+////  	        {
+////  	            MSC_read(&read[i][0], i);
+////  	        }
+//			send_all_old_data (&notifyEnabled, &app_connection, read, &len1);
+//			app_log("%d\n", len1);
+//			app_log("send success\n");
 		}
 		else if (header == 2 && len == 1)
 		{
@@ -260,20 +260,20 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 			}
 			clear_all_LED ();
 		}
-		else if (header == 6 && len == 1)
-		{
-			uint8_t read[2][9] =
-			{
-			{ 8, 2, 34, 6, 3, 5, 87, 14, 26 },
-			{ 9, 21, 124, 65, 32, 115, 27, 124, 216 } };
-//  	        for(i = 4; i < 12; i++)
-//  	        {
-//  	            MSC_read(&read[i][0], i);
-//  	        }
-			uint8_t len = 2;
-			send_all_old_data (&notifyEnabled, &app_connection, read, len);
-			app_log("send success\n");
-		}
+//		else if (header == 6 && len == 1)
+//		{
+//			uint8_t read[2][9] =
+//			{
+//			{ 8, 2, 34, 6, 3, 5, 87, 14, 26 },
+//			{ 9, 21, 124, 65, 32, 115, 27, 124, 216 } };
+////  	        for(i = 4; i < 12; i++)
+////  	        {
+////  	            MSC_read(&read[i][0], i);
+////  	        }
+//			uint8_t len = 2;
+//			send_all_old_data (&notifyEnabled, &app_connection, read, len);
+//			app_log("send success\n");
+//		}
 		else if (header == 7 && len == 1)
 		{
 			uint32_t diff = diff_time (&date_disconnect);
@@ -343,11 +343,61 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 		case sl_bt_evt_connection_opened_id:
 			app_connection = evt->data.evt_connection_opened.connection;
 			sl_app_log("connection opened \n");
-//	uint32_t diff_t = diff_time(&date_disconnect);
-//	if(date_disconnect.year != 1900 && diff_t > 600)
-//	  {
-//	    // todo
-//	  }
+		    uint32_t diff_t = diff_time(&date_disconnect);
+		    if(date_disconnect.year != 1900 && diff_t > 600)
+		      {
+							// check page
+			MSC_CheckPage (&unReadCounter, &dataCounter);
+			sl_app_log(" unread: %d - datacounter: %d \n", unReadCounter,
+				   dataCounter);
+			uint8_t numOfUnReadData = dataCounter - unReadCounter;
+
+			// Doc data
+			uint8_t readAll[9 * numOfUnReadData];
+			uint8_t read[9];
+			uint8_t i;
+
+			for (i = unReadCounter; i < dataCounter; i++)
+			  {
+			    sl_app_log("%d \n", i);
+			    MSC_read (read, i);
+			    for (uint8_t j = 0; j < 10; j++)
+			      {
+				readAll[i * 9 + j] = read[j];
+			      }
+			  }
+			memory_data_header = dataCounter;
+			// cut data
+			    uint8_t count_1 = numOfUnReadData / 20;
+			    uint8_t total = count_1+1;
+			    uint8_t len =20;
+			    uint8_t arr_cut[200];
+			    uint8_t count_2 = numOfUnReadData - count_1;
+			    uint8_t arr_part[count_2*10];
+			if (numOfUnReadData > 20)
+			  {
+			    for(int i=0;i<count_1;i++)
+			      {
+				uint8_t stt =(uint8_t)i;
+				for(int j=0;j<200;j++)
+				  {
+				    arr_cut[j]=readAll[i*200+j];
+				  }
+				send_all_old_data(&notifyEnabled, &app_connection, arr_cut, &len, &total, &stt);
+				sl_sleeptimer_delay_millisecond(5);
+			      }
+			     for(int n =0;n<count_2*10;n++)
+			       {
+				 arr_part[n]= readAll[count_1*200+n];
+			       }
+			      send_all_old_data(&notifyEnabled, &app_connection, arr_part, &count_2, &total, &count_1);
+
+			  }
+			else
+			  {
+			    send_all_old_data(&notifyEnabled, &app_connection, readAll, &numOfUnReadData, &total, &count_1);
+			  }
+		      }
 			break;
 
 			// -------------------------------
@@ -385,24 +435,6 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 				}
 			}
 			break;
-			//    case sl_bt_evt_gatt_server_attribute_value_id:
-			//      if (evt->data.evt_gatt_server_characteristic_status.characteristic
-			//          == gattdb_device_ch)
-			//        {
-			//          uint8_t header = evt->data.evt_gatt_server_attribute_value.value.data[0];
-			//          if (header == 1){ //set date time
-			//                datetest.time_zone = 7;
-			//                datetest.year = evt->data.evt_gatt_server_attribute_value.value.data[3];
-			//                datetest.month = evt->data.evt_gatt_server_attribute_value.value.data[2];
-			//                datetest.month_day = evt->data.evt_gatt_server_attribute_value.value.data[1];
-			//                datetest.hour = evt->data.evt_gatt_server_attribute_value.value.data[4];
-			//                datetest.min = evt->data.evt_gatt_server_attribute_value.value.data[5];
-			//                datetest.sec = evt->data.evt_gatt_server_attribute_value.value.data[6];
-			//                sl_sleeptimer_set_datetime(&datetest);
-			//          }
-			//
-			//        }
-			//      break;
 		case sl_bt_evt_gatt_server_user_write_request_id:
 			process_server_user_write_request (evt);
 

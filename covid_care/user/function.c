@@ -138,20 +138,22 @@ void send_all_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *tempera
      app_log("send erorr\n");
      }
 }
-void send_all_old_data(uint8_t *notifyEnabled,uint8_t *app_connection,uint8_t arr[], uint8_t *len)
+void send_all_old_data(uint8_t *notifyEnabled,uint8_t *app_connection,uint8_t arr[], uint8_t *len,uint8_t *total,uint8_t *stt)
 
 {
      sl_status_t sc;
-     uint8_t buffer[2+(*len/9)*10];
-     uint8_t temp[1];
+     uint8_t buffer[2+(*len/9)*10+2];
+     uint8_t temp[2];
      buffer[0] = 6;
      buffer[1] = (*len/9) ;
-     uint16_t length = 2 +(buffer[1]*10) ;
+     uint16_t length = 2 +(buffer[1]*10)+2 ;
      uint8_t count = 0;
      for(int i=0;i<(buffer[1]);i++)
        {
-	     buffer[count+2]=36;
-	     buffer[count+3]=2;
+	     float T = LM75_OneByteToFloat(arr[i*9+8]);
+	     convert_data(temp, &T);
+	     buffer[count+2]=temp[0];
+	     buffer[count+3]=temp[1];
 	     buffer[count+4]=arr[i*9+7];
 	     buffer[count+5]=arr[i*9+6];
 	     buffer[count+6]=arr[i*9+1];
@@ -162,6 +164,8 @@ void send_all_old_data(uint8_t *notifyEnabled,uint8_t *app_connection,uint8_t ar
 	     buffer[count+11]=0;
 	     count+=10;
        }
+     buffer[2+(*len/9)*10] = stt;
+     buffer[2+(*len/9)*10+1] = *total;
      if (*notifyEnabled)
        {
          sc = sl_bt_gatt_server_send_notification (*app_connection, gattdb_data_ch,
