@@ -348,60 +348,71 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 			app_connection = evt->data.evt_connection_opened.connection;
 			sl_app_log("connection opened \n");
 		    uint32_t diff_t = diff_time(&date_disconnect);
-		    if(date_disconnect.year != 1900 && diff_t > 600)
-		      {
-							// check page
-			MSC_CheckPage (&unReadCounter, &dataCounter);
-			sl_app_log(" unread: %d - datacounter: %d \n", unReadCounter,
-				   dataCounter);
-			uint8_t numOfUnReadData = dataCounter - unReadCounter;
+			  if (date_disconnect.year != 1900 && diff_t > 600)
+			    {
+			      // check page
+			      MSC_CheckPage (&unReadCounter, &dataCounter);
+			      sl_app_log(" unread: %d - datacounter: %d \n", unReadCounter,
+					 dataCounter);
+			      uint8_t numOfUnReadData = dataCounter - unReadCounter;
 
-			// Doc data
-			uint8_t readAll[9 * numOfUnReadData];
-			uint8_t read[9];
-			uint8_t i;
+			      // Doc data
+			      uint8_t readAll[7 * numOfUnReadData];
+			      uint8_t read[9];
+			      uint8_t read_temp[9] =
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+			      uint8_t i;
+			      uint16_t temp_mem;
+			      uint16_t spo2_mem;
+			      uint16_t bpm_mem;
+			      uint8_t count_time = 0;
+			      for (i = unReadCounter; i < dataCounter; i++)
+				{
+				  sl_app_log("%d \n", i);
+				  MSC_read (read, i);
+				  if (i == unReadCounter)
+				    {
+				      for (uint8_t j = 0; j < 9; j++)
+					{
+					  read_temp[j] = read[j];
+					}
+				    }
+				  if (read[4] == read_temp[4])
+				    {
+				      temp_mem += read[8];
+				      spo2_mem += read[7];
+				      bpm_mem += read[6];
+				      count_time++;
+				    }
+				  else
+				    {
+				      temp_mem = temp_mem / count_time;
+				      spo2_mem = spo2_mem / count_time;
+				      bpm_mem = bpm_mem / count_time;
+				      readAll[i * 7] = read[1];
+				      readAll[i * 7 + 1] = read[2];
+				      readAll[i * 7 + 2] = read[3];
+				      readAll[i * 7 + 3] = read[4];
+				      readAll[i * 7 + 4] = temp_mem;
+				      readAll[i * 7 + 5] = spo2_mem;
+				      readAll[i * 7 + 6] = bpm_mem;
+				      temp_mem = 0;
+				      spo2_mem = 0;
+				      bpm_mem = 0;
+				      count_time = 0;
+				      for (uint8_t k = 0; k < 9; k++)
+					{
+					  read_temp[k] = read[k];
+					}
+				      temp_mem += read[8];
+				      spo2_mem += read[7];
+				      bpm_mem += read[6];
+				      count_time++;
 
-			for (i = unReadCounter; i < dataCounter; i++)
-			  {
-			    sl_app_log("%d \n", i);
-			    MSC_read (read, i);
-			    for (uint8_t j = 0; j < 10; j++)
-			      {
-				readAll[i * 9 + j] = read[j];
-			      }
-			  }
-			memory_data_header = dataCounter;
-			// cut data
-			    uint8_t count_1 = numOfUnReadData / 20;
-			    uint8_t total = count_1+1;
-			    uint8_t len =20;
-			    uint8_t arr_cut[200];
-			    uint8_t count_2 = numOfUnReadData - count_1;
-			    uint8_t arr_part[count_2*10];
-			if (numOfUnReadData > 20)
-			  {
-			    for(int i=0;i<count_1;i++)
-			      {
-				uint8_t stt =(uint8_t)i;
-				for(int j=0;j<200;j++)
-				  {
-				    arr_cut[j]=readAll[i*200+j];
-				  }
-				send_all_old_data(&notifyEnabled, &app_connection, arr_cut, &len, &total, &stt);
-				sl_sleeptimer_delay_millisecond(5);
-			      }
-			     for(int n =0;n<count_2*10;n++)
-			       {
-				 arr_part[n]= readAll[count_1*200+n];
-			       }
-			      send_all_old_data(&notifyEnabled, &app_connection, arr_part, &count_2, &total, &count_1);
-
-			  }
-			else
-			  {
-			    send_all_old_data(&notifyEnabled, &app_connection, readAll, &numOfUnReadData, &total, &count_1);
-			  }
-		      }
+				    }
+				}
+			      send_all_old_data(&notifyEnabled, &app_connection, readAll, &numOfUnReadData);
+			    }
 			break;
 
 			// -------------------------------
@@ -467,7 +478,7 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 
 					if (app_connection == 0)
 					{
-						// ghi vào memory
+						// ghi v�o memory
 						uint8_t res = MSC_CheckPage (&unReadCounter,
 													 &dataCounter);
 						if (res == 1)
@@ -478,16 +489,16 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 						uint8_t data[9];
 						uint8_t t = LM75_FloatToOneByte (T);
 
-						// lấy ngay, thang, nam, gio, phut
+						// l?y ngay, thang, nam, gio, phut
 						sl_sleeptimer_get_datetime (&datetest);
 
 						// gan vao mang
 						data[0] = memory_data_header;
-						data[1] = datetest.month_day; 				// ngày
-						data[2] = datetest.month + 1;				// tháng
-						data[3] = datetest.year;					// năm;
-						data[4] = datetest.hour;					// giờ;
-						data[5] = datetest.min;						// phút;
+						data[1] = datetest.month_day; 				// ng�y
+						data[2] = datetest.month + 1;				// th�ng
+						data[3] = datetest.year;					// nam;
+						data[4] = datetest.hour;					// gi?;
+						data[5] = datetest.min;						// ph�t;
 						data[6] = bpm_spo2_value.BPM;				// nhip tim
 						data[7] = bpm_spo2_value.SpO2;				// spo2
 						data[8] = t;								// nhiet do
@@ -600,3 +611,4 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 			break;
 	}
 }
+
