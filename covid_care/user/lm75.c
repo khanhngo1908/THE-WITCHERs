@@ -108,11 +108,11 @@ float LM75_ReadTemperature (void)
 	if (value & 0x0400)
 	{                       // kiem tra bit dau
 		value = (0x07FF ^ value) + 1;           // doi sang bu 2
-		t = (float) (value * (-0.125f));
+		t = (float) (value * (-0.125f) + 1.4);
 	}
 	else
 	{
-		t = (float) (value * 0.125f);
+		t = (float) (value * 0.125f + 1.4);
 	}
 	if(t < LM75_MIN)
 		t = LM75_MIN;

@@ -88,7 +88,7 @@ uint8_t MSC_CheckPage(uint8_t *unReadCounter, uint8_t *dataCounter)
 		MSC_Clear ();
 		*unReadCounter = 0;
 		*dataCounter = 0;
-		return 1;               // check xoa du lieu
+		return 1;               // check clear page
 	}
 
 	*dataCounter = i;
