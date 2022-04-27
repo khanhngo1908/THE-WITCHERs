@@ -28,7 +28,6 @@ gecko_sdk_4.0.2/platform/bootloader/api \
 gecko_sdk_4.0.2/platform/bootloader/app_properties \
 gecko_sdk_4.0.2/platform/common/src \
 gecko_sdk_4.0.2/platform/common/toolchain/src \
-gecko_sdk_4.0.2/platform/driver/leddrv/src \
 gecko_sdk_4.0.2/platform/driver/pwm/src \
 gecko_sdk_4.0.2/platform/emdrv/gpiointerrupt/src \
 gecko_sdk_4.0.2/platform/emdrv/nvm3/src \

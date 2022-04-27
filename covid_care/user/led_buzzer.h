@@ -35,8 +35,6 @@
 #define GPIO_GND_PORT 	gpioPortC
 #define GPIO_GND_PIN    3
 
-#define TIMER_MS(ms) ((32768 * ms) / 1000)
-
 void led_buzzer_init(void);
 void set_Buzzer();
 void clear_Buzzer();

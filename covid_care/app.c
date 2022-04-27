@@ -134,7 +134,7 @@ SL_WEAK void app_init (void)
 
 	// MPU6050init
 	MPU6050_ConfigDMP (&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
-	sl_bt_system_set_soft_timer (TIMER_MS(30*1000), MIIN, 0);
+	sl_bt_system_set_soft_timer (TIMER_MS(60*1000), MIIN, 0);
 
 	// MSC init
 	MSC_init ();
@@ -162,13 +162,17 @@ SL_WEAK void app_process_action (void)
 //	{
 //		sl_bt_system_set_soft_timer (TIMER_MS(5000), SEC, 1);
 //	}
-	if (caution == 1)
+	if(help == 1)
 	{
-		set_LED ('O');
+		set_LED ('R');
+		set_Buzzer ();
 	}
 	else
 	{
-		clear_all_LED ();
+		clear_Buzzer();
+		clear_all_LED();
+		if(caution == 1)
+			set_LED('R');
 	}
 }
 
@@ -246,7 +250,7 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 				T = LM75_ReadTemperature ();
 				uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, i);
 				sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
-				sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
+				sl_app_log(" SpO2: %d \n", bpm_spo2_value.SpO2);
 				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
 				float a1 = (float) (bpm_spo2_value.BPM);
@@ -444,67 +448,72 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 			{
 				if (check_fall == 0)
 				{
-					set_LED ('r');
+					set_LED ('R');
 				}
 				// get data, check connect_condition => push memory
 			}
 			if (evt->data.evt_system_soft_timer.handle == MIIN)
 			{
-				sl_app_log(" Gui data dinh ky \n");
-				set_LED ('W');
-				float T = LM75_ReadTemperature ();
-				uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, 0);
-				sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
-				sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
-				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
-
-				if (app_connection == 0)
+				if(GPIO_PinInGet (button_port, button_pin))
 				{
-					// ghi vào memory
-					uint8_t res = MSC_CheckPage (&unReadCounter, &dataCounter);
-					if(res == 1)
-						memory_data_header = unReadCounter;
-					sl_app_log(" unread: %d; counter: %d \n", unReadCounter,
-							   dataCounter);
-					dataPointer = dataCounter;
-					uint8_t data[9];
-					uint8_t t = LM75_FloatToOneByte (T);
 
-					// lấy ngay, thang, nam, gio, phut
-					sl_sleeptimer_get_datetime (&datetest);
+					sl_app_log(" Gui data dinh ky \n");
+					set_LED ('W');
+					float T = LM75_ReadTemperature ();
+					uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, 0);
+					sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
+					sl_app_log(" SpO2: %d \n", bpm_spo2_value.SpO2);
+					sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
-					// gan vao mang
-					data[0] = memory_data_header;
-					data[1] = datetest.month_day; 				// ngày
-					data[2] = datetest.month + 1;				// tháng
-					data[3] = datetest.year;					// năm;
-					data[4] = datetest.hour;					// giờ;
-					data[5] = datetest.min;						// phút;
-					data[6] = bpm_spo2_value.BPM;				// nhip tim
-					data[7] = bpm_spo2_value.SpO2;				// spo2
-					data[8] = t;								// nhiet do
+					if (app_connection == 0)
+					{
+						// ghi vào memory
+						uint8_t res = MSC_CheckPage (&unReadCounter,
+													 &dataCounter);
+						if (res == 1)
+							memory_data_header = unReadCounter;
+						sl_app_log(" unread: %d; counter: %d \n", unReadCounter,
+								   dataCounter);
+						dataPointer = dataCounter;
+						uint8_t data[9];
+						uint8_t t = LM75_FloatToOneByte (T);
 
-					// viet vao bo nho
-					MSC_write (data, dataPointer);
+						// lấy ngay, thang, nam, gio, phut
+						sl_sleeptimer_get_datetime (&datetest);
 
-					// Doc lai de kiem tra
-					uint8_t read[9];
-					MSC_read (read, dataPointer);
+						// gan vao mang
+						data[0] = memory_data_header;
+						data[1] = datetest.month_day; 				// ngày
+						data[2] = datetest.month + 1;				// tháng
+						data[3] = datetest.year;					// năm;
+						data[4] = datetest.hour;					// giờ;
+						data[5] = datetest.min;						// phút;
+						data[6] = bpm_spo2_value.BPM;				// nhip tim
+						data[7] = bpm_spo2_value.SpO2;				// spo2
+						data[8] = t;								// nhiet do
+
+						// viet vao bo nho
+						MSC_write (data, dataPointer);
+
+						// Doc lai de kiem tra
+						uint8_t read[9];
+						MSC_read (read, dataPointer);
+					}
+					else
+					{
+						float a1 = (float) (bpm_spo2_value.BPM);
+						float a2 = (float) (bpm_spo2_value.SpO2);
+						send_all_data (&notifyEnabled, &app_connection, &T, &a2,
+									   &a1);
+					}
+
+					if (T > 38 || res == 1)
+						caution = 1;
+					else
+						caution = 0;
+
+					clear_all_LED ();
 				}
-				else
-				{
-					float a1 = (float) (bpm_spo2_value.BPM);
-					float a2 = (float) (bpm_spo2_value.SpO2);
-					send_all_data (&notifyEnabled, &app_connection, &T, &a2,
-								   &a1);
-				}
-
-				if (T > 38 || res == 1)
-					caution = 1;
-				else
-					caution = 0;
-
-				clear_all_LED ();
 			}
 			if (evt->data.evt_system_soft_timer.handle == BUTTON_PRESS_TIMER)
 			{
@@ -518,17 +527,14 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 						sl_bt_system_set_soft_timer (TIMER_MS(0),
 						BUTTON_PRESS_TIMER,
 													 1);
+
 						if (help == 0)
 						{
-							set_LED ('W');
 							help = 1;
-							set_Buzzer ();
 						}
 						else if (help == 1)
 						{
 							help = 0;
-							clear_all_LED ();
-							clear_Buzzer ();
 						}
 						button_press_counter = 0;
 						button_press_timerCounter = 0;
@@ -551,7 +557,7 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 							T = LM75_ReadTemperature ();
 							uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, i);
 							sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
-							sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
+							sl_app_log(" SpO2: %d \n", bpm_spo2_value.SpO2);
 							sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
 							float a1 = (float) (bpm_spo2_value.BPM);

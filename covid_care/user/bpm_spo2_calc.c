@@ -13,6 +13,9 @@ float t[STORAGE_SIZE]; // temp array to process signal
 
 uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 {
+	PPG_t ppg_ir;
+	PPG_t ppg_red;
+	float spo2;
 
 //	uint8_t i = 0;
 	MAX30102_Continue();
@@ -25,15 +28,25 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 			FIFO_data.RED[j] = FIFO_data.RED[j + INTERVAL * THROUGHTPUT];
 		}
 		FIFO_data.cnt = STORAGE_SIZE - INTERVAL * THROUGHTPUT;
+		ppg_ir.BPM = result->BPM;
+		ppg_ir.BPM = result->BPM;
+		spo2 = result->SpO2;
 	}
 	else
+	{
 		FIFO_data.cnt = 0;
+		ppg_ir.BPM = 0;
+		ppg_ir.BPM = 0;
+		spo2 = 0;
+	}
+
 
 	MAX30102_ClearFIFO ();
 	while (FIFO_data.cnt < STORAGE_SIZE)
 	{
 		MAX30102_ReadFIFO (&FIFO_data);
 	}
+	MAX30102_Shutdown ();
 	sl_app_log("---------------- %d ----------------- \n", n);
 
 	/****************** Calc BPM, SpO2 (1)**********************/
@@ -72,14 +85,6 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 	/********************************************************/
 
 	/****************** Calc BPM, SpO2 (2)**********************/
-	PPG_t ppg_ir;
-	PPG_t ppg_red;
-
-	ppg_ir.BPM = 0.0;
-	ppg_red.BPM = 0.0;
-
-	float spo2 = 0.0;
-
 	float alpha = 0.95;
 	float thresh = 0.0;
 	float sample_rate = THROUGHTPUT;
@@ -88,7 +93,6 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 	float DC_red = 0.0;
 	float R = 0.0;
 
-	float offset = 100;
 	int filter_size = 3;
 
 	int idx;
@@ -103,8 +107,6 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 				DC_removal (t, idx, alpha);
 				DC_ir = max (t, idx);
 				ppg_ir.DC = DC_ir;
-//				int idx_t = idx;
-				//					trim (t, &idx_t, offset);
 				median_filter (t, idx, filter_size);
 				BPM_estimator (t, &ppg_ir, idx, thresh, sample_rate);
 				/****************************/
@@ -114,8 +116,6 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 				DC_removal (t, idx, alpha);
 				DC_red = max (t, idx);
 				ppg_red.DC = DC_red;
-//				idx_t = idx;
-				//					trim (t, &idx_t, offset);
 				median_filter (t, idx, filter_size);
 				BPM_estimator (t, &ppg_red, idx, thresh, sample_rate);
 				/*****************************/
@@ -147,7 +147,7 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 	result->SpO2 = (int) (spo2);
 //	sl_app_log("BPM: %d \n", result->BPM);
 //	sl_app_log("Spo2: %d \n", result->SpO2);
-	MAX30102_Shutdown ();
+
 	if(ppg_ir.DC < FINGER_THRESH && ppg_red.DC < FINGER_THRESH)  // check có ngon tay dat cam bien
 	{
 		result->BPM = 0;
@@ -345,10 +345,10 @@ float SpO2_estimator(float R)
 	}
     if(spo2 > SpO2_MAX){
         spo2 = SpO2_MAX;
-    } else if (spo2 < 95){
-        spo2 = 95.5;
+    } else if (spo2 < SpO2_MIN){
+        spo2 = SpO2_MIN;
     }
-    return spo2;
+    return (spo2 + 0.5);
 }
 
 void assign_signal(float* ori, float* des, int n_sample)

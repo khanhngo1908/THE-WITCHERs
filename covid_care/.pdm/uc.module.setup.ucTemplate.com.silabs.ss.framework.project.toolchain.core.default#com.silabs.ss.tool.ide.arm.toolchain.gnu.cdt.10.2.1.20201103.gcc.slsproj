@@ -21,8 +21,6 @@
     <file name="psa_crypto_config_autogen.h" builtin="true" generated="true"/>
     <file name="sl_pwm_init.c" builtin="true" generated="true"/>
     <file name="sl_pwm_instances.h" builtin="true" generated="true"/>
-    <file name="sl_simple_rgb_pwm_led_instances.c" builtin="true" generated="true"/>
-    <file name="sl_simple_rgb_pwm_led_instances.h" builtin="true" generated="true"/>
     <file name="linkerfile.ld" builtin="true" generated="true"/>
   </folder>
   <includePath uri="studio:/project/autogen"/>

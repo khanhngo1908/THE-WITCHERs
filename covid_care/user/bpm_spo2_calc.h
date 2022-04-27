@@ -14,7 +14,7 @@
 #define BPM_MAX		230
 #define BPM_MIN		30
 #define SpO2_MAX	100
-#define SpO2_MIN	80
+#define SpO2_MIN	95
 #define FINGER_THRESH 20000
 
 typedef struct __attribute__((packed))
