@@ -411,6 +411,7 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 
 				    }
 				}
+			      send_all_old_data(&notifyEnabled, &app_connection, readAll, &numOfUnReadData);
 			    }
 			break;
 
@@ -477,7 +478,7 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 
 					if (app_connection == 0)
 					{
-						// ghi vào memory
+						// ghi vï¿½o memory
 						uint8_t res = MSC_CheckPage (&unReadCounter,
 													 &dataCounter);
 						if (res == 1)
@@ -493,11 +494,11 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 
 						// gan vao mang
 						data[0] = memory_data_header;
-						data[1] = datetest.month_day; 				// ngày
-						data[2] = datetest.month + 1;				// tháng
+						data[1] = datetest.month_day; 				// ngï¿½y
+						data[2] = datetest.month + 1;				// thï¿½ng
 						data[3] = datetest.year;					// nam;
 						data[4] = datetest.hour;					// gi?;
-						data[5] = datetest.min;						// phút;
+						data[5] = datetest.min;						// phï¿½t;
 						data[6] = bpm_spo2_value.BPM;				// nhip tim
 						data[7] = bpm_spo2_value.SpO2;				// spo2
 						data[8] = t;								// nhiet do
