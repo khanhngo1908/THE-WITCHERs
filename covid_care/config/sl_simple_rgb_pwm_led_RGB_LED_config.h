@@ -25,14 +25,14 @@
 // <i> Sets the frequency of the PWM signal
 // <i> 0 = Don't care
 // <i> Default: 10000
-#define SL_SIMPLE_RGB_PWM_LED_RGB_LED_FREQUENCY      10000
+#define SL_SIMPLE_RGB_PWM_LED_RGB_LED_FREQUENCY      50
 
 // <o SL_SIMPLE_RGB_PWM_LED_RGB_LED_RESOLUTION> PWM resolution <2-65536>
 // <i> Specifies the PWM (dimming) resolution. I.e. if you want a
 // <i> dimming resolution that takes the input values from 0 to 99,
 // <i> set this value to 100
 // <i> Default: 256
-#define SL_SIMPLE_RGB_PWM_LED_RGB_LED_RESOLUTION     256
+#define SL_SIMPLE_RGB_PWM_LED_RGB_LED_RESOLUTION     255
 
 // <o SL_SIMPLE_RGB_PWM_LED_RGB_LED_RED_POLARITY> Red LED Polarity
 // <SL_SIMPLE_RGB_PWM_LED_POLARITY_ACTIVE_LOW=> Active low

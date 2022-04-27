@@ -15,5 +15,5 @@ void send_all_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *tempera
 void send_check(uint8_t *notifyEnabled,uint8_t *app_connection);
 uint32_t diff_time(sl_sleeptimer_date_t *date_disconnect);
 void send_all_old_data(uint8_t *notifyEnabled,uint8_t *app_connection,uint8_t arr[], uint8_t *len);
-void sendDataManual(uint8_t *notifyEnabled,uint8_t *app_connection);
+void send_all_data_count(uint8_t *notifyEnabled,uint8_t *app_connection,float *temperature, float *spo2, float *bmp,uint8_t count);
 #endif /* USER_FUNCTION_H_ */

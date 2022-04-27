@@ -729,7 +729,7 @@ void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuI
 //        app_log("\t");
 //        app_log("SVM : %d | ", (uint16_t )(SVM * 1000));
 //        app_log("y[1] : %d | y[2] :%d \n",(uint16_t)((ypr[1] * 180/M_PI)*1000),(uint16_t)((ypr[2] * 180/M_PI)*1000));
-	  app_log("d[0] : %d | d[1] : %d | d[2] : %d \n",data[0],data[1],data[2]);
+//	  app_log("d[0] : %d | d[1] : %d | d[2] : %d \n",data[0],data[1],data[2]);
 //        app_log("------\n");
 //        app_log("%d    %d    %d\n",(uint16_t )(gravity.x * 1000),(uint16_t )(gravity.y * 1000),(uint16_t )(gravity.z * 1000));
         if (SVM > 2.1 && (ypr[2] * 180/M_PI)< 20 && (ypr[1] *180/M_PI) < 10)

@@ -37,8 +37,8 @@ void
 send_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *data,uint8_t type)
 {
   sl_status_t sc;
-  uint8_t buffer[8];
-  uint8_t arr[1];
+  uint8_t buffer[9];
+  uint8_t arr[2];
   uint16_t len = 9;
   sl_sleeptimer_date_t date_time;
   sl_sleeptimer_get_datetime(&date_time);
@@ -87,7 +87,7 @@ void send_check(uint8_t *notifyEnabled,uint8_t *app_connection)
  sl_status_t sc;
  app_log("check %d\n",*notifyEnabled);
  uint16_t len =8;
- uint8_t buffer[7];
+ uint8_t buffer[8];
  buffer[0]= 9;
  buffer[1]= 23;
  buffer[2]= 45;
@@ -112,11 +112,11 @@ void send_check(uint8_t *notifyEnabled,uint8_t *app_connection)
 void send_all_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *temperature, float *spo2, float *bmp)
 {
    sl_status_t sc;
-   uint8_t buffer[10];
-   uint8_t arr[1];
-   uint16_t len = 11;
-   sl_sleeptimer_date_t date_time;
-   sl_sleeptimer_get_datetime(&date_time);
+   uint8_t buffer[5];
+   uint8_t arr[2];
+   uint16_t len = 5;
+//   sl_sleeptimer_date_t date_time;
+//   sl_sleeptimer_get_datetime(&date_time);
    convert_data(arr, temperature);
    buffer[0] = 4;
 
@@ -124,12 +124,6 @@ void send_all_data(uint8_t *notifyEnabled,uint8_t *app_connection,float *tempera
    buffer[2] = arr[1];
    buffer[3] = (uint8_t) (*spo2);
    buffer[4] = (uint8_t) (*bmp);
-   buffer[5] =date_time.month_day;
-   buffer[5] =date_time.month;
-   buffer[7] =date_time.year;
-   buffer[8] =date_time.hour;
-   buffer[9] =date_time.min;
-   buffer[10] =date_time.sec;
    if (*notifyEnabled)
      {
        sc = sl_bt_gatt_server_send_notification (*app_connection, gattdb_data_ch,
@@ -211,28 +205,34 @@ uint32_t diff_time(sl_sleeptimer_date_t *date_disconnect)
 	  return timestamp - timestamp1;
 }
 
-void sendDataManual(uint8_t *notifyEnabled,uint8_t *app_connection, uint8_t *caution)
+
+void send_all_data_count(uint8_t *notifyEnabled,uint8_t *app_connection,float *temperature, float *spo2, float *bmp, uint8_t count)
 {
-	float T;
-	uint8_t i;
-	BPM_SpO2_value_t bpm_spo2_value;
-	for (i = 1; i < 4; i++)
+	sl_status_t sc;
+	uint8_t buffer[6];
+	uint8_t arr[2];
+	uint16_t len = 6;
+//	sl_sleeptimer_date_t date_time;
+//	sl_sleeptimer_get_datetime (&date_time);
+	convert_data (arr, temperature);
+	buffer[0] = 4;
+
+	buffer[1] = arr[0];
+	buffer[2] = arr[1];
+	buffer[3] = (uint8_t) (*spo2);
+	buffer[4] = (uint8_t) (*bmp);
+	buffer[5] = count;
+	if (*notifyEnabled)
 	{
-		set_LED ('w');
-
-		T = LM75_ReadTemperature ();
-		uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, i);
-		sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
-		sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
-		sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
-
-		float a1 = (float) (bpm_spo2_value.BPM);
-		float a2 = (float) (bpm_spo2_value.SpO2);
-		send_all_data (notifyEnabled, app_connection, &T, &a2, &a1);
-
-		if (T > 38 || res == 1)
-			*caution = 1;
-
-		clear_all_LED();
+		sc = sl_bt_gatt_server_send_notification (*app_connection,
+												  gattdb_data_ch, len, buffer);
+	}
+	if (sc == SL_STATUS_OK)
+	{
+		app_log("send ok\n");
+	}
+	else
+	{
+		app_log("send erorr\n");
 	}
 }

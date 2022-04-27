@@ -60,13 +60,13 @@ void MSC_read (uint8_t *data, uint8_t msc_DataPointer)
 	data[7] = (word2 >> 8) & 0x7f;				// SpO2
 	data[8] = word2 & 0xff;						// Nhiet do
 
-//	sl_app_log("    Word1: %x - Word 2: %x \n", word1, word2);
-//	sl_app_log("    %d \n", data[0]);
-//	sl_app_log("    %d %d %d %d %d \n", data[1], data[2], data[3], data[4], data[5]);
-//	sl_app_log("    %d %d %d \n", data[6], data[7], data[8]);
+	sl_app_log("    Word1: %x - Word 2: %x \n", word1, word2);
+	sl_app_log("    %d \n", data[0]);
+	sl_app_log("    %d %d %d %d %d \n", data[1], data[2], data[3], data[4], data[5]);
+	sl_app_log("    %d %d %d \n", data[6], data[7], data[8]);
 }
 
-void MSC_CheckPage(uint8_t *unReadCounter, uint8_t *dataCounter)
+uint8_t MSC_CheckPage(uint8_t *unReadCounter, uint8_t *dataCounter)
 {
 	*unReadCounter = 0;
 	*dataCounter = 0;
@@ -83,6 +83,14 @@ void MSC_CheckPage(uint8_t *unReadCounter, uint8_t *dataCounter)
 		i+=1;
 	}
 
+	if(i == MSC_MAX_COUNTER )
+	{
+		MSC_Clear ();
+		*unReadCounter = 0;
+		*dataCounter = 0;
+		return 1;               // check xoa du lieu
+	}
+
 	*dataCounter = i;
 	if(i == 0)
 	{
@@ -93,6 +101,7 @@ void MSC_CheckPage(uint8_t *unReadCounter, uint8_t *dataCounter)
 		check = USERDATA[2*(i-1)];
 		*unReadCounter = check >> 21;
 	}
+	return 0;
 }
 
 void MSC_PrintPage()
@@ -109,3 +118,4 @@ void MSC_Clear()
 {
 	MSC_ErasePage(USERDATA);
 }
+

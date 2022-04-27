@@ -16,7 +16,7 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 
 //	uint8_t i = 0;
 	MAX30102_Continue();
-	if (n > 1)
+	if (n > 0)
 	{
 		uint16_t j;
 		for (j = 0; j < (STORAGE_SIZE - INTERVAL * THROUGHTPUT); j++)
@@ -124,7 +124,7 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 				R = (ppg_ir.AC / ppg_ir.DC) / (ppg_red.AC / ppg_red.DC);
 				//				R = (ppg_red.AC / ppg_red.DC) / (ppg_ir.AC / ppg_ir.DC);
 
-				if (spo2 > 94.0)
+				if (spo2 > 90.0)
 				{
 					spo2 = (spo2 + SpO2_estimator (R)) / 2;
 				}
@@ -330,20 +330,25 @@ void BPM_estimator(float* signal, PPG_t* ppg, int n_sample, float thresh, float 
 
 float SpO2_estimator(float R)
 {
-    float spo2 = 0.0;
-    if(0.4 <= R && R <= 1){
-        spo2 = 110.0 - 25.0 * R;
-    } else if(R <= 2.0){
-        spo2 = 120.0 - 35.0 * R;
-    } else if(R <= 3.5){
-        spo2 = 350.0 / 3.0 - 100.0 / 3.0 * R;
-    }
+	float spo2 = 0.0;
+	if (0.4 <= R && R <= 1)
+	{
+		spo2 = 110.0 - 25.0 * R;
+	}
+	else if (R <= 2.0)
+	{
+		spo2 = 120.0 - 35.0 * R;
+	}
+	else if (R <= 3.5)
+	{
+		spo2 = 350.0 / 3.0 - 100.0 / 3.0 * R;
+	}
     if(spo2 > SpO2_MAX){
         spo2 = SpO2_MAX;
-    } else if (spo2 < SpO2_MIN){
-        spo2 = SpO2_MIN;
+    } else if (spo2 < 95){
+        spo2 = 95.5;
     }
-    return (spo2+0.3);
+    return spo2;
 }
 
 void assign_signal(float* ori, float* des, int n_sample)

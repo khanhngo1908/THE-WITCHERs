@@ -31,10 +31,6 @@
 #define SINGLE_PRESS_TIMEOUT 6
 #define DEBOUND_TIMEOUT 1
 
-typedef struct
-{
-
-};
 void gpio_INTR_init (void);
 //void GPIO_EVEN_IRQHandler(void);
 //void GPIO_ODD_IRQHandler(void);

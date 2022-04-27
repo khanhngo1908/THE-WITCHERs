@@ -96,6 +96,8 @@ uint8_t dataPointer = 0;
 
 uint8_t caution = 0;
 uint8_t cautionCounter = 0;
+
+float T;
 BPM_SpO2_value_t bpm_spo2_value;
 /**************************************************************************//**
  * Application Init.
@@ -116,7 +118,7 @@ SL_WEAK void app_init (void)
 	led_buzzer_init ();
 	sl_app_log(" LED & buzzer init Ok \n");
 
-	set_LED ('w');
+	set_LED ('W');
 
 	// I2C init
 	i2c_init ();
@@ -132,8 +134,7 @@ SL_WEAK void app_init (void)
 
 	// MPU6050init
 	MPU6050_ConfigDMP (&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
-	uint32_t autoMode_timer = 60 * 5 * 1000;
-	sl_bt_system_set_soft_timer (TIMER_MS(60*1000), MIIN, 0);
+	sl_bt_system_set_soft_timer (TIMER_MS(30*1000), MIIN, 0);
 
 	// MSC init
 	MSC_init ();
@@ -163,7 +164,7 @@ SL_WEAK void app_process_action (void)
 //	}
 	if (caution == 1)
 	{
-		set_LED ('r');
+		set_LED ('O');
 	}
 	else
 	{
@@ -213,6 +214,7 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 			{ 0, 22, 4, 122, 21, 44, 87, 98, 26, 0, 22, 4, 122, 21, 30, 80, 96,
 					22, 0, 22, 4, 122, 21, 20, 81, 98, 22 };
 			uint8_t len1 = sizeof(read) / sizeof(uint8_t);
+			sl_app_log(" C: %d %d %d %d %d %d \n", datetest.month_day, datetest.month+1, datetest.year+1900, datetest.hour, datetest.min, datetest.sec);
 //  	        for(i = 4; i < 12; i++)
 //  	        {
 //  	            MSC_read(&read[i][0], i);
@@ -236,10 +238,10 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 		else if (header == 5 && len == 1)
 		{
 			sl_app_log(" Gui data manual - nut nhan app \n");
-			set_LED ('w');
+			set_LED ('W');
 			float T;
 			uint8_t i;
-			for (i = 1; i < 4; i++)
+			for (i = 0; i < 3; i++)
 			{
 				T = LM75_ReadTemperature ();
 				uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, i);
@@ -249,7 +251,7 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 
 				float a1 = (float) (bpm_spo2_value.BPM);
 				float a2 = (float) (bpm_spo2_value.SpO2);
-				send_all_data (&notifyEnabled, &app_connection, &T, &a2, &a1);
+				send_all_data_count (&notifyEnabled, &app_connection, &T, &a2, &a1, i);
 
 				if (T > 38 || res == 1)
 					caution = 1;
@@ -367,24 +369,21 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 			///////////////////////////////////////////////////////////////////////////
 
 		case sl_bt_evt_gatt_server_characteristic_status_id:
-			if (evt->data.evt_gatt_server_characteristic_status.characteristic
-					== gattdb_data_ch)
+			if (gatt_server_client_config
+					== (gatt_server_characteristic_status_flag_t) evt->data.evt_gatt_server_characteristic_status.status_flags)
 			{
-				if (evt->data.evt_gatt_server_characteristic_status.status_flags
-						== 0x01)
+				if (evt->data.evt_gatt_server_characteristic_status.client_config_flags
+						== 1)
 				{
 					notifyEnabled = true;
-					app_log("enable notifyEnabled \n");
+					app_log("Enable temperature characteristic\n");
 				}
-
-				else if (evt->data.evt_gatt_server_characteristic_status.status_flags
-						== 0x00)
+				else
 				{
 					notifyEnabled = false;
-					app_log("disable \n");
+					app_log("Disable temperature characteristic\n");
 				}
 			}
-
 			break;
 			//    case sl_bt_evt_gatt_server_attribute_value_id:
 			//      if (evt->data.evt_gatt_server_characteristic_status.characteristic
@@ -420,9 +419,9 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 			if (evt->data.evt_system_soft_timer.handle == MIIN)
 			{
 				sl_app_log(" Gui data dinh ky \n");
-				set_LED ('w');
+				set_LED ('W');
 				float T = LM75_ReadTemperature ();
-				uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, 1);
+				uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, 0);
 				sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
 				sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
 				sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
@@ -430,7 +429,9 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 				if (app_connection == 0)
 				{
 					// ghi vào memory
-					MSC_CheckPage (&unReadCounter, &dataCounter);
+					uint8_t res = MSC_CheckPage (&unReadCounter, &dataCounter);
+					if(res == 1)
+						memory_data_header = unReadCounter;
 					sl_app_log(" unread: %d; counter: %d \n", unReadCounter,
 							   dataCounter);
 					dataPointer = dataCounter;
@@ -485,12 +486,11 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 						sl_bt_system_set_soft_timer (TIMER_MS(0),
 						BUTTON_PRESS_TIMER,
 													 1);
-						button_press_timerCounter = 0;
 						if (help == 0)
 						{
+							set_LED ('W');
 							help = 1;
-							set_LED ('r');
-//							set_Buzzer ();
+							set_Buzzer ();
 						}
 						else if (help == 1)
 						{
@@ -499,6 +499,7 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 							clear_Buzzer ();
 						}
 						button_press_counter = 0;
+						button_press_timerCounter = 0;
 					}
 				}
 				else
@@ -510,22 +511,20 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 							&& button_press_timerCounter < SINGLE_PRESS_TIMEOUT)
 					{
 						sl_app_log(" Gui data manual - nut nhan mach \n");
-						set_LED ('w');
+						set_LED ('W');
 						float T;
 						uint8_t i;
-						for (i = 1; i < 4; i++)
+						for (i = 0; i < 3; i++)
 						{
 							T = LM75_ReadTemperature ();
 							uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, i);
-							sl_app_log(" Nhiet do: %d \n",
-									   (uint32_t ) (1000 * T));
+							sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
 							sl_app_log(" Spo2: %d \n", bpm_spo2_value.SpO2);
 							sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
 							float a1 = (float) (bpm_spo2_value.BPM);
 							float a2 = (float) (bpm_spo2_value.SpO2);
-							send_all_data (&notifyEnabled, &app_connection, &T,
-										   &a2, &a1);
+							send_all_data_count (&notifyEnabled, &app_connection, &T, &a2, &a1, i);
 
 							if (T > 38 || res == 1)
 								caution = 1;

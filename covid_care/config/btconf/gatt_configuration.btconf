@@ -59,6 +59,10 @@
       <value length="0" type="user" variable_length="false"/>
       <properties>
         <read authenticated="false" bonded="false" encrypted="false"/>
+        <write authenticated="false" bonded="false" encrypted="false"/>
+        <write_no_response authenticated="false" bonded="false" encrypted="false"/>
+        <reliable_write authenticated="false" bonded="false" encrypted="false"/>
+        <indicate authenticated="false" bonded="false" encrypted="false"/>
         <notify authenticated="false" bonded="false" encrypted="false"/>
       </properties>
     </characteristic>
@@ -68,8 +72,12 @@
       <informativeText/>
       <value length="0" type="user" variable_length="false"/>
       <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
         <write authenticated="false" bonded="false" encrypted="false"/>
         <write_no_response authenticated="false" bonded="false" encrypted="false"/>
+        <reliable_write authenticated="false" bonded="false" encrypted="false"/>
+        <indicate authenticated="false" bonded="false" encrypted="false"/>
+        <notify authenticated="false" bonded="false" encrypted="false"/>
       </properties>
     </characteristic>
   </service>
