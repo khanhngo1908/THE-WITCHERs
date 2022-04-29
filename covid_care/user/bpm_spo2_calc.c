@@ -13,6 +13,8 @@ float t[STORAGE_SIZE]; // temp array to process signal
 
 uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 {
+	sl_app_log("---------------- %d ----------------- \n", n);
+
 	PPG_t ppg_ir;
 	PPG_t ppg_red;
 	float spo2;
@@ -31,19 +33,15 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 		ppg_ir.BPM = result->BPM;
 		ppg_red.BPM = result->BPM;
 		spo2 = result->SpO2;
-
-//		ppg_ir.BPM = 0;
-//		ppg_red.BPM = 0;
-//		spo2 = 0;
 	}
 	else
 	{
 		FIFO_data.cnt = 0;
 		ppg_ir.BPM = 0;
-		ppg_ir.BPM = 0;
+		ppg_red.BPM = 0;
 		spo2 = 0;
 	}
-
+	sl_app_log(" result: %d %d %d \n", (int) ppg_ir.BPM, (int) ppg_red.BPM, (int) spo2);
 
 	MAX30102_ClearFIFO ();
 	while (FIFO_data.cnt < STORAGE_SIZE)
@@ -51,7 +49,6 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 		MAX30102_ReadFIFO (&FIFO_data);
 	}
 	MAX30102_Shutdown ();
-	sl_app_log("---------------- %d ----------------- \n", n);
 
 	/****************** Calc BPM, SpO2 (1)**********************/
 	//		// DC removal
@@ -89,6 +86,10 @@ uint8_t BPM_SpO2_Update(BPM_SpO2_value_t *result, uint8_t n)
 	/********************************************************/
 
 	/****************** Calc BPM, SpO2 (2)**********************/
+//	ppg_ir.BPM = 0;
+//	ppg_red.BPM = 0;
+//	spo2 = 0;
+
 	float alpha = 0.95;
 	float thresh = 0.0;
 	float sample_rate = THROUGHTPUT;

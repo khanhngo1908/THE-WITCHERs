@@ -7,7 +7,7 @@
 #include "msc.h"
 #include "em_cmu.h"
 #include "sl_app_log.h"
-
+#include "lm75.h"
 
 void MSC_init (void)
 {
@@ -49,7 +49,7 @@ void MSC_read (uint8_t *data, uint8_t msc_DataPointer)
 	word1 = USERDATA[2*msc_DataPointer];
 	word2 = USERDATA[2*msc_DataPointer + 1];
 
-	data[0] =  word1 >> 21;          			// un-read counter
+	data[0] = word1 >> 21;          			// un-read counter
 	data[1] = (word1 >> 16) & 0x1f;				// ngay
 	data[2] = (word1 >> 12) & 0x0f;				// thang
 	data[3] = (word1 >> 5) & 0x7f;				// nam
@@ -60,10 +60,12 @@ void MSC_read (uint8_t *data, uint8_t msc_DataPointer)
 	data[7] = (word2 >> 8) & 0x7f;				// SpO2
 	data[8] = word2 & 0xff;						// Nhiet do
 
+	float t = LM75_OneByteToFloat (data[8]);
+
 	sl_app_log("    Word1: %x - Word 2: %x \n", word1, word2);
 	sl_app_log("    %d \n", data[0]);
 	sl_app_log("    %d %d %d %d %d \n", data[1], data[2], data[3], data[4], data[5]);
-	sl_app_log("    %d %d %d \n", data[6], data[7], data[8]);
+	sl_app_log("    %d %d %d \n", data[6], data[7], (uint32_t) (1000 * t) );
 }
 
 uint8_t MSC_CheckPage(uint8_t *unReadCounter, uint8_t *dataCounter)
@@ -106,11 +108,35 @@ uint8_t MSC_CheckPage(uint8_t *unReadCounter, uint8_t *dataCounter)
 
 void MSC_PrintPage()
 {
+	uint32_t word1;
+	uint32_t word2;
+	uint8_t data[9];
+
 	uint8_t i;
 	for(i = 0; i < MSC_MAX_COUNTER; i++ )
 	{
+		word1 = USERDATA[2 * i];
+		word2 = USERDATA[2 * i + 1];
+
+		data[0] = word1 >> 21;          			// un-read counter
+		data[1] = (word1 >> 16) & 0x1f;				// ngay
+		data[2] = (word1 >> 12) & 0x0f;				// thang
+		data[3] = (word1 >> 5) & 0x7f;				// nam
+		data[4] = word1 & 0x1f;						// gio
+
+		data[5] = word2 >> 23;						// phut
+		data[6] = (word2 >> 15) & 0xff;				// BPM
+		data[7] = (word2 >> 8) & 0x7f;				// SpO2
+		data[8] = word2 & 0xff;						// Nhiet do
+
+		float t = LM75_OneByteToFloat (data[8]);
+
 		sl_app_log("%d \n", i);
-		sl_app_log("    Word 1: %x - Word 2: %x \n",  USERDATA[2*i],  USERDATA[2*i+1]);
+		sl_app_log("    Word1: %x - Word 2: %x \n", word1, word2);
+		sl_app_log("    %d \n", data[0]);
+		sl_app_log("    %d %d %d %d %d \n", data[1], data[2], data[3], data[4],
+				   data[5]);
+		sl_app_log("    %d %d %d \n", data[6], data[7], (uint32_t ) (1000 * t));
 	}
 }
 
@@ -118,4 +144,3 @@ void MSC_Clear()
 {
 	MSC_ErasePage(USERDATA);
 }
-

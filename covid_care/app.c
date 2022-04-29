@@ -59,7 +59,8 @@ uint8_t app_connection;
 static uint8_t advertising_set_handle = 0xff;
 
 /*----------------- Define Area -----------------*/
-#define TIMER_MS(ms) ((32768 * ms) / 1000)
+#define TIMER_S(s) (s * 32768)
+#define TIMER_MS(ms) ((ms * 32768) / 1000)
 #define TEMPERATURE 0
 #define SEC 1
 #define MIIN 2
@@ -76,12 +77,10 @@ uint8_t devStatus;
 uint8_t mpuIntStatus;
 bool dmpReady = false;
 struct tm time_date;
-float te = 36.125;
-float spo2 = 96.0;
-float bmp = 80.0;
 uint32_t diff;
 uint8_t check_count;
 uint8_t check_fall = 0;
+
 sl_sleeptimer_date_t date_disconnect;
 sl_sleeptimer_date_t datetest;
 
@@ -97,6 +96,10 @@ uint8_t dataPointer = 0;
 uint8_t caution = 0;
 uint8_t cautionCounter = 0;
 
+uint8_t timerCounter = 0;
+
+uint8_t newUnreadDataHeader = 0;
+
 float T;
 BPM_SpO2_value_t bpm_spo2_value;
 /**************************************************************************//**
@@ -108,7 +111,7 @@ SL_WEAK void app_init (void)
 	// Put your additional application init code here!                         //
 	// This is called once during start-up.                                    //
 	/////////////////////////////////////////////////////////////////////////////
-	sl_app_log("Initiation.... \n");
+	sl_app_log("\nInitiation.... \n");
 
 	// Chip init
 	CHIP_Init ();
@@ -133,13 +136,13 @@ SL_WEAK void app_init (void)
 	sl_app_log(" GPIO Intr init Ok \n");
 
 	// MPU6050init
-	MPU6050_ConfigDMP (&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
-	sl_bt_system_set_soft_timer (TIMER_MS(60*1000), MIIN, 0);
+//	MPU6050_ConfigDMP (&mpu, &devStatus, &dmpReady, &mpuIntStatus, &packetSize);
+//	sl_app_log(" MPU6050 init Ok \n");
 
 	// MSC init
 	MSC_init ();
 //	MSC_Clear ();
-	MSC_CheckPage ();
+	MSC_CheckPage (&unReadCounter, &dataCounter);
 	memory_data_header = unReadCounter;
 	sl_app_log(" MSC init Ok \n");
 
@@ -147,6 +150,13 @@ SL_WEAK void app_init (void)
 	sl_sleeptimer_delay_millisecond (600);
 	clear_Buzzer ();
 	clear_all_LED ();
+	sl_app_log("Init OK \n\n");
+
+//	MSC_PrintPage ();
+
+	sl_sleeptimer_get_datetime (&datetest);
+	sl_app_log(" Runtime: %d %d %d \n ", datetest.hour, datetest.min, datetest.sec);
+	sl_bt_system_set_soft_timer (TIMER_S(60 * 2), MIIN, 0);
 }
 
 /**************************************************************************//**
@@ -162,17 +172,21 @@ SL_WEAK void app_process_action (void)
 //	{
 //		sl_bt_system_set_soft_timer (TIMER_MS(5000), SEC, 1);
 //	}
-	if(help == 1)
+	if (help == 1)
 	{
 		set_LED ('R');
 		set_Buzzer ();
 	}
 	else
 	{
-		clear_Buzzer();
-		clear_all_LED();
-		if(caution == 1)
-			set_LED('R');
+		clear_Buzzer ();
+		clear_all_LED ();
+		if (caution == 1)
+		{
+			set_LED ('R');
+			if (cautionCounter >= 2)
+				set_Buzzer ();
+		}
 	}
 }
 
@@ -214,30 +228,152 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 			datetest.sec =
 					evt->data.evt_gatt_server_attribute_value.value.data[6];
 			sl_sleeptimer_set_datetime (&datetest);
-//			uint8_t read[27] =
-//			{ 0, 22, 4, 122, 21, 44, 87, 98, 26, 0, 22, 4, 122, 21, 30, 80, 96,
-//					22, 0, 22, 4, 122, 21, 20, 81, 98, 22 };
-//			uint8_t len1 = sizeof(read) / sizeof(uint8_t);
-			sl_app_log(" C: %d %d %d %d %d %d \n", datetest.month_day, datetest.month+1, datetest.year+1900, datetest.hour, datetest.min, datetest.sec);
-////  	        for(i = 4; i < 12; i++)
-////  	        {
-////  	            MSC_read(&read[i][0], i);
-////  	        }
-//			send_all_old_data (&notifyEnabled, &app_connection, read, &len1);
-//			app_log("%d\n", len1);
-//			app_log("send success\n");
-		}
-		else if (header == 2 && len == 1)
-		{
-			send_data (&notifyEnabled, &app_connection, &te, 1);
-		}
-		else if (header == 3 && len == 1)
-		{
-			send_data (&notifyEnabled, &app_connection, &spo2, 2);
-		}
-		else if (header == 4 && len == 1)
-		{
-			send_data (&notifyEnabled, &app_connection, &bmp, 3);
+			sl_app_log(" Connection open time: %d %d %d \n ", datetest.hour, datetest.min, datetest.sec);
+			if (newUnreadDataHeader == 1)
+			{
+				MSC_CheckPage (&unReadCounter, &dataCounter);
+				memory_data_header = dataCounter;
+				uint8_t numOfUnReadData = dataCounter - unReadCounter;
+				uint8_t readAll[7 * numOfUnReadData];
+				uint8_t read[9];
+				uint8_t read_temp[9];
+				uint8_t i;
+				uint16_t temp_mem = 0;
+				uint16_t spo2_mem = 0;
+				uint16_t bpm_mem = 0;
+				uint8_t count_time = 0;
+				uint8_t count_data = 0;
+				MSC_read (read_temp, unReadCounter);
+				for (i = unReadCounter; i < dataCounter; i++)
+				{
+					sl_app_log("%d \n", i);
+					MSC_read (read, i);
+					if (read[2] == read_temp[2])
+					{
+						if (read[1] == read_temp[1])
+						{
+							if (read[4] == read_temp[4])
+							{
+								temp_mem += read[8];
+								spo2_mem += read[7];
+								bpm_mem += read[6];
+								count_time++;
+							}
+							else
+							{
+								temp_mem = temp_mem / count_time;
+								spo2_mem = spo2_mem / count_time;
+								bpm_mem = bpm_mem / count_time;
+								readAll[count_data * 7] = read_temp[1];
+								readAll[count_data * 7 + 1] = read_temp[2];
+								readAll[count_data * 7 + 2] = read_temp[3];
+								readAll[count_data * 7 + 3] = read_temp[4];
+								readAll[count_data * 7 + 4] = temp_mem;
+								readAll[count_data * 7 + 5] = spo2_mem;
+								readAll[count_data * 7 + 6] = bpm_mem;
+								temp_mem = 0;
+								spo2_mem = 0;
+								bpm_mem = 0;
+								count_time = 0;
+								uint8_t k;
+								for (k = 0; k < 9; k++)
+								{
+									read_temp[k] = read[k];
+								}
+								temp_mem += read[8];
+								spo2_mem += read[7];
+								bpm_mem += read[6];
+								count_time++;
+								count_data++;
+							}
+						}
+						else
+						{
+							temp_mem = temp_mem / count_time;
+							spo2_mem = spo2_mem / count_time;
+							bpm_mem = bpm_mem / count_time;
+							readAll[count_data * 7] = read_temp[1];
+							readAll[count_data * 7 + 1] = read_temp[2];
+							readAll[count_data * 7 + 2] = read_temp[3];
+							readAll[count_data * 7 + 3] = read_temp[4];
+							readAll[count_data * 7 + 4] = temp_mem;
+							readAll[count_data * 7 + 5] = spo2_mem;
+							readAll[count_data * 7 + 6] = bpm_mem;
+							temp_mem = 0;
+							spo2_mem = 0;
+							bpm_mem = 0;
+							count_time = 0;
+							uint8_t k;
+							for (k = 0; k < 9; k++)
+							{
+								read_temp[k] = read[k];
+							}
+							temp_mem += read[8];
+							spo2_mem += read[7];
+							bpm_mem += read[6];
+							count_time++;
+							count_data++;
+						}
+					}
+					else
+					{
+						temp_mem = temp_mem / count_time;
+						spo2_mem = spo2_mem / count_time;
+						bpm_mem = bpm_mem / count_time;
+						readAll[count_data * 7] = read_temp[1];
+						readAll[count_data * 7 + 1] = read_temp[2];
+						readAll[count_data * 7 + 2] = read_temp[3];
+						readAll[count_data * 7 + 3] = read_temp[4];
+						readAll[count_data * 7 + 4] = temp_mem;
+						readAll[count_data * 7 + 5] = spo2_mem;
+						readAll[count_data * 7 + 6] = bpm_mem;
+						temp_mem = 0;
+						spo2_mem = 0;
+						bpm_mem = 0;
+						count_time = 0;
+						uint8_t k;
+						for (k = 0; k < 9; k++)
+						{
+							read_temp[k] = read[k];
+						}
+						temp_mem += read[8];
+						spo2_mem += read[7];
+						bpm_mem += read[6];
+						count_time++;
+						count_data++;
+					}
+					if (i == dataCounter - 1)
+					{
+						temp_mem = temp_mem / count_time;
+						spo2_mem = spo2_mem / count_time;
+						bpm_mem = bpm_mem / count_time;
+						readAll[count_data * 7] = read[1];
+						readAll[count_data * 7 + 1] = read[2];
+						readAll[count_data * 7 + 2] = read[3];
+						readAll[count_data * 7 + 3] = read[4];
+						readAll[count_data * 7 + 4] = temp_mem;
+						readAll[count_data * 7 + 5] = spo2_mem;
+						readAll[count_data * 7 + 6] = bpm_mem;
+						count_data++;
+					}
+				}
+				uint8_t final_arr[count_data * 7];
+				uint16_t len_check = sizeof(final_arr) / sizeof(uint8_t);
+				uint8_t z1;
+				for (z1 = 0; z1 < len_check; z1++)
+				{
+					final_arr[z1] = readAll[z1];
+				}
+				uint8_t y;
+				for (y = 0; y < len_check; y++)
+				{
+					printf ("%d ", final_arr[y]);
+				}
+				send_all_old_data (&notifyEnabled, &app_connection, final_arr,
+								   &count_data);
+				newUnreadDataHeader = 0;
+			}
+
 		}
 		else if (header == 5 && len == 1)
 		{
@@ -255,7 +391,8 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 
 				float spo2 = (float) (bpm_spo2_value.SpO2);
 				float bpm = (float) (bpm_spo2_value.BPM);
-				send_all_data_count (&notifyEnabled, &app_connection, &T, &spo2, &bpm, i);
+				send_all_data_count (&notifyEnabled, &app_connection, &T, &spo2,
+									 &bpm, i);
 
 				if (T > 38 || res == 1)
 					caution = 1;
@@ -264,25 +401,7 @@ void process_server_user_write_request (sl_bt_msg_t *evt)
 			}
 			clear_all_LED ();
 		}
-//		else if (header == 6 && len == 1)
-//		{
-//			uint8_t read[2][9] =
-//			{
-//			{ 8, 2, 34, 6, 3, 5, 87, 14, 26 },
-//			{ 9, 21, 124, 65, 32, 115, 27, 124, 216 } };
-////  	        for(i = 4; i < 12; i++)
-////  	        {
-////  	            MSC_read(&read[i][0], i);
-////  	        }
-//			uint8_t len = 2;
-//			send_all_old_data (&notifyEnabled, &app_connection, read, len);
-//			app_log("send success\n");
-//		}
-		else if (header == 7 && len == 1)
-		{
-			uint32_t diff = diff_time (&date_disconnect);
-			app_log("time unix : %d\n", diff);
-		}
+
 	}
 }
 /**************************************************************************//**
@@ -347,72 +466,7 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 		case sl_bt_evt_connection_opened_id:
 			app_connection = evt->data.evt_connection_opened.connection;
 			sl_app_log("connection opened \n");
-		    uint32_t diff_t = diff_time(&date_disconnect);
-			  if (date_disconnect.year != 1900 && diff_t > 600)
-			    {
-			      // check page
-			      MSC_CheckPage (&unReadCounter, &dataCounter);
-			      sl_app_log(" unread: %d - datacounter: %d \n", unReadCounter,
-					 dataCounter);
-			      uint8_t numOfUnReadData = dataCounter - unReadCounter;
-
-			      // Doc data
-			      uint8_t readAll[7 * numOfUnReadData];
-			      uint8_t read[9];
-			      uint8_t read_temp[9] =
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-			      uint8_t i;
-			      uint16_t temp_mem;
-			      uint16_t spo2_mem;
-			      uint16_t bpm_mem;
-			      uint8_t count_time = 0;
-			      for (i = unReadCounter; i < dataCounter; i++)
-				{
-				  sl_app_log("%d \n", i);
-				  MSC_read (read, i);
-				  if (i == unReadCounter)
-				    {
-				      for (uint8_t j = 0; j < 9; j++)
-					{
-					  read_temp[j] = read[j];
-					}
-				    }
-				  if (read[4] == read_temp[4])
-				    {
-				      temp_mem += read[8];
-				      spo2_mem += read[7];
-				      bpm_mem += read[6];
-				      count_time++;
-				    }
-				  else
-				    {
-				      temp_mem = temp_mem / count_time;
-				      spo2_mem = spo2_mem / count_time;
-				      bpm_mem = bpm_mem / count_time;
-				      readAll[i * 7] = read[1];
-				      readAll[i * 7 + 1] = read[2];
-				      readAll[i * 7 + 2] = read[3];
-				      readAll[i * 7 + 3] = read[4];
-				      readAll[i * 7 + 4] = temp_mem;
-				      readAll[i * 7 + 5] = spo2_mem;
-				      readAll[i * 7 + 6] = bpm_mem;
-				      temp_mem = 0;
-				      spo2_mem = 0;
-				      bpm_mem = 0;
-				      count_time = 0;
-				      for (uint8_t k = 0; k < 9; k++)
-					{
-					  read_temp[k] = read[k];
-					}
-				      temp_mem += read[8];
-				      spo2_mem += read[7];
-				      bpm_mem += read[6];
-				      count_time++;
-
-				    }
-				}
-			      send_all_old_data(&notifyEnabled, &app_connection, readAll, &numOfUnReadData);
-			    }
+			uint32_t diff_t = diff_time (&date_disconnect);
 			break;
 
 			// -------------------------------
@@ -465,7 +519,10 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 			}
 			if (evt->data.evt_system_soft_timer.handle == MIIN)
 			{
-				if(GPIO_PinInGet (button_port, button_pin))
+//				sl_sleeptimer_date_t datetest;
+				sl_sleeptimer_get_datetime (&datetest);
+				sl_app_log(" G: %d %d %d \n ", datetest.hour, datetest.min, datetest.sec);
+				if (GPIO_PinInGet (button_port, button_pin))
 				{
 
 					sl_app_log(" Gui data dinh ky \n");
@@ -478,50 +535,68 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 
 					if (app_connection == 0)
 					{
-						// ghi v�o memory
-						uint8_t res = MSC_CheckPage (&unReadCounter,
-													 &dataCounter);
-						if (res == 1)
-							memory_data_header = unReadCounter;
-						sl_app_log(" unread: %d; counter: %d \n", unReadCounter,
-								   dataCounter);
-						dataPointer = dataCounter;
-						uint8_t data[9];
-						uint8_t t = LM75_FloatToOneByte (T);
+						sl_sleeptimer_date_t date_current;
+						sl_sleeptimer_get_datetime (&date_current);
+						if (date_current.year != 70)
+						{
+							// ghi v�o memory
+							uint8_t res = MSC_CheckPage (&unReadCounter,
+														 &dataCounter);
+							if (res == 1)
+								memory_data_header = unReadCounter;
+							sl_app_log(" unread: %d; counter: %d \n",
+									   unReadCounter, dataCounter);
+							dataPointer = dataCounter;
+							uint8_t data[9];
+							uint8_t t = LM75_FloatToOneByte (T);
 
-						// l?y ngay, thang, nam, gio, phut
-						sl_sleeptimer_get_datetime (&datetest);
+							// l?y ngay, thang, nam, gio, phut
+							sl_sleeptimer_get_datetime (&datetest);
 
-						// gan vao mang
-						data[0] = memory_data_header;
-						data[1] = datetest.month_day; 				// ng�y
-						data[2] = datetest.month + 1;				// th�ng
-						data[3] = datetest.year;					// nam;
-						data[4] = datetest.hour;					// gi?;
-						data[5] = datetest.min;						// ph�t;
-						data[6] = bpm_spo2_value.BPM;				// nhip tim
-						data[7] = bpm_spo2_value.SpO2;				// spo2
-						data[8] = t;								// nhiet do
+							// gan vao mang
+							data[0] = memory_data_header;
+							data[1] = datetest.month_day; 			// ng�y
+							data[2] = datetest.month + 1;			// th�ng
+							data[3] = datetest.year;				// nam;
+							data[4] = datetest.hour;				// gi?;
+							data[5] = datetest.min;					// ph�t;
+							data[6] = bpm_spo2_value.BPM;		// nhip tim
+							data[7] = bpm_spo2_value.SpO2;			// spo2
+							data[8] = t;						// nhiet do
 
-						// viet vao bo nho
-						MSC_write (data, dataPointer);
+							// viet vao bo nho
+							MSC_write (data, dataPointer);
 
-						// Doc lai de kiem tra
-						uint8_t read[9];
-						MSC_read (read, dataPointer);
+							// Doc lai de kiem tra
+							uint8_t read[9];
+							MSC_read (read, dataPointer);
+							newUnreadDataHeader = 1;
+						}
 					}
 					else
 					{
 						float spo2 = (float) (bpm_spo2_value.SpO2);
 						float bpm = (float) (bpm_spo2_value.BPM);
-						send_all_data (&notifyEnabled, &app_connection, &T, &spo2,
-									   &bpm);
+						send_all_data (&notifyEnabled, &app_connection, &T,
+									   &spo2, &bpm);
 					}
 
 					if (T > 38 || res == 1)
+					{
+						if (caution == 1)
+						{
+							cautionCounter += 1;
+						}
 						caution = 1;
+						sl_bt_system_set_soft_timer (TIMER_S(20), MIIN, 0);
+
+					}
 					else
+					{
 						caution = 0;
+						sl_bt_system_set_soft_timer (TIMER_S(60* 2), MIIN, 0);
+						cautionCounter = 0;
+					}
 
 					clear_all_LED ();
 				}
@@ -567,7 +642,8 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 						{
 							T = LM75_ReadTemperature ();
 							uint8_t res = BPM_SpO2_Update (&bpm_spo2_value, i);
-							sl_app_log(" Nhiet do: %d \n", (uint32_t ) (1000 * T));
+							sl_app_log(" Nhiet do: %d \n",
+									   (uint32_t ) (1000 * T));
 							sl_app_log(" SpO2: %d \n", bpm_spo2_value.SpO2);
 							sl_app_log(" BPM: %d \n", bpm_spo2_value.BPM);
 
@@ -611,4 +687,3 @@ void sl_bt_on_event (sl_bt_msg_t *evt)
 			break;
 	}
 }
-

@@ -142,10 +142,10 @@ void send_all_old_data(uint8_t *notifyEnabled,uint8_t *app_connection,uint8_t ar
 
 {
      sl_status_t sc;
-     uint8_t buffer[2+(*len/7)*8];
+     uint8_t buffer[2+(*len)*8];
      uint8_t temp[2];
      buffer[0] = 6;
-     buffer[1] = (*len/7) ;
+     buffer[1] = (*len) ;
      uint16_t length = 2 +(buffer[1]*8) ;
      uint8_t count = 0;
      for(int i=0;i<(buffer[1]);i++)

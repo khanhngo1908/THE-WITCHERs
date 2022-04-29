@@ -88,7 +88,7 @@ float LM75_OneByteToFloat (uint8_t T)
 {
 	float result;
 	result = (T >> 3) + 20 + (T & 0x07) * 0.125;
-	return result;
+	return (float) result;
 }
 
 
@@ -108,11 +108,11 @@ float LM75_ReadTemperature (void)
 	if (value & 0x0400)
 	{                       // kiem tra bit dau
 		value = (0x07FF ^ value) + 1;           // doi sang bu 2
-		t = (float) (value * (-0.125f) + 1.4);
+		t = (float) (value * (-0.125f));
 	}
 	else
 	{
-		t = (float) (value * 0.125f + 1.4);
+		t = (float) (value * 0.125f );
 	}
 	if(t < LM75_MIN)
 		t = LM75_MIN;
