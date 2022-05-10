@@ -736,7 +736,7 @@ void MPU6050_GetData(struct MPU6050_Base *mpu,bool *dmpReady,volatile bool *mpuI
         {
             *check_fall = 1;
         }
-        else  if(SVM < 1.3 || ypr[2] == 0)
+        else  if(SVM < 1.65 || ypr[2] == 0)
           {
             *check_fall = 0;
           }
