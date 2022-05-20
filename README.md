@@ -12,6 +12,4 @@ Sensor: MAX30102; LM75, MPU6050
 
 Chức năng: Đo BPM, SpO2, nhiệt độ, phát hiện ngã
 
-Demo video 1 (BPM, SpO2, nhiệt độ): https://drive.google.com/file/d/19MP-s2htMoTA8mw4gbUZPfMK_6PKHOsS/view?usp=sharing
-
-Demo video 2 (Phát hiện ngã): https://drive.google.com/file/d/17-HtTv3FiBXbEWnQW8PF3UZfFR6Ns8uX/view?usp=sharing
+Demo video (BPM, SpO2, nhiệt độ): https://drive.google.com/file/d/19MP-s2htMoTA8mw4gbUZPfMK_6PKHOsS/view?usp=sharing
